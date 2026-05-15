@@ -4,9 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predev": "node ./scripts/sync-app-icons.mjs",
     "dev": "vite",
+    "prebuild": "node ./scripts/sync-app-icons.mjs",
     "build": "vite build",
     "lint": "eslint .",
+    "prepreview": "node ./scripts/sync-app-icons.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -23,6 +26,7 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.6.0",
+    "png-to-ico": "^3.0.1",
     "tailwindcss": "^4.3.0",
     "vite": "^8.0.12"
   }
