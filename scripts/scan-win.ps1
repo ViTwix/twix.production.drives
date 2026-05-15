@@ -208,7 +208,11 @@ for ($i = 0; $i -lt $totalItems; $i += 1) {
   }
 }
 
-$entriesSorted = @($entries | Sort-Object -Property sizeBytes -Descending)
+$entriesSorted = @(
+  $entries | Sort-Object `
+    @{ Expression = { if ($_.type -eq 'folder') { 0 } else { 1 } } }, `
+    @{ Expression = { $_.name.ToLowerInvariant() } }
+)
 $totalBytes = [int64]$selectedVolume.Size
 $freeBytes = [int64]$selectedVolume.SizeRemaining
 $usedBytes = $totalBytes - $freeBytes

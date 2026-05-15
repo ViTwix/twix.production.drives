@@ -5,7 +5,6 @@ unset BLOCKSIZE
 
 API_URL="https://api.github.com/repos/ViTwix/twix.production.drives/contents/data/drives.json"
 PAGES_URL="https://twix-production-drives.pages.dev"
-MACHINE_FILE="${HOME}/.twix-drives-machine"
 
 print_err() {
   echo "$*" >&2
@@ -120,13 +119,9 @@ build_put_payload() {
 }
 
 choose_machine() {
-  if [[ -f "$MACHINE_FILE" ]]; then
-    local stored
-    stored=$(<"$MACHINE_FILE")
-    if [[ "$stored" == "Mac Mini" || "$stored" == "MacBook" ]]; then
-      echo "$stored"
-      return
-    fi
+  if [[ "${TWIX_MACHINE_NAME:-}" == "Mac Mini" || "${TWIX_MACHINE_NAME:-}" == "MacBook" ]]; then
+    echo "$TWIX_MACHINE_NAME"
+    return
   fi
 
   echo "Оберіть назву цієї машини:"
@@ -135,22 +130,14 @@ choose_machine() {
   read -r -p "Вибір [1-2]: " choice
 
   case "$choice" in
-    1) echo "Mac Mini" >"$MACHINE_FILE" ;;
-    2) echo "MacBook" >"$MACHINE_FILE" ;;
+    1) echo "Mac Mini" ;;
+    2) echo "MacBook" ;;
     *)
       print_err "Некоректний вибір машини"
       exit 1
       ;;
   esac
-
-  cat "$MACHINE_FILE"
 }
-
-if [[ "${1:-}" == "--reset-machine" ]]; then
-  rm -f "$MACHINE_FILE"
-  echo "Збережену назву машини скинуто."
-  exit 0
-fi
 
 : "${GITHUB_TOKEN:?Set GITHUB_TOKEN env var (see scripts/README.md)}"
 
@@ -210,11 +197,16 @@ for item in "$SELECTED_VOLUME"/*; do
   [[ -e "$item" ]] || continue
   base_name=$(basename "$item")
   [[ "$base_name" == .* ]] && continue
+  case "$base_name" in
+    "System Volume Information" | "\$RECYCLE.BIN" | "\$Recycle.Bin" | "RECYCLER")
+      continue
+      ;;
+  esac
   ROOT_ITEMS+=("$item")
 done
 
-entries_tmp=$(mktemp)
 item_count=${#ROOT_ITEMS[@]}
+ENTRY_LINES=()
 
 for i in "${!ROOT_ITEMS[@]}"; do
   item="${ROOT_ITEMS[$i]}"
@@ -227,10 +219,10 @@ for i in "${!ROOT_ITEMS[@]}"; do
       continue
     fi
 
-    jq -c -n \
+    ENTRY_LINES+=("$(jq -c -n \
       --arg name "$base_name" \
       --argjson sizeBytes "$size_bytes" \
-      '{type: "folder", name: $name, sizeBytes: $sizeBytes}' >>"$entries_tmp"
+      '{type: "folder", name: $name, sizeBytes: $sizeBytes}')")
     continue
   fi
 
@@ -243,26 +235,34 @@ for i in "${!ROOT_ITEMS[@]}"; do
     ext=""
     if [[ "$base_name" == *.* && "$base_name" != .* ]]; then
       ext="${base_name##*.}"
-      ext="${ext,,}"
+      ext=$(printf '%s' "$ext" | tr '[:upper:]' '[:lower:]')
     fi
 
     if [[ -n "$ext" ]]; then
-      jq -c -n \
+      ENTRY_LINES+=("$(jq -c -n \
         --arg name "$base_name" \
         --arg ext "$ext" \
         --argjson sizeBytes "$size_bytes" \
-        '{type: "file", name: $name, ext: $ext, sizeBytes: $sizeBytes}' >>"$entries_tmp"
+        '{type: "file", name: $name, ext: $ext, sizeBytes: $sizeBytes}')")
     else
-      jq -c -n \
+      ENTRY_LINES+=("$(jq -c -n \
         --arg name "$base_name" \
         --argjson sizeBytes "$size_bytes" \
-        '{type: "file", name: $name, sizeBytes: $sizeBytes}' >>"$entries_tmp"
+        '{type: "file", name: $name, sizeBytes: $sizeBytes}')")
     fi
   fi
 done
 
-ENTRIES_JSON=$(jq -cs 'sort_by(.sizeBytes) | reverse' "$entries_tmp")
-rm -f "$entries_tmp"
+if [[ ${#ENTRY_LINES[@]} -eq 0 ]]; then
+  ENTRIES_JSON='[]'
+else
+  ENTRIES_JSON=$(printf '%s\n' "${ENTRY_LINES[@]}" | jq -cs '
+    sort_by(
+      if .type == "folder" then 0 else 1 end,
+      (.name | ascii_downcase)
+    )
+  ')
+fi
 
 DRIVE_JSON=$(jq -c -n \
   --arg name "$DRIVE_NAME" \

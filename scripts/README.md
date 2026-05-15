@@ -6,6 +6,7 @@
 - `scan-win.ps1` для Windows (`PC`)
 
 Обидва скрипти оновлюють `data/drives.json` у GitHub через Contents API.
+Порядок `entries` у результаті: спочатку папки, потім файли; у межах кожної групи — за назвою (як у файлових менеджерах macOS/Windows).
 
 ## 1) Створення fine-grained PAT
 
@@ -51,11 +52,13 @@ chmod +x ./scripts/scan-mac.sh
 ./scripts/scan-mac.sh
 ```
 
-Опційно скинути назву машини:
+Опційно передати назву машини без інтерактивного вибору:
 
 ```bash
-./scripts/scan-mac.sh --reset-machine
+TWIX_MACHINE_NAME='MacBook' ./scripts/scan-mac.sh
 ```
+
+`TWIX_MACHINE_NAME` підтримує лише `Mac Mini` або `MacBook`.
 
 ### Windows
 
@@ -74,3 +77,9 @@ chmod +x ./scripts/scan-mac.sh
 - `422 Unprocessable Entity`: помилка в тілі запиту (валідація GitHub API).
 
 Якщо мережа/PUT неуспішний, скрипт друкує сформований JSON у stdout, щоб можна було перевірити або зберегти дані вручну.
+
+## 5) Безпечний режим читання
+
+- Сканери не створюють, не змінюють і не видаляють файли на вибраному диску.
+- Веб застосунок працює тільки в read-only режимі: лише `GET` `drives.json`.
+- Єдиний запис виконується через GitHub Contents API (`PUT data/drives.json` у репозиторії).
