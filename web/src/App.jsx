@@ -295,14 +295,9 @@ const App = () => {
               >
                 <div className="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <div className="min-w-0 flex-1">
-                    <div className="mb-2 flex items-center gap-2">
-                      <h2 className="truncate text-xl font-medium text-[var(--color-text)]" title={drive?.name}>
-                        {drive?.name}
-                      </h2>
-                      <span className="rounded-full border border-[var(--color-border)] bg-[var(--color-surface-elevated)] px-2 py-0.5 text-xs text-[var(--color-text-muted)]">
-                        {drive?.scannedFrom || 'Невідомо'}
-                      </span>
-                    </div>
+                    <h2 className="mb-2 truncate text-xl font-medium text-[var(--color-text)]" title={drive?.name}>
+                      {drive?.name}
+                    </h2>
                   </div>
                   <div className="flex w-full flex-col items-end gap-1 sm:w-[320px]">
                     <p

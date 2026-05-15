@@ -27,9 +27,6 @@
 
   scannedAt: string,          // ISO 8601 UTC. Коли востаннє сканувався САМЕ цей диск.
 
-  scannedFrom: string,        // Рівно одне зі значень:
-                              //   "Mac Mini" | "MacBook" | "PC"
-
   filesystem: string,         // Тип файлової системи, який повертає ОС.
                               //   Приклади: "APFS", "HFS+", "exFAT", "NTFS",
                               //   "MS-DOS FAT32", "Mac OS Extended"
@@ -148,7 +145,6 @@
     {
       "name": "Black 3",
       "scannedAt": "2026-05-15T14:30:12Z",
-      "scannedFrom": "MacBook",
       "filesystem": "exFAT",
       "totalBytes": 4000787030016,
       "freeBytes": 802345678912,
@@ -180,7 +176,6 @@
     {
       "name": "Gray 1",
       "scannedAt": "2026-05-14T22:11:03Z",
-      "scannedFrom": "Mac Mini",
       "filesystem": "APFS",
       "totalBytes": 4000787030016,
       "freeBytes": 2400000000000,

@@ -134,98 +134,94 @@ if (-not $volumes -or $volumes.Count -eq 0) {
   exit 1
 }
 
-Write-Host 'Доступні томи:'
-for ($i = 0; $i -lt $volumes.Count; $i += 1) {
-  $label = $volumes[$i].FileSystemLabel
-  $title = if ($label) { "$($volumes[$i].DriveLetter): ($label)" } else { "$($volumes[$i].DriveLetter):" }
-  Write-Host ("  {0}) {1}" -f ($i + 1), $title)
-}
-
-$choiceRaw = Read-Host 'Оберіть номер тому'
-$choice = 0
-if (-not [int]::TryParse($choiceRaw, [ref]$choice) -or $choice -lt 1 -or $choice -gt $volumes.Count) {
-  Write-Error 'Некоректний вибір тому.'
-  exit 1
-}
-
-$selectedVolume = $volumes[$choice - 1]
-$rootPath = '{0}:\' -f $selectedVolume.DriveLetter
-$defaultDriveName = if ($selectedVolume.FileSystemLabel) { $selectedVolume.FileSystemLabel } else { "$($selectedVolume.DriveLetter):" }
-$driveNameInput = Read-Host "Назва диска [$defaultDriveName]"
-$driveName = if ([string]::IsNullOrWhiteSpace($driveNameInput)) { $defaultDriveName } else { $driveNameInput.Trim() }
-$machineName = 'PC'
 $nowIso = (Get-Date).ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ssZ')
 
-$entries = @()
-$rootItems = Get-ChildItem -LiteralPath $rootPath -Force -ErrorAction SilentlyContinue |
-  Where-Object { -not (Test-IsSkippedItem -Item $_) }
+Write-Host ("Знайдено {0} том(ів). Запускаю повне сканування..." -f $volumes.Count)
+$driveRecords = @()
 
-$totalItems = $rootItems.Count
-for ($i = 0; $i -lt $totalItems; $i += 1) {
-  $item = $rootItems[$i]
-  Write-Host ("[{0}/{1}] {2}..." -f ($i + 1), $totalItems, $item.Name)
+for ($v = 0; $v -lt $volumes.Count; $v += 1) {
+  $selectedVolume = $volumes[$v]
+  $rootPath = '{0}:\' -f $selectedVolume.DriveLetter
+  $driveName = if ($selectedVolume.FileSystemLabel) { $selectedVolume.FileSystemLabel } else { "$($selectedVolume.DriveLetter):" }
 
-  if ($item.PSIsContainer) {
-    try {
-      $folderSize = (Get-ChildItem -LiteralPath $item.FullName -Recurse -File -Force -ErrorAction SilentlyContinue |
-          Measure-Object -Property Length -Sum).Sum
-      if ($null -eq $folderSize) {
-        $folderSize = 0
+  Write-Host ''
+  Write-Host ("=== [{0}/{1}] Сканую том: {2} ===" -f ($v + 1), $volumes.Count, $driveName)
+
+  $entries = @()
+  $rootItems = Get-ChildItem -LiteralPath $rootPath -Force -ErrorAction SilentlyContinue |
+    Where-Object { -not (Test-IsSkippedItem -Item $_) }
+
+  $totalItems = $rootItems.Count
+  for ($i = 0; $i -lt $totalItems; $i += 1) {
+    $item = $rootItems[$i]
+    Write-Host ("  [{0}/{1}] {2}..." -f ($i + 1), $totalItems, $item.Name)
+
+    if ($item.PSIsContainer) {
+      try {
+        $folderSize = (Get-ChildItem -LiteralPath $item.FullName -Recurse -File -Force -ErrorAction SilentlyContinue |
+            Measure-Object -Property Length -Sum).Sum
+        if ($null -eq $folderSize) {
+          $folderSize = 0
+        }
+
+        $entries += [ordered]@{
+          type      = 'folder'
+          name      = $item.Name
+          sizeBytes = [int64]$folderSize
+        }
+      } catch {
+        Write-Warning "Пропускаю папку без доступу: $($item.Name)"
       }
 
-      $entries += [ordered]@{
-        type      = 'folder'
-        name      = $item.Name
-        sizeBytes = [int64]$folderSize
+      continue
+    }
+
+    try {
+      $fileSize = (Get-Item -LiteralPath $item.FullName -ErrorAction Stop).Length
+      $ext = $item.Extension.TrimStart('.').ToLowerInvariant()
+
+      if ($ext) {
+        $entries += [ordered]@{
+          type      = 'file'
+          name      = $item.Name
+          ext       = $ext
+          sizeBytes = [int64]$fileSize
+        }
+      } else {
+        $entries += [ordered]@{
+          type      = 'file'
+          name      = $item.Name
+          sizeBytes = [int64]$fileSize
+        }
       }
     } catch {
-      Write-Warning "Пропускаю папку без доступу: $($item.Name)"
+      Write-Warning "Пропускаю файл без доступу: $($item.Name)"
     }
-
-    continue
   }
 
-  try {
-    $fileSize = (Get-Item -LiteralPath $item.FullName -ErrorAction Stop).Length
-    $ext = $item.Extension.TrimStart('.').ToLowerInvariant()
+  $entriesSorted = @(
+    $entries | Sort-Object `
+      @{ Expression = { if ($_.type -eq 'folder') { 0 } else { 1 } } }, `
+      @{ Expression = { $_.name.ToLowerInvariant() } }
+  )
+  $totalBytes = [int64]$selectedVolume.Size
+  $freeBytes = [int64]$selectedVolume.SizeRemaining
+  $usedBytes = $totalBytes - $freeBytes
 
-    if ($ext) {
-      $entries += [ordered]@{
-        type      = 'file'
-        name      = $item.Name
-        ext       = $ext
-        sizeBytes = [int64]$fileSize
-      }
-    } else {
-      $entries += [ordered]@{
-        type      = 'file'
-        name      = $item.Name
-        sizeBytes = [int64]$fileSize
-      }
-    }
-  } catch {
-    Write-Warning "Пропускаю файл без доступу: $($item.Name)"
+  $driveRecords += [ordered]@{
+    name        = $driveName
+    scannedAt   = $nowIso
+    filesystem  = [string]$selectedVolume.FileSystemType
+    totalBytes  = $totalBytes
+    freeBytes   = $freeBytes
+    usedBytes   = $usedBytes
+    entries     = $entriesSorted
   }
 }
 
-$entriesSorted = @(
-  $entries | Sort-Object `
-    @{ Expression = { if ($_.type -eq 'folder') { 0 } else { 1 } } }, `
-    @{ Expression = { $_.name.ToLowerInvariant() } }
-)
-$totalBytes = [int64]$selectedVolume.Size
-$freeBytes = [int64]$selectedVolume.SizeRemaining
-$usedBytes = $totalBytes - $freeBytes
-
-$driveRecord = [ordered]@{
-  name       = $driveName
-  scannedAt  = $nowIso
-  scannedFrom = $machineName
-  filesystem = [string]$selectedVolume.FileSystemType
-  totalBytes = $totalBytes
-  freeBytes  = $freeBytes
-  usedBytes  = $usedBytes
-  entries    = $entriesSorted
+if (-not $driveRecords -or $driveRecords.Count -eq 0) {
+  Write-Error 'Не вдалося зібрати дані з жодного тому.'
+  exit 1
 }
 
 function Build-NextJson {
@@ -233,15 +229,20 @@ function Build-NextJson {
     [Parameter(Mandatory = $true)]
     [string]$CurrentJson,
     [Parameter(Mandatory = $true)]
-    [hashtable]$DriveRecord,
+    [array]$DriveRecords,
     [Parameter(Mandatory = $true)]
     [string]$NowIso
   )
 
   $currentObj = $CurrentJson | ConvertFrom-Json
-  $existingDrives = @($currentObj.drives)
-  $filtered = @($existingDrives | Where-Object { $_.name -ne $DriveRecord.name })
-  $merged = @($filtered + ([pscustomobject]$DriveRecord) | Sort-Object -Property name)
+  $merged = @($currentObj.drives)
+
+  foreach ($driveRecord in $DriveRecords) {
+    $filtered = @($merged | Where-Object { $_.name -ne $driveRecord.name })
+    $merged = @($filtered + ([pscustomobject]$driveRecord))
+  }
+
+  $merged = @($merged | Sort-Object -Property name)
 
   $nextObj = [ordered]@{
     updatedAt = $NowIso
@@ -273,9 +274,9 @@ function Build-PutPayload {
   return ($payload | ConvertTo-Json -Depth 5 -Compress)
 }
 
-$commitMessage = "scan: $driveName from $machineName at $nowIso"
+$commitMessage = "scan: full sweep at $nowIso ($($driveRecords.Count) drives)"
 $remoteState = Get-RemoteState
-$nextJson = Build-NextJson -CurrentJson $remoteState.Json -DriveRecord $driveRecord -NowIso $nowIso
+$nextJson = Build-NextJson -CurrentJson $remoteState.Json -DriveRecords $driveRecords -NowIso $nowIso
 $nextBase64 = [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($nextJson))
 $payload = Build-PutPayload -Message $commitMessage -ContentBase64 $nextBase64 -Sha $remoteState.Sha
 $putResult = Invoke-GitHubRequest -Method PUT -Body $payload
@@ -283,7 +284,7 @@ $putResult = Invoke-GitHubRequest -Method PUT -Body $payload
 if ($putResult.StatusCode -eq 409) {
   Write-Warning 'Отримано 409 Conflict. Повторюю один раз...'
   $remoteState = Get-RemoteState
-  $nextJson = Build-NextJson -CurrentJson $remoteState.Json -DriveRecord $driveRecord -NowIso $nowIso
+  $nextJson = Build-NextJson -CurrentJson $remoteState.Json -DriveRecords $driveRecords -NowIso $nowIso
   $nextBase64 = [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($nextJson))
   $payload = Build-PutPayload -Message $commitMessage -ContentBase64 $nextBase64 -Sha $remoteState.Sha
   $putResult = Invoke-GitHubRequest -Method PUT -Body $payload

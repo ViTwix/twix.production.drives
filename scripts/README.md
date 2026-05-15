@@ -2,10 +2,11 @@
 
 Ця папка містить локальні сканери:
 
-- `scan-mac.sh` для macOS (`Mac Mini` / `MacBook`)
-- `scan-win.ps1` для Windows (`PC`)
+- `scan-mac.sh` для macOS
+- `scan-win.ps1` для Windows
 
 Обидва скрипти оновлюють `data/drives.json` у GitHub через Contents API.
+Один запуск сканера = сканування **всіх підключених несистемних дисків** на поточній машині.
 Порядок `entries` у результаті: спочатку папки, потім файли; у межах кожної групи — за назвою (як у файлових менеджерах macOS/Windows).
 
 ## 1) Створення fine-grained PAT
@@ -52,19 +53,15 @@ chmod +x ./scripts/scan-mac.sh
 ./scripts/scan-mac.sh
 ```
 
-Опційно передати назву машини без інтерактивного вибору:
-
-```bash
-TWIX_MACHINE_NAME='MacBook' ./scripts/scan-mac.sh
-```
-
-`TWIX_MACHINE_NAME` підтримує лише `Mac Mini` або `MacBook`.
+Скрипт автоматично сканує всі зовнішні томи з `/Volumes`, виключаючи системний диск та службові системні томи.
 
 ### Windows
 
 ```powershell
 .\scripts\scan-win.ps1
 ```
+
+Скрипт автоматично сканує всі підключені диски типу `Fixed`/`Removable`, виключаючи системний диск (`C:` / `$env:SystemDrive`).
 
 ## 4) Troubleshooting
 
@@ -80,6 +77,6 @@ TWIX_MACHINE_NAME='MacBook' ./scripts/scan-mac.sh
 
 ## 5) Безпечний режим читання
 
-- Сканери не створюють, не змінюють і не видаляють файли на вибраному диску.
+- Сканери не створюють, не змінюють і не видаляють файли на сканованих дисках.
 - Веб застосунок працює тільки в read-only режимі: лише `GET` `drives.json`.
 - Єдиний запис виконується через GitHub Contents API (`PUT data/drives.json` у репозиторії).

@@ -118,27 +118,6 @@ build_put_payload() {
     '
 }
 
-choose_machine() {
-  if [[ "${TWIX_MACHINE_NAME:-}" == "Mac Mini" || "${TWIX_MACHINE_NAME:-}" == "MacBook" ]]; then
-    echo "$TWIX_MACHINE_NAME"
-    return
-  fi
-
-  echo "Оберіть назву цієї машини:"
-  echo "  1) Mac Mini"
-  echo "  2) MacBook"
-  read -r -p "Вибір [1-2]: " choice
-
-  case "$choice" in
-    1) echo "Mac Mini" ;;
-    2) echo "MacBook" ;;
-    *)
-      print_err "Некоректний вибір машини"
-      exit 1
-      ;;
-  esac
-}
-
 : "${GITHUB_TOKEN:?Set GITHUB_TOKEN env var (see scripts/README.md)}"
 
 if ! command -v jq >/dev/null 2>&1; then
@@ -167,127 +146,137 @@ if [[ ${#VOLUMES[@]} -eq 0 ]]; then
   exit 1
 fi
 
-echo "Доступні томи:"
-for i in "${!VOLUMES[@]}"; do
-  printf "  %d) %s\n" "$((i + 1))" "$(basename "${VOLUMES[$i]}")"
-done
+echo "Знайдено ${#VOLUMES[@]} том(ів). Запускаю повне сканування..."
 
-read -r -p "Оберіть номер тому: " volume_idx
-if ! [[ "$volume_idx" =~ ^[0-9]+$ ]] || ((volume_idx < 1 || volume_idx > ${#VOLUMES[@]})); then
-  print_err "Некоректний вибір тому."
-  exit 1
-fi
-
-SELECTED_VOLUME="${VOLUMES[$((volume_idx - 1))]}"
-DEFAULT_DRIVE_NAME=$(basename "$SELECTED_VOLUME")
-read -r -p "Назва диска [${DEFAULT_DRIVE_NAME}]: " DRIVE_NAME
-DRIVE_NAME="${DRIVE_NAME:-$DEFAULT_DRIVE_NAME}"
-
-MACHINE_NAME=$(choose_machine)
+SCANNED_DRIVES=()
 NOW_ISO=$(iso_now_utc)
+volume_count=${#VOLUMES[@]}
 
-FS=$(diskutil info "$SELECTED_VOLUME" | awk -F': *' '/File System Personality/ {print $2; exit}')
-read -r TOTAL_KB USED_KB FREE_KB < <(df -k "$SELECTED_VOLUME" | awk 'NR==2 {print $2, $3, $4}')
-TOTAL_BYTES=$((TOTAL_KB * 1024))
-USED_BYTES=$((USED_KB * 1024))
-FREE_BYTES=$((FREE_KB * 1024))
+for volume_index in "${!VOLUMES[@]}"; do
+  SELECTED_VOLUME="${VOLUMES[$volume_index]}"
+  DRIVE_NAME=$(basename "$SELECTED_VOLUME")
 
-ROOT_ITEMS=()
-for item in "$SELECTED_VOLUME"/*; do
-  [[ -e "$item" ]] || continue
-  base_name=$(basename "$item")
-  [[ "$base_name" == .* ]] && continue
-  case "$base_name" in
-    "System Volume Information" | "\$RECYCLE.BIN" | "\$Recycle.Bin" | "RECYCLER")
-      continue
-      ;;
-  esac
-  ROOT_ITEMS+=("$item")
-done
+  echo
+  printf "=== [%d/%d] Сканую том: %s ===\n" "$((volume_index + 1))" "$volume_count" "$DRIVE_NAME"
 
-item_count=${#ROOT_ITEMS[@]}
-ENTRY_LINES=()
+  FS=$(diskutil info "$SELECTED_VOLUME" | awk -F': *' '/File System Personality/ {print $2; exit}')
+  [[ -z "$FS" ]] && FS="Unknown"
 
-for i in "${!ROOT_ITEMS[@]}"; do
-  item="${ROOT_ITEMS[$i]}"
-  base_name=$(basename "$item")
-  printf "[%d/%d] %s...\n" "$((i + 1))" "$item_count" "$base_name"
-
-  if [[ -d "$item" ]]; then
-    if ! size_bytes=$(folder_size_bytes "$item"); then
-      print_err "Попередження: пропускаю папку без доступу: $base_name"
-      continue
-    fi
-
-    ENTRY_LINES+=("$(jq -c -n \
-      --arg name "$base_name" \
-      --argjson sizeBytes "$size_bytes" \
-      '{type: "folder", name: $name, sizeBytes: $sizeBytes}')")
+  if ! read -r TOTAL_KB USED_KB FREE_KB < <(df -k "$SELECTED_VOLUME" | awk 'NR==2 {print $2, $3, $4}'); then
+    print_err "Попередження: пропускаю том (не вдалося отримати df): $DRIVE_NAME"
     continue
   fi
 
-  if [[ -f "$item" ]]; then
-    if ! size_bytes=$(file_size_bytes "$item" 2>/dev/null); then
-      print_err "Попередження: пропускаю файл без доступу: $base_name"
+  TOTAL_BYTES=$((TOTAL_KB * 1024))
+  USED_BYTES=$((USED_KB * 1024))
+  FREE_BYTES=$((FREE_KB * 1024))
+
+  ROOT_ITEMS=()
+  for item in "$SELECTED_VOLUME"/*; do
+    [[ -e "$item" ]] || continue
+    base_name=$(basename "$item")
+    [[ "$base_name" == .* ]] && continue
+    case "$base_name" in
+      "System Volume Information" | "\$RECYCLE.BIN" | "\$Recycle.Bin" | "RECYCLER")
+        continue
+        ;;
+    esac
+    ROOT_ITEMS+=("$item")
+  done
+
+  item_count=${#ROOT_ITEMS[@]}
+  ENTRY_LINES=()
+
+  for i in "${!ROOT_ITEMS[@]}"; do
+    item="${ROOT_ITEMS[$i]}"
+    base_name=$(basename "$item")
+    printf "  [%d/%d] %s...\n" "$((i + 1))" "$item_count" "$base_name"
+
+    if [[ -d "$item" ]]; then
+      if ! size_bytes=$(folder_size_bytes "$item"); then
+        print_err "Попередження: пропускаю папку без доступу: $base_name"
+        continue
+      fi
+
+      ENTRY_LINES+=("$(jq -c -n \
+        --arg name "$base_name" \
+        --argjson sizeBytes "$size_bytes" \
+        '{type: "folder", name: $name, sizeBytes: $sizeBytes}')")
       continue
     fi
 
-    ext=""
-    if [[ "$base_name" == *.* && "$base_name" != .* ]]; then
-      ext="${base_name##*.}"
-      ext=$(printf '%s' "$ext" | tr '[:upper:]' '[:lower:]')
-    fi
+    if [[ -f "$item" ]]; then
+      if ! size_bytes=$(file_size_bytes "$item" 2>/dev/null); then
+        print_err "Попередження: пропускаю файл без доступу: $base_name"
+        continue
+      fi
 
-    if [[ -n "$ext" ]]; then
-      ENTRY_LINES+=("$(jq -c -n \
-        --arg name "$base_name" \
-        --arg ext "$ext" \
-        --argjson sizeBytes "$size_bytes" \
-        '{type: "file", name: $name, ext: $ext, sizeBytes: $sizeBytes}')")
-    else
-      ENTRY_LINES+=("$(jq -c -n \
-        --arg name "$base_name" \
-        --argjson sizeBytes "$size_bytes" \
-        '{type: "file", name: $name, sizeBytes: $sizeBytes}')")
+      ext=""
+      if [[ "$base_name" == *.* && "$base_name" != .* ]]; then
+        ext="${base_name##*.}"
+        ext=$(printf '%s' "$ext" | tr '[:upper:]' '[:lower:]')
+      fi
+
+      if [[ -n "$ext" ]]; then
+        ENTRY_LINES+=("$(jq -c -n \
+          --arg name "$base_name" \
+          --arg ext "$ext" \
+          --argjson sizeBytes "$size_bytes" \
+          '{type: "file", name: $name, ext: $ext, sizeBytes: $sizeBytes}')")
+      else
+        ENTRY_LINES+=("$(jq -c -n \
+          --arg name "$base_name" \
+          --argjson sizeBytes "$size_bytes" \
+          '{type: "file", name: $name, sizeBytes: $sizeBytes}')")
+      fi
     fi
+  done
+
+  if [[ ${#ENTRY_LINES[@]} -eq 0 ]]; then
+    ENTRIES_JSON='[]'
+  else
+    ENTRIES_JSON=$(printf '%s\n' "${ENTRY_LINES[@]}" | jq -cs '
+      sort_by(
+        if .type == "folder" then 0 else 1 end,
+        (.name | ascii_downcase)
+      )
+    ')
   fi
+
+  DRIVE_JSON=$(jq -c -n \
+    --arg name "$DRIVE_NAME" \
+    --arg scannedAt "$NOW_ISO" \
+    --arg filesystem "$FS" \
+    --argjson totalBytes "$TOTAL_BYTES" \
+    --argjson freeBytes "$FREE_BYTES" \
+    --argjson usedBytes "$USED_BYTES" \
+    --argjson entries "$ENTRIES_JSON" \
+    '{
+      name: $name,
+      scannedAt: $scannedAt,
+      filesystem: $filesystem,
+      totalBytes: $totalBytes,
+      freeBytes: $freeBytes,
+      usedBytes: $usedBytes,
+      entries: $entries
+    }')
+
+  SCANNED_DRIVES+=("$DRIVE_JSON")
 done
 
-if [[ ${#ENTRY_LINES[@]} -eq 0 ]]; then
-  ENTRIES_JSON='[]'
-else
-  ENTRIES_JSON=$(printf '%s\n' "${ENTRY_LINES[@]}" | jq -cs '
-    sort_by(
-      if .type == "folder" then 0 else 1 end,
-      (.name | ascii_downcase)
-    )
-  ')
+if [[ ${#SCANNED_DRIVES[@]} -eq 0 ]]; then
+  print_err "Не вдалося зібрати дані з жодного тому."
+  exit 1
 fi
 
-DRIVE_JSON=$(jq -c -n \
-  --arg name "$DRIVE_NAME" \
-  --arg scannedAt "$NOW_ISO" \
-  --arg scannedFrom "$MACHINE_NAME" \
-  --arg filesystem "$FS" \
-  --argjson totalBytes "$TOTAL_BYTES" \
-  --argjson freeBytes "$FREE_BYTES" \
-  --argjson usedBytes "$USED_BYTES" \
-  --argjson entries "$ENTRIES_JSON" \
-  '{
-    name: $name,
-    scannedAt: $scannedAt,
-    scannedFrom: $scannedFrom,
-    filesystem: $filesystem,
-    totalBytes: $totalBytes,
-    freeBytes: $freeBytes,
-    usedBytes: $usedBytes,
-    entries: $entries
-  }')
-
 load_remote_json
-NEXT_JSON=$(build_next_json "$REMOTE_JSON" "$DRIVE_JSON" "$NOW_ISO")
+NEXT_JSON="$REMOTE_JSON"
+for DRIVE_JSON in "${SCANNED_DRIVES[@]}"; do
+  NEXT_JSON=$(build_next_json "$NEXT_JSON" "$DRIVE_JSON" "$NOW_ISO")
+done
+
 NEXT_B64=$(printf '%s' "$NEXT_JSON" | base64 | tr -d '\n')
-COMMIT_MESSAGE="scan: ${DRIVE_NAME} from ${MACHINE_NAME} at ${NOW_ISO}"
+COMMIT_MESSAGE="scan: full sweep at ${NOW_ISO} (${#SCANNED_DRIVES[@]} drives)"
 PAYLOAD=$(build_put_payload "$COMMIT_MESSAGE" "$NEXT_B64" "$REMOTE_SHA")
 
 PUT_RESPONSE=$(github_put "$PAYLOAD")
@@ -297,7 +286,10 @@ PUT_BODY="${PUT_RESPONSE%$'\n'*}"
 if [[ "$PUT_STATUS" == "409" ]]; then
   print_err "Отримано 409 Conflict. Повторюю один раз..."
   load_remote_json
-  NEXT_JSON=$(build_next_json "$REMOTE_JSON" "$DRIVE_JSON" "$NOW_ISO")
+  NEXT_JSON="$REMOTE_JSON"
+  for DRIVE_JSON in "${SCANNED_DRIVES[@]}"; do
+    NEXT_JSON=$(build_next_json "$NEXT_JSON" "$DRIVE_JSON" "$NOW_ISO")
+  done
   NEXT_B64=$(printf '%s' "$NEXT_JSON" | base64 | tr -d '\n')
   PAYLOAD=$(build_put_payload "$COMMIT_MESSAGE" "$NEXT_B64" "$REMOTE_SHA")
   PUT_RESPONSE=$(github_put "$PAYLOAD")
