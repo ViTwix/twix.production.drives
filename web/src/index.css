@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0a0a0b;
+  --color-surface: #131316;
+  --color-surface-elevated: #1c1c21;
+  --color-border: #26262d;
+  --color-text: #e8e8ec;
+  --color-text-muted: #8a8a94;
+  --color-accent: #6366f1;
+  --color-ok: #10b981;
+  --color-warn: #f59e0b;
+  --color-danger: #f43f5e;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    @apply bg-[var(--color-bg)] text-[var(--color-text)];
+    margin: 0;
+    font-family: 'Inter Variable', system-ui, sans-serif;
+  }
+
+  #root {
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  .card-surface {
+    @apply rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4;
+  }
+}
