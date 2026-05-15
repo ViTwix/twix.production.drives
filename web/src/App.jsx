@@ -137,7 +137,6 @@ const highlightText = (value, query) => {
 const App = () => {
   const [data, setData] = useState(null)
   const [query, setQuery] = useState('')
-  const [sortMode, setSortMode] = useState('name')
   const [isLoading, setIsLoading] = useState(true)
   const [errorMessage, setErrorMessage] = useState('')
   const [expandedDriveName, setExpandedDriveName] = useState('')
@@ -187,19 +186,8 @@ const App = () => {
   const drives = useMemo(() => {
     const source = Array.isArray(data?.drives) ? data.drives : []
     const byName = (a, b) => DRIVE_NAME_COLLATOR.compare(String(a?.name || ''), String(b?.name || ''))
-
-    if (sortMode === 'size') {
-      return [...source].sort((a, b) => {
-        const sizeDiff = (b?.usedBytes || 0) - (a?.usedBytes || 0)
-        if (sizeDiff !== 0) {
-          return sizeDiff
-        }
-        return byName(a, b)
-      })
-    }
-
     return [...source].sort(byName)
-  }, [data, sortMode])
+  }, [data])
 
   const visibleDrives = useMemo(
     () => drives.filter((drive) => driveMatchesQuery(drive, normalizedQuery)),
@@ -218,7 +206,7 @@ const App = () => {
       <header className="sticky top-0 z-10 mb-6 rounded-2xl border border-[var(--color-border)]/70 bg-[var(--color-bg)]/85 p-4 backdrop-blur sm:p-5">
         <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div>
-            <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Накопичувачі</h1>
+            <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Twix Production Drives</h1>
             <p className="mt-1 text-sm text-[var(--color-text-muted)]">
               Оновлено: {data?.updatedAt ? formatDate(data.updatedAt) : '—'}
             </p>
@@ -232,7 +220,7 @@ const App = () => {
           </button>
         </div>
 
-        <div className="grid gap-3 sm:grid-cols-[1fr_auto] sm:items-center">
+        <div className="grid gap-3 sm:grid-cols-[1fr] sm:items-center">
           <input
             type="search"
             value={query}
@@ -240,31 +228,6 @@ const App = () => {
             className="h-11 w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] px-4 text-sm text-[var(--color-text)] outline-none transition focus:border-[var(--color-accent)]"
             placeholder="Пошук за назвою диска, папки або файла…"
           />
-
-          <div className="inline-flex h-11 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-1">
-            <button
-              type="button"
-              onClick={() => setSortMode('name')}
-              className={`rounded-lg px-3 text-sm transition ${
-                sortMode === 'name'
-                  ? 'bg-[var(--color-accent)]/20 text-[var(--color-text)]'
-                  : 'text-[var(--color-text-muted)] hover:text-[var(--color-text)]'
-              }`}
-            >
-              За назвою
-            </button>
-            <button
-              type="button"
-              onClick={() => setSortMode('size')}
-              className={`rounded-lg px-3 text-sm transition ${
-                sortMode === 'size'
-                  ? 'bg-[var(--color-accent)]/20 text-[var(--color-text)]'
-                  : 'text-[var(--color-text-muted)] hover:text-[var(--color-text)]'
-              }`}
-            >
-              За розміром
-            </button>
-          </div>
         </div>
       </header>
 
@@ -336,23 +299,25 @@ const App = () => {
                         {drive?.scannedFrom || 'Невідомо'}
                       </span>
                     </div>
+                  </div>
+                  <div className="flex w-full flex-col items-end gap-1 sm:w-[320px]">
                     <p
-                      className="text-xs text-[var(--color-text-muted)]/80"
+                      className="text-right text-[10px] text-[var(--color-text-muted)]/55 sm:whitespace-nowrap"
                       title={drive?.scannedAt ? formatDate(drive.scannedAt) : '—'}
                     >
                       Останнє сканування: {drive?.scannedAt ? formatDate(drive.scannedAt) : '—'}
                     </p>
-                  </div>
-                  <div className="flex w-full items-center justify-end gap-3 sm:w-[260px]">
-                    <div className="h-2 w-full overflow-hidden rounded-full bg-[var(--color-surface-elevated)]">
-                      <div
-                        className={`h-full rounded-full ${getUsageColorClass(usagePercent)}`}
-                        style={{ width: `${usagePercent}%` }}
-                      />
+                    <div className="flex w-full items-center gap-3">
+                      <div className="h-2 w-full overflow-hidden rounded-full bg-[var(--color-surface-elevated)]">
+                        <div
+                          className={`h-full rounded-full ${getUsageColorClass(usagePercent)}`}
+                          style={{ width: `${usagePercent}%` }}
+                        />
+                      </div>
+                      <span className="w-11 shrink-0 text-right text-xs text-[var(--color-text-muted)]">
+                        {usagePercent}%
+                      </span>
                     </div>
-                    <span className="w-11 shrink-0 text-right text-xs text-[var(--color-text-muted)]">
-                      {usagePercent}%
-                    </span>
                   </div>
                 </div>
 
@@ -361,18 +326,15 @@ const App = () => {
                     {foldersCount} {pluralizeUk(foldersCount, ['папка', 'папки', 'папок'])}, {filesCount}{' '}
                     {pluralizeUk(filesCount, ['файл', 'файли', 'файлів'])}
                   </p>
-                  <div className="flex items-center gap-3">
-                    <p className="text-right text-sm font-medium text-[var(--color-text)]">
-                      {formatBytes(usedBytes)} / {formatBytes(totalBytes)}
-                    </p>
-                    <span className="text-xs text-[var(--color-text-muted)]">{isExpanded ? 'Згорнути' : 'Деталі'}</span>
-                  </div>
+                  <p className="text-right text-sm font-medium text-[var(--color-text)]">
+                    {formatBytes(usedBytes)} / {formatBytes(totalBytes)}
+                  </p>
                 </div>
 
                 {normalizedQuery ? (
                   <div className="mt-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface-elevated)] p-3">
                     <p className="mb-2 text-xs font-medium uppercase tracking-wide text-[var(--color-text-muted)]">Збіги:</p>
-                    <div className="max-h-44 space-y-1 overflow-auto pr-1">
+                    <div className="space-y-1">
                       {matches.map((entry, index) => (
                         <div key={`${entry?.name}-${index}`} className="flex items-center justify-between gap-2">
                           <p className="min-w-0 truncate text-sm text-[var(--color-text)]">
@@ -389,7 +351,6 @@ const App = () => {
 
                 {isExpanded ? (
                   <div className="mt-4 border-t border-[var(--color-border)] pt-4">
-                    <p className="mb-3 text-xs text-[var(--color-text-muted)]">Папки зверху, файли нижче</p>
                     <div className="space-y-2">
                       {detailEntries.map((entry, index) => {
                         const isMatched = normalizedQuery && entryMatchesQuery(entry, normalizedQuery)

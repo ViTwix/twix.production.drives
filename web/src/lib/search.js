@@ -36,7 +36,7 @@ export const driveMatchesQuery = (drive, normalizedQuery) => {
   return driveNameMatches || entries.some((entry) => entryMatchesQuery(entry, normalizedQuery))
 }
 
-export const getTopMatches = (entries, normalizedQuery, limit = 5) => {
+export const getTopMatches = (entries, normalizedQuery) => {
   if (!normalizedQuery) {
     return []
   }
@@ -44,5 +44,4 @@ export const getTopMatches = (entries, normalizedQuery, limit = 5) => {
   return entries
     .filter((entry) => entryMatchesQuery(entry, normalizedQuery))
     .sort((a, b) => (b?.sizeBytes || 0) - (a?.sizeBytes || 0))
-    .slice(0, limit)
 }
