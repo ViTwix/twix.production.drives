@@ -1,4 +1,1 @@
-{
-  "updatedAt": null,
-  "drives": []
-}
+{"updatedAt":"2026-05-15T19:58:32Z","drives":[{"name":"Black 9","scannedAt":"2026-05-15T19:58:32Z","scannedFrom":"MacBook","filesystem":"ExFAT","totalBytes":5000933670912,"freeBytes":24700256256,"usedBytes":4976233414656,"entries":[]}]}
