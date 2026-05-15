@@ -105,9 +105,15 @@ twix.production.drives/
 └── web/
     ├── index.html
     ├── package.json
+    ├── scripts/
+    │   └── sync-app-icons.mjs
     ├── vite.config.js
     ├── public/
-    │   └── favicon.svg
+    │   ├── favicon.ico
+    │   ├── apple-touch-icon.png
+    │   ├── icon-192.png
+    │   ├── icon-512.png
+    │   └── site.webmanifest
     └── src/
         ├── main.jsx
         ├── App.jsx
@@ -115,10 +121,7 @@ twix.production.drives/
         ├── lib/
         │   ├── format.js  ← formatBytes, formatDate, pluralizeUk
         │   └── search.js  ← логіка пошуку
-        └── components/
-            ├── DriveCard.jsx
-            ├── DriveDetail.jsx
-            └── SearchBar.jsx
+        └── components/    ← опційно; у поточній реалізації UI зібрано в App.jsx
 ```
 
 Агент може згорнути `components/` в `App.jsx`, якщо так чистіше — користувач явно віддає перевагу **меншій кількості файлів** над жорсткою декомпозицією.
@@ -523,7 +526,6 @@ const data = await res.json();
 │                                                          │
 │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  │
 │  │ Black 3      │  │ Gray 1       │  │ Black 1      │  │
-│  │ MacBook      │  │ Mac Mini     │  │ PC           │  │
 │  │ ▓▓▓▓▓▓▓░░ 80%│  │ ▓▓▓▓░░░░░ 40%│  │ ▓▓▓▓▓▓▓▓░ 90%│  │
 │  │ 3.2 / 4.0 ТБ │  │ 1.6 / 4.0 ТБ │  │ 3.6 / 4.0 ТБ │  │
 │  │ 47 папок,    │  │ 12 папок,    │  │ 23 папки,    │  │
@@ -543,7 +545,6 @@ const data = await res.json();
     - >90%: червоний (`var(--color-danger)`)
   - Використано / загалом у форматованих байтах
   - Лічильник з відмінюванням: "{n} папок, {m} файлів"
-  - Футер: "Останнє сканування: {date}" (малий, приглушений)
 - Тексти у картках і деталях не мають накладатися: довгі рядки обрізати (`truncate`) і не допускати overflow за межі блоку.
 - **Клік по диску** → розгортає деталі inline у тому ж елементі списку (accordion-поведінка, без popup/overlay). У деталях — повний список entries у порядку "папки зверху, файли нижче, у межах групи — за назвою", з іконкою типу (📁/📄); назва entry ліворуч, розмір у тому ж рядку праворуч.
 
@@ -583,7 +584,6 @@ const data = await res.json();
 | Empty (no drives) | `Ще немає сканованих дисків. Запустіть скрипт у /scripts/` |
 | Empty (no matches) | `Нічого не знайдено за запитом «{q}»` |
 | Error | `Не вдалося завантажити дані` + кнопка `Спробувати ще раз` |
-| Detail back | `← Назад` |
 | Sort indicator | *не використовується в поточному UI* |
 
 ### Допоміжні форматери (`src/lib/format.js`)
@@ -706,14 +706,14 @@ export function pluralizeUk(n, forms) { /* forms: [one, few, many] */ }
 
 ## Швидкий чекліст валідації (для агента після збірки)
 
-- [ ] `data/drives.json` існує з заглушкою `{ "updatedAt": null, "drives": [] }`
+- [ ] `data/drives.json` існує та має валідну структуру `{ updatedAt, drives[] }`
 - [ ] `web/package.json` містить `tailwindcss` ≥4.0 і `@tailwindcss/vite` ≥4.0
 - [ ] `web/vite.config.js` підключає плагін `tailwindcss()`
 - [ ] `web/src/index.css` починається з `@import "tailwindcss";`
 - [ ] **Немає** `web/tailwind.config.js` і `web/postcss.config.js`
 - [ ] `web/` збирається без помилок: `cd web && npm install && npm run build`
 - [ ] У `web/dist/` є `index.html` і asset-файли
-- [ ] Локальний preview (`npm run preview`) показує картки з мок-даних
+- [ ] Локальний preview (`npm run preview`) коректно завантажує `drives.json` і рендерить картки
 - [ ] Пошук фільтрує картки за назвою диска, папки, файла й розширенням
 - [ ] При активному пошуку на картках показуються блоки "Збіги:"
 - [ ] `scan-mac.sh` на macOS: автоматично сканує всі зовнішні томи без системного диска й без `Macintosh HD`/`Macintosh HD - Data`, PUT повертає 200/201, файл оновлюється

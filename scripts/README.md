@@ -45,26 +45,93 @@ source ~/.zshrc
 
 Після цього закрийте і знову відкрийте PowerShell.
 
-## 3) Запуск сканерів
+## 3) Повне налаштування і запуск на macOS
 
-### macOS
+1. Встановіть Homebrew (якщо ще немає): [https://brew.sh](https://brew.sh)
+2. Встановіть `jq`:
+
+```bash
+brew install jq
+```
+
+3. Склонуйте репозиторій:
+
+```bash
+git clone https://github.com/ViTwix/twix.production.drives.git
+cd twix.production.drives
+```
+
+4. Додайте `GITHUB_TOKEN` у `~/.zshrc` (див. розділ вище), потім:
+
+```bash
+source ~/.zshrc
+```
+
+5. Перевірте, що токен підхопився:
+
+```bash
+echo "${GITHUB_TOKEN:+OK}"
+```
+
+6. Запустіть сканування:
 
 ```bash
 chmod +x ./scripts/scan-mac.sh
 ./scripts/scan-mac.sh
 ```
 
-Скрипт автоматично сканує всі зовнішні томи з `/Volumes`, виключаючи системний диск та службові системні томи.
+7. Після успішного `HTTP 200/201` підтягніть оновлений JSON локально:
 
-### Windows
+```bash
+git pull origin main
+```
+
+## 4) Повне налаштування і запуск на Windows
+
+1. Встановіть Git for Windows (якщо ще немає): [https://git-scm.com/download/win](https://git-scm.com/download/win)
+2. Склонуйте репозиторій:
+
+```powershell
+git clone https://github.com/ViTwix/twix.production.drives.git
+cd .\twix.production.drives
+```
+
+3. Додайте `GITHUB_TOKEN` у User environment (див. розділ вище), закрийте та заново відкрийте PowerShell.
+
+4. Перевірте, що токен підхопився:
+
+```powershell
+if ($env:GITHUB_TOKEN) { 'OK' } else { 'MISSING' }
+```
+
+5. За потреби дозвольте запуск локальних скриптів у поточній сесії:
+
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+```
+
+6. Запустіть сканування:
 
 ```powershell
 .\scripts\scan-win.ps1
 ```
 
-Скрипт автоматично сканує всі підключені диски типу `Fixed`/`Removable`, виключаючи системний диск (`C:` / `$env:SystemDrive`).
+7. Після успішного `HTTP 200/201` підтягніть оновлений JSON локально:
 
-## 4) Troubleshooting
+```powershell
+git pull origin main
+```
+
+## 5) Що саме сканується
+
+- **macOS:** усі томи з `/Volumes`, крім системного диска та `Macintosh HD*`.
+- **Windows:** усі диски типу `Fixed` або `Removable`, крім системного (`$env:SystemDrive`, зазвичай `C:`).
+- У межах кожного тому сканується **корінь**:
+  - папки: рахується рекурсивний `sizeBytes`
+  - файли: береться `sizeBytes` + `ext` (якщо є)
+- Приховані/системні службові елементи пропускаються.
+
+## 6) Troubleshooting
 
 - `jq: command not found` (macOS): встановіть `jq` через `brew install jq`.
 - `GITHUB_TOKEN` не підхопився: перезапустіть shell/PowerShell після зміни env vars.
@@ -74,10 +141,11 @@ chmod +x ./scripts/scan-mac.sh
 - `409 Conflict`: паралельне оновлення файла; сканер робить один автоматичний retry.
 - `422 Unprocessable Entity`: помилка в тілі запиту (валідація GitHub API).
 - Сканер показав попередження про `0 елементів` при зайнятому обсязі: том тимчасово пропущено, щоб не затерти дані порожнім `entries`. Перевірте доступ до кореня тому і запустіть сканер ще раз.
+- Локально в `data/drives.json` старі дані після успішного скану: це нормально, бо скрипт пише одразу в GitHub. Зробіть `git pull origin main`.
 
 Якщо мережа/PUT неуспішний, скрипт друкує сформований JSON у stdout, щоб можна було перевірити або зберегти дані вручну.
 
-## 5) Безпечний режим читання
+## 7) Безпечний режим читання
 
 - Сканери не створюють, не змінюють і не видаляють файли на сканованих дисках.
 - Веб застосунок працює тільки в read-only режимі: лише `GET` `drives.json`.
