@@ -203,7 +203,7 @@ const App = () => {
 
   return (
     <div className="mx-auto min-h-screen w-full max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
-      <header className="sticky top-0 z-10 mb-6 rounded-2xl border border-[var(--color-border)]/70 bg-[var(--color-bg)]/85 p-4 backdrop-blur sm:p-5">
+      <header className="sticky top-0 z-20 mb-6 -mx-4 bg-[var(--color-bg)] px-4 pt-4 pb-3 sm:-mx-6 sm:px-6 sm:pt-5 sm:pb-4 lg:-mx-8 lg:px-8 relative">
         <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Twix Production Drives</h1>
@@ -214,7 +214,7 @@ const App = () => {
           <button
             type="button"
             onClick={handleRetry}
-            className="inline-flex h-10 items-center justify-center rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] px-4 text-sm font-medium text-[var(--color-text-muted)] transition hover:border-[var(--color-accent)]/50 hover:text-[var(--color-text)]"
+            className="inline-flex h-10 cursor-pointer items-center justify-center rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] px-4 text-sm font-medium text-[var(--color-text-muted)] transition hover:border-[var(--color-accent)]/50 hover:text-[var(--color-text)]"
           >
             Оновити дані
           </button>
@@ -229,6 +229,10 @@ const App = () => {
             placeholder="Пошук за назвою диска, папки або файла…"
           />
         </div>
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -bottom-6 left-0 h-6 w-full bg-gradient-to-b from-[var(--color-bg)] to-transparent"
+        />
       </header>
 
       {isLoading ? (
