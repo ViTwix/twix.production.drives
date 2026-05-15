@@ -7,6 +7,16 @@ $PSDefaultParameterValues['Out-File:Encoding'] = 'utf8'
 $ApiUrl = 'https://api.github.com/repos/ViTwix/twix.production.drives/contents/data/drives.json'
 $PagesUrl = 'https://twix-production-drives.pages.dev'
 
+function Write-LogInfo {
+  param(
+    [Parameter(Mandatory = $true)]
+    [string]$Message
+  )
+
+  $ts = (Get-Date).ToString('HH:mm:ss')
+  Write-Host "[$ts] $Message"
+}
+
 function Get-ErrorResponseBody {
   param(
     [Parameter(Mandatory = $true)]
@@ -136,7 +146,7 @@ if (-not $volumes -or $volumes.Count -eq 0) {
 
 $nowIso = (Get-Date).ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ssZ')
 
-Write-Host ("Знайдено {0} том(ів). Запускаю повне сканування..." -f $volumes.Count)
+Write-LogInfo ("Знайдено {0} том(ів). Запускаю повне сканування..." -f $volumes.Count)
 $driveRecords = @()
 
 for ($v = 0; $v -lt $volumes.Count; $v += 1) {
@@ -145,12 +155,27 @@ for ($v = 0; $v -lt $volumes.Count; $v += 1) {
   $driveName = if ($selectedVolume.FileSystemLabel) { $selectedVolume.FileSystemLabel } else { "$($selectedVolume.DriveLetter):" }
 
   Write-Host ''
-  Write-Host ("=== [{0}/{1}] Сканую том: {2} ===" -f ($v + 1), $volumes.Count, $driveName)
+  Write-LogInfo ("=== [{0}/{1}] Сканую том: {2} ===" -f ($v + 1), $volumes.Count, $driveName)
 
   $entries = @()
   $rootItems = Get-ChildItem -LiteralPath $rootPath -Force -ErrorAction SilentlyContinue |
     Where-Object { -not (Test-IsSkippedItem -Item $_) }
 
+  $totalBytes = [int64]$selectedVolume.Size
+  $freeBytes = [int64]$selectedVolume.SizeRemaining
+  $usedBytes = $totalBytes - $freeBytes
+  $filesystem = if ([string]::IsNullOrWhiteSpace([string]$selectedVolume.FileSystemType)) { 'Unknown' } else { [string]$selectedVolume.FileSystemType }
+  Write-LogInfo ("Том '{0}': FS={1}, used={2}, free={3}" -f $driveName, $filesystem, $usedBytes, $freeBytes)
+
+  if (($null -eq $rootItems -or $rootItems.Count -eq 0) -and $usedBytes -gt 10485760) {
+    Write-Warning "Том '$driveName' має зайнятий обсяг, але корінь повернув 0 елементів. Пропускаю, щоб не записати порожні дані."
+    continue
+  }
+
+  Write-LogInfo ("Том '{0}': знайдено {1} елемент(ів) у корені" -f $driveName, $rootItems.Count)
+  $foldersProcessed = 0
+  $filesProcessed = 0
+  $skippedItems = 0
   $totalItems = $rootItems.Count
   for ($i = 0; $i -lt $totalItems; $i += 1) {
     $item = $rootItems[$i]
@@ -169,8 +194,10 @@ for ($v = 0; $v -lt $volumes.Count; $v += 1) {
           name      = $item.Name
           sizeBytes = [int64]$folderSize
         }
+        $foldersProcessed += 1
       } catch {
         Write-Warning "Пропускаю папку без доступу: $($item.Name)"
+        $skippedItems += 1
       }
 
       continue
@@ -194,8 +221,10 @@ for ($v = 0; $v -lt $volumes.Count; $v += 1) {
           sizeBytes = [int64]$fileSize
         }
       }
+      $filesProcessed += 1
     } catch {
       Write-Warning "Пропускаю файл без доступу: $($item.Name)"
+      $skippedItems += 1
     }
   }
 
@@ -204,23 +233,22 @@ for ($v = 0; $v -lt $volumes.Count; $v += 1) {
       @{ Expression = { if ($_.type -eq 'folder') { 0 } else { 1 } } }, `
       @{ Expression = { $_.name.ToLowerInvariant() } }
   )
-  $totalBytes = [int64]$selectedVolume.Size
-  $freeBytes = [int64]$selectedVolume.SizeRemaining
-  $usedBytes = $totalBytes - $freeBytes
 
   $driveRecords += [ordered]@{
     name        = $driveName
     scannedAt   = $nowIso
-    filesystem  = [string]$selectedVolume.FileSystemType
+    filesystem  = $filesystem
     totalBytes  = $totalBytes
     freeBytes   = $freeBytes
     usedBytes   = $usedBytes
     entries     = $entriesSorted
   }
+
+  Write-LogInfo ("Підсумок '{0}': папок={1}, файлів={2}, пропущено={3}, entries={4}" -f $driveName, $foldersProcessed, $filesProcessed, $skippedItems, $entriesSorted.Count)
 }
 
 if (-not $driveRecords -or $driveRecords.Count -eq 0) {
-  Write-Error 'Не вдалося зібрати дані з жодного тому.'
+  Write-Error 'Не вдалося зібрати дані з жодного тому. Перевірте попередження вище.'
   exit 1
 }
 
@@ -279,6 +307,7 @@ $remoteState = Get-RemoteState
 $nextJson = Build-NextJson -CurrentJson $remoteState.Json -DriveRecords $driveRecords -NowIso $nowIso
 $nextBase64 = [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($nextJson))
 $payload = Build-PutPayload -Message $commitMessage -ContentBase64 $nextBase64 -Sha $remoteState.Sha
+Write-LogInfo ("Підготовлено {0} запис(ів) дисків. Записую в GitHub..." -f $driveRecords.Count)
 $putResult = Invoke-GitHubRequest -Method PUT -Body $payload
 
 if ($putResult.StatusCode -eq 409) {
@@ -291,8 +320,8 @@ if ($putResult.StatusCode -eq 409) {
 }
 
 if ($putResult.StatusCode -eq 200 -or $putResult.StatusCode -eq 201) {
-  Write-Host "Готово. Дані оновлено успішно (HTTP $($putResult.StatusCode))."
-  Write-Host "Веб: $PagesUrl"
+  Write-LogInfo "Готово. Дані оновлено успішно (HTTP $($putResult.StatusCode))."
+  Write-LogInfo "Веб: $PagesUrl"
   exit 0
 }
 

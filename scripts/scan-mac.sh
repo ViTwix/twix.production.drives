@@ -10,6 +10,14 @@ print_err() {
   echo "$*" >&2
 }
 
+log_info() {
+  printf '[%s] %s\n' "$(date '+%H:%M:%S')" "$*"
+}
+
+log_warn() {
+  print_err "[WARN $(date '+%H:%M:%S')] $*"
+}
+
 iso_now_utc() {
   date -u +%Y-%m-%dT%H:%M:%SZ
 }
@@ -170,10 +178,10 @@ for volume_index in "${!VOLUMES[@]}"; do
   TOTAL_BYTES=$((TOTAL_KB * 1024))
   USED_BYTES=$((USED_KB * 1024))
   FREE_BYTES=$((FREE_KB * 1024))
+  log_info "Том \"$DRIVE_NAME\": FS=$FS, used=$(printf '%s' "$USED_BYTES"), free=$(printf '%s' "$FREE_BYTES")"
 
   ROOT_ITEMS=()
-  for item in "$SELECTED_VOLUME"/*; do
-    [[ -e "$item" ]] || continue
+  if ! while IFS= read -r -d '' item; do
     base_name=$(basename "$item")
     [[ "$base_name" == .* ]] && continue
     case "$base_name" in
@@ -182,10 +190,23 @@ for volume_index in "${!VOLUMES[@]}"; do
         ;;
     esac
     ROOT_ITEMS+=("$item")
-  done
+  done < <(find "$SELECTED_VOLUME" -mindepth 1 -maxdepth 1 -print0 2>/dev/null); then
+    print_err "Попередження: не вдалося прочитати корінь тому: $DRIVE_NAME"
+    continue
+  fi
 
   item_count=${#ROOT_ITEMS[@]}
+  if ((item_count == 0)) && ((USED_BYTES > 10485760)); then
+    log_warn "Том \"$DRIVE_NAME\" має зайнятий обсяг, але корінь повернув 0 елементів. Пропускаю, щоб не записати порожні дані."
+    continue
+  fi
+
+  log_info "Том \"$DRIVE_NAME\": знайдено $item_count елемент(ів) у корені"
+
   ENTRY_LINES=()
+  folders_processed=0
+  files_processed=0
+  skipped_items=0
 
   for i in "${!ROOT_ITEMS[@]}"; do
     item="${ROOT_ITEMS[$i]}"
@@ -194,7 +215,8 @@ for volume_index in "${!VOLUMES[@]}"; do
 
     if [[ -d "$item" ]]; then
       if ! size_bytes=$(folder_size_bytes "$item"); then
-        print_err "Попередження: пропускаю папку без доступу: $base_name"
+        log_warn "Пропускаю папку без доступу: $base_name"
+        skipped_items=$((skipped_items + 1))
         continue
       fi
 
@@ -202,12 +224,14 @@ for volume_index in "${!VOLUMES[@]}"; do
         --arg name "$base_name" \
         --argjson sizeBytes "$size_bytes" \
         '{type: "folder", name: $name, sizeBytes: $sizeBytes}')")
+      folders_processed=$((folders_processed + 1))
       continue
     fi
 
     if [[ -f "$item" ]]; then
       if ! size_bytes=$(file_size_bytes "$item" 2>/dev/null); then
-        print_err "Попередження: пропускаю файл без доступу: $base_name"
+        log_warn "Пропускаю файл без доступу: $base_name"
+        skipped_items=$((skipped_items + 1))
         continue
       fi
 
@@ -229,6 +253,7 @@ for volume_index in "${!VOLUMES[@]}"; do
           --argjson sizeBytes "$size_bytes" \
           '{type: "file", name: $name, sizeBytes: $sizeBytes}')")
       fi
+      files_processed=$((files_processed + 1))
     fi
   done
 
@@ -242,6 +267,8 @@ for volume_index in "${!VOLUMES[@]}"; do
       )
     ')
   fi
+
+  log_info "Підсумок \"$DRIVE_NAME\": папок=$folders_processed, файлів=$files_processed, пропущено=$skipped_items, entries=${#ENTRY_LINES[@]}"
 
   DRIVE_JSON=$(jq -c -n \
     --arg name "$DRIVE_NAME" \
@@ -265,7 +292,7 @@ for volume_index in "${!VOLUMES[@]}"; do
 done
 
 if [[ ${#SCANNED_DRIVES[@]} -eq 0 ]]; then
-  print_err "Не вдалося зібрати дані з жодного тому."
+  print_err "Не вдалося зібрати дані з жодного тому. Перевірте попередження вище."
   exit 1
 fi
 
@@ -277,6 +304,7 @@ done
 
 NEXT_B64=$(printf '%s' "$NEXT_JSON" | base64 | tr -d '\n')
 COMMIT_MESSAGE="scan: full sweep at ${NOW_ISO} (${#SCANNED_DRIVES[@]} drives)"
+log_info "Підготовлено ${#SCANNED_DRIVES[@]} запис(ів) дисків. Записую в GitHub..."
 PAYLOAD=$(build_put_payload "$COMMIT_MESSAGE" "$NEXT_B64" "$REMOTE_SHA")
 
 PUT_RESPONSE=$(github_put "$PAYLOAD")
@@ -284,7 +312,7 @@ PUT_STATUS="${PUT_RESPONSE##*$'\n'}"
 PUT_BODY="${PUT_RESPONSE%$'\n'*}"
 
 if [[ "$PUT_STATUS" == "409" ]]; then
-  print_err "Отримано 409 Conflict. Повторюю один раз..."
+  log_warn "Отримано 409 Conflict. Повторюю один раз..."
   load_remote_json
   NEXT_JSON="$REMOTE_JSON"
   for DRIVE_JSON in "${SCANNED_DRIVES[@]}"; do
@@ -299,11 +327,11 @@ fi
 
 case "$PUT_STATUS" in
   200|201)
-    echo "Готово. Дані оновлено успішно (HTTP $PUT_STATUS)."
-    echo "Веб: $PAGES_URL"
+    log_info "Готово. Дані оновлено успішно (HTTP $PUT_STATUS)."
+    log_info "Веб: $PAGES_URL"
     ;;
   *)
-    print_err "Помилка PUT GitHub API (HTTP $PUT_STATUS)"
+    print_err "Помилка PUT GitHub API (HTTP $PUT_STATUS). message=\"$COMMIT_MESSAGE\""
     print_err "$PUT_BODY"
     print_err "Нижче надруковано JSON, який не вдалося записати:"
     echo "$NEXT_JSON"
