@@ -2,6 +2,8 @@
 
 Інструкції для AI-агентів кодування (Claude Code, Cursor тощо), які працюють із цим репозиторієм. Усі команди й параметри звірені з офіційною документацією станом на травень 2026.
 
+**Швидкий старт для агента:** перед змінами в `scripts/` прочитай розділ **«Експлуатація та контекст»** нижче — PAT, `.env`, вибір томів, UTF-8 BOM на Windows, кілька ПК, типові помилки.
+
 ---
 
 ## Проєкт: twix.production.drives
@@ -11,7 +13,7 @@
 **Репозиторій:** `https://github.com/ViTwix/twix.production.drives` (публічний)
 **Власник:** ViTwix (Twix / Vitalii Povolotskyi) — соло-розробник
 **Локальний шлях розробки:** `/Users/vitaliipovolotskyi/Documents/Drives Twix Production`
-**Прод URL:** `*.pages.dev` (Cloudflare Pages, автодеплой із `main`)
+**Прод URL:** [https://twix-production-drives.pages.dev](https://twix-production-drives.pages.dev) (Cloudflare Pages, автодеплой із `main`)
 
 ## Чому публічний репозиторій
 
@@ -50,7 +52,146 @@
               └───────────────────┘
 ```
 
-Кожен запуск сканера показує **підключені несистемні диски** і дозволяє обрати, які сканувати (Enter — усі, `q` — скасувати, прапорець `--all`/`-All` без запиту). Після сканування він забирає поточний `drives.json`, виконує upsert записів обраних дисків за `name`, і робить PUT назад.
+Кожен запуск сканера показує **підключені несистемні диски** і дозволяє обрати, які сканувати (Enter — усі, `q` — скасувати, прапорець `--all`/`-All` без запиту). Після сканування він забирає поточний `drives.json`, виконує upsert записів **лише обраних** дисків за `name`, і робить PUT назад. Диски, які не сканували в цьому запуску, у JSON **не змінюються**.
+
+---
+
+## Експлуатація та контекст (обов'язково до змін у сканерах)
+
+Цей розділ збирає практичні знання з реальної експлуатації на Mac + Windows. Детальні покрокові інструкції для людини — у `README.md` і `scripts/README.md`.
+
+### Три машини, один JSON
+
+| Машина | Скрипт | Примітки |
+|--------|--------|----------|
+| Mac Mini / MacBook | `scripts/scan-mac.sh` | Потрібен `jq` (`brew install jq`) |
+| Windows PC | `scripts/scan-win.ps1` | PowerShell 5.1 (вбудований), не `cmd.exe` |
+| Будь-яка | Веб у браузері | Нічого не встановлювати; лише URL Pages |
+
+Усі сканери пишуть в **один** файл `data/drives.json` у репо `ViTwix/twix.production.drives`, гілка `main`. Веб читає той самий файл через `raw.githubusercontent.com` (не з локального диска користувача).
+
+### Де лежать секрети й що не комітити
+
+| Файл | У git? | Призначення |
+|------|--------|-------------|
+| `.env` | **Ні** (`.gitignore`) | `GITHUB_TOKEN=github_pat_…` на кожній машині зі сканером |
+| `.env.example` | Так | Шаблон без реального токена |
+| `data/drives.json` | Так | Публічний інвентар (лише назви + розміри) |
+
+**Пріоритет `GITHUB_TOKEN` при запуску сканера:** (1) змінна середовища в shell → (2) `.env` у **корені клону** (шлях від `$PSScriptRoot/..` на Windows, `dirname script/..` на macOS) → (3) exit з підказкою.
+
+- Рядок у `.env`: `GITHUB_TOKEN=github_pat_…` **без** `export`.
+- Токен **ніколи** не логувати, не друкувати, не в commit message.
+- На Windows можна скопіювати `.env` з Mac (безпечним каналом) або створити з `.env.example`.
+
+### Інтерактивний вибір томів (поточна UX)
+
+Після `discover volumes` скрипт показує меню. Поведінка **однакова за змістом** на macOS і Windows:
+
+| Ввід користувача | Дія |
+|------------------|-----|
+| `1` | Сканувати том [1] |
+| `1,3` | Томи 1 і 3 |
+| `2-4` | Діапазон inclusive |
+| **Enter** (порожній рядок) | Усі показані томи |
+| `q` | Скасувати (exit 0) |
+| *(немає інтерактиву)* | Потрібен `--all` (bash) або `-All` (PowerShell) |
+
+Прапорці без меню:
+
+- macOS: `./scripts/scan-mac.sh --all` (також `--help` без токена)
+- Windows: `.\scripts\scan-win.ps1 -All`
+
+Commit message після PUT:
+
+- Усі томи в запуску: `scan: full sweep at {iso} ({n} drives)`
+- Частково: `scan: Black 3, Gray 1 at {iso}`
+
+### Локальний clone vs GitHub vs веб (типова плутанина)
+
+1. **Сканер успішний** → дані вже на GitHub (`data/drives.json` на `main`).
+2. **Локальний** `data/drives.json` у клоні на машині, де сканували, **сам не оновлюється** — це не баг.
+3. Щоб побачити JSON у редакторі локально: `git pull origin main`.
+4. **Веб на Pages** підтягує дані з GitHub; після скану — кнопка **«Оновити дані»** або жорстке оновлення сторінки (cache-buster `?t=` у fetch).
+5. **Код UI** на Pages оновлюється окремо — автодеплой з `main` після push (гілка `web/`, root `/web` у Cloudflare).
+
+### Оновлення на іншій машині
+
+| Що оновлювати | Дія |
+|---------------|-----|
+| **Сканери** | `git pull origin main` у клоні репо на цій машині |
+| **Веб (браузер)** | Нічого ставити; відкрити прод URL; Ctrl+F5 після деплою |
+| **Веб (dev)** | `git pull` + `cd web && npm install` |
+
+Якщо `git pull` на Windows скаржиться на локальні зміни в `scripts/scan-win.ps1`:
+
+```powershell
+git checkout -- scripts/scan-win.ps1
+git pull origin main
+```
+
+(Користувач міг мати стару копію файла або зіпсоване кодування.)
+
+### Платформні пастки — macOS (`scan-mac.sh`)
+
+- **Bash:** `#!/usr/bin/env bash`, `set -euo pipefail`, `unset BLOCKSIZE`, `LC_ALL=en_US.UTF-8`.
+- **Системний bash на macOS часто 3.2** — не покладатися на `declare -A`; при `set -u` не ітерувати порожній масив як `"${arr[@]}"` у вкладених циклах (використано `sort -un` для dedupe індексів у `parse_volume_selection`).
+- **Зовнішні томи:** `/Volumes/*`, виключити `Macintosh HD*` і томи на тому ж physical disk, що системний (`diskutil` + порівняння `Device Node`).
+- **Розміри:** `df -k`, `du -sk` → ×1024 для байтів; без `-k` і з `BLOCKSIZE` у env — хибні числа.
+- **Залежність:** `jq` обов'язковий.
+
+### Платформні пастки — Windows (`scan-win.ps1`)
+
+- **PowerShell 5.1** (Windows PowerShell), не обов'язково PowerShell 7. Запуск через `powershell.exe`, **не** `cmd.exe`.
+- **Кодування файла скрипта — критично:** `scan-win.ps1` **має** зберігатися як **UTF-8 з BOM**. Без BOM PS 5.1 читає файл як системну ANSI-декодировку → українські рядки в лапках перетворюються на `Р“Р‘` → `ParserError` / `Unexpected token`.
+- **При редагуванні агентом:** після змін у `scan-win.ps1` зберегти UTF-8 BOM (наприклад `path.write_text(..., encoding='utf-8-sig')`). У рядках вихідного коду **уникати** Unicode-тире `—` / `–` і буллет `•` — використовувати ASCII `-` (вже застосовано в репо).
+- `[Console]::OutputEncoding = UTF8` на початку **не** виправляє парсинг — лише вивід після старту.
+- `.env` читається через `Get-Content -Encoding UTF8`.
+- **Томи:** `Get-Volume`, типи `Fixed` + `Removable`, виключити `$env:SystemDrive`. Label диска → `name` (якщо порожній — `E:`).
+- **Приховані:** атрибути `Hidden`, `System` + імена кошиків.
+
+### Ярлик Windows (для користувача)
+
+**Об'єкт:** `C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe`
+
+**Аргументи (з вибором томів, вікно лишається відкритим):**
+
+```text
+-NoExit -ExecutionPolicy Bypass -File "C:\шлях\до\twix.production.drives\scripts\scan-win.ps1"
+```
+
+**Усі томи без меню:** додати `-All` в кінці.
+
+**Робоча папка ярлика:** корінь клону (де лежить `.env`).
+
+Шлях з кирилицею в імені користувача (`C:\Users\Віталій\...`) — нормальний; копіювати з Explorer «Копіювати як шлях».
+
+### Карта реалізації сканерів (де шукати логіку)
+
+| Область | macOS (`scan-mac.sh`) | Windows (`scan-win.ps1`) |
+|---------|----------------------|-------------------------|
+| Токен | `ensure_github_token`, `load_github_token_from_env_file` | `Import-GitHubTokenFromEnvFile` |
+| Список томів | `discover_volumes` | `Get-ExternalVolumes` |
+| Меню + парсинг вводу | `print_volume_menu`, `parse_volume_selection`, `prompt_volume_selection` | `Show-VolumeMenu`, `Parse-VolumeSelection`, `Select-VolumesInteractive` |
+| Скан кореня | цикл `ROOT_ITEMS`, `folder_size_bytes`, `file_size_bytes` | `Get-ChildItem` + `Measure-Object` |
+| GitHub GET/PUT | `github_get`, `github_put`, retry 409 | `Invoke-GitHubRequest`, retry 409 |
+| Merge JSON | `jq` `build_next_json` | `Build-NextJson` + `ConvertTo-Json -Depth 10` |
+
+### Типові помилки та рішення (швидка довідка для агента)
+
+| Симптом | Ймовірна причина | Рішення |
+|---------|------------------|---------|
+| `GITHUB_TOKEN: Set ...` | Немає `.env` і env var | `cp .env.example .env`, вставити PAT |
+| `ParserError`, `Р“Р‘` у `scan-win.ps1` | UTF-8 без BOM / зіпсований pull | Зберегти файл UTF-8 BOM; `git checkout -- scripts/scan-win.ps1 && git pull` |
+| `unbound variable` на macOS при виборі `1` | `set -u` + порожній масив у циклі | Актуальний `scan-mac.sh` з dedupe через `sort -un` |
+| `git pull` blocked на `scan-win.ps1` | Локальні зміни файла | `git checkout -- scripts/scan-win.ps1` |
+| Веб показує старі дані | Кеш raw.githubusercontent.com (5 хв) | «Оновити дані» у UI (cache-buster) |
+| `409` при PUT | Паралельний scan з іншої машини | Скрипт робить 1 retry; інакше повторити scan |
+| `0 елементів` при зайнятому диску | Немає доступу до кореня | Не записувати порожній `entries` — том пропущено навмисно |
+
+### Що агент повинен оновлювати разом із змінами сканерів
+
+Зміна поведінки CLI / токена / платформи → синхронно оновити **мінімум**: `scripts/scan-mac.sh` або `scan-win.ps1` (обидва, якщо зміна спільна), `scripts/README.md`, `README.md`, цей розділ у `AGENTS.md`, за потреби `DATA_SCHEMA.md`.
 
 ---
 
@@ -415,6 +556,12 @@ $ErrorActionPreference = 'Stop'
 $PSDefaultParameterValues['Out-File:Encoding'] = 'utf8'
 ```
 
+**Кодування файла `scan-win.ps1` (обов'язково для PS 5.1):**
+
+- Зберігати як **UTF-8 with BOM** (`utf-8-sig`). Інакше парсер ламає рядки з кирилицею.
+- У вихідному коді скрипта для роздільників у `Write-Host` / `throw` використовувати **ASCII `-`**, не em dash `—` / en dash `–`.
+- Після будь-якого редагування агентом перевірити, що BOM на місці (перші байти `EF BB BF`).
+
 ### GitHub Contents API — точні запити
 
 Базовий URL для нашого репо:
@@ -631,8 +778,8 @@ export function pluralizeUk(n, forms) { /* forms: [one, few, many] */ }
   - Без inline `style={{}}`, окрім runtime-значень (ширина прогрес-бару)
   - Семантичні назви кольорів через CSS custom properties у `@theme`
   - **Не створювати `tailwind.config.js`** — конфіг тільки через CSS
-- **Bash**: на початку `set -euo pipefail`, `LC_ALL=en_US.UTF-8`, `unset BLOCKSIZE`. Усі змінні — у лапки. Для bash-специфічних місць — `[[ ]]` замість `[ ]`.
-- **PowerShell**: `#Requires -Version 5.1`, `Set-StrictMode -Version Latest`, `$ErrorActionPreference = 'Stop'`. Comment-based help блок на початку. Для кастомних функцій — approved verbs.
+- **Bash**: на початку `set -euo pipefail`, `LC_ALL=en_US.UTF-8`, `unset BLOCKSIZE`. Усі змінні — у лапки. Для bash-специфічних місць — `[[ ]]` замість `[ ]`. Уникати ітерації порожніх масивів під `set -u` (bash 3.2 на macOS).
+- **PowerShell**: `#Requires -Version 5.1`, `Set-StrictMode -Version Latest`, `$ErrorActionPreference = 'Stop'`. Файл `.ps1` — **UTF-8 BOM**. Comment-based help на початку. Approved verbs для функцій.
 - **Коментарі**: українською, лаконічні. Код — самодокументований.
 - **Локалізація текстів**: UI-рядки, CLI-повідомлення, повідомлення помилок, документація — українською. Імена змінних, функцій, файлів, commit messages — англійською.
 - **Без `console.log` у продакшн-вебкоді**.
@@ -706,6 +853,8 @@ export function pluralizeUk(n, forms) { /* forms: [one, few, many] */ }
 - [ ] При активному пошуку на картках показуються блоки "Збіги:"
 - [ ] `scan-mac.sh` на macOS: показує зовнішні томи (без системного/`Macintosh HD*`), інтерактивний вибір і `--all` працюють; PUT повертає 200/201
 - [ ] `scan-win.ps1` на Windows 10/11: список томів без диска `C:`, інтерактивний вибір і `-All` працюють аналогічно
+- [ ] `scan-win.ps1` збережено як UTF-8 **з BOM**; після редагування немає `ParserError` на Windows PowerShell 5.1
+- [ ] `.env.example` існує; `.env` у `.gitignore`; токен підхоплюється з env або `.env`
 - [ ] Після сканування веб через cache-buster показує нові дані без жорсткого refresh
 - [ ] `scripts/README.md` покриває PAT, env vars, troubleshooting
 - [ ] `.gitignore` виключає `node_modules`, `dist`, `.env`, OS-сміття
