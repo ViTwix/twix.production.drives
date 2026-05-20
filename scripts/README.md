@@ -206,7 +206,8 @@ git pull origin main
 | Старий `data/drives.json` локально | Нормально — `git pull origin main` |
 | PUT failed | Скрипт друкує JSON у stdout для ручного збереження |
 | Некоректні розміри (macOS) | Не задавайте `BLOCKSIZE` у shell — у скрипті `unset BLOCKSIZE` |
-| `unbound variable` при виборі тома | Оновіть скрипт: `git pull origin main` |
+| `unbound variable` при виборі тома (macOS) | Оновіть скрипт: `git pull origin main` |
+| `Unexpected token` / `Р“Р‘` у `scan-win.ps1` (Windows) | Стара кодування файла; `git pull origin main` (потрібен UTF-8 BOM). Запускайте через **Windows PowerShell**, не `cmd` |
 
 ## 8) Безпека
 

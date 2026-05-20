@@ -1,4 +1,4 @@
-#Requires -Version 5.1
+﻿#Requires -Version 5.1
 <#
 .SYNOPSIS
   Сканує обрані зовнішні диски та публікує data/drives.json у GitHub.
@@ -155,15 +155,15 @@ function Show-VolumeMenu {
     $total = [int64]$vol.Size
     $free = [int64]$vol.SizeRemaining
     $used = $total - $free
-    Write-Host ('  [{0}] {1} — {2}, {3} / {4}' -f ($i + 1), $name, $fs, (Format-BytesShort $used), (Format-BytesShort $total))
+    Write-Host ('  [{0}] {1} - {2}, {3} / {4}' -f ($i + 1), $name, $fs, (Format-BytesShort $used), (Format-BytesShort $total))
   }
 
   Write-Host ''
   Write-Host 'Оберіть томи для сканування:'
-  Write-Host '  • номери через кому: 1,3'
-  Write-Host '  • діапазон: 1-3'
-  Write-Host '  • Enter — усі томи'
-  Write-Host '  • q — скасувати'
+  Write-Host '  - номери через кому: 1,3'
+  Write-Host '  - діапазон: 1-3'
+  Write-Host '  - Enter - усі томи'
+  Write-Host '  - q - скасувати'
   Write-Host ''
 }
 
@@ -215,7 +215,7 @@ function Parse-VolumeSelection {
   $selected = @()
   foreach ($idx in ($indices | Sort-Object)) {
     if ($idx -lt 1 -or $idx -gt $Volumes.Count) {
-      throw "Номер поза діапазоном: $idx (доступно 1–$($Volumes.Count))"
+      throw "Номер поза діапазоном: $idx (доступно 1-$($Volumes.Count))"
     }
     $selected += $Volumes[$idx - 1]
   }
@@ -303,7 +303,7 @@ if (-not $env:GITHUB_TOKEN) {
   if (-not (Import-GitHubTokenFromEnvFile -EnvFilePath $envFile)) {
     Write-Error @"
 Не задано GITHUB_TOKEN.
-Створіть $envFile з рядком: GITHUB_TOKEN=github_pat_…
+Створіть $envFile з рядком: GITHUB_TOKEN=github_pat_...
 Або задайте змінну середовища (див. scripts/README.md)
 "@
     exit 1
