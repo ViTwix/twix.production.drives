@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-05-20T06:23:19Z",
+    "updatedAt":  "2026-05-20T06:24:15Z",
     "drives":  [
                    {
                        "name":  "Black 1",
@@ -1058,6 +1058,161 @@
                                            "name":  "Twix Production Logo.mov",
                                            "ext":  "mov",
                                            "sizeBytes":  16404756
+                                       }
+                                   ]
+                   },
+                   {
+                       "name":  "Gray 2",
+                       "scannedAt":  "2026-05-20T06:24:15Z",
+                       "filesystem":  "Unknown",
+                       "totalBytes":  4000634109952,
+                       "freeBytes":  14537457664,
+                       "usedBytes":  3986096652288,
+                       "entries":  [
+                                       {
+                                           "type":  "folder",
+                                           "name":  "10.06.2023 Kolomyia",
+                                           "sizeBytes":  231372489045
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "11.03.2023 Vienna",
+                                           "sizeBytes":  69321332050
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "12.08.2023 Real House",
+                                           "sizeBytes":  207627961753
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "12.11.2022 Mishyn City",
+                                           "sizeBytes":  213410584114
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "13.07.2023 Lviv",
+                                           "sizeBytes":  146690881749
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "13.08.2023 Liteplo",
+                                           "sizeBytes":  195526244496
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "14.01.2023 Lukas",
+                                           "sizeBytes":  195871784950
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "14.10.2023 Lviv",
+                                           "sizeBytes":  241705029376
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "15.10.2023 Lviv",
+                                           "sizeBytes":  244347995162
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "17.02.2024 Vienna",
+                                           "sizeBytes":  284588710356
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "18.08.2023 Liteplo",
+                                           "sizeBytes":  172011954286
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "2.06.2023 Vienna",
+                                           "sizeBytes":  102432639182
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "22.07.2023 Vienna",
+                                           "sizeBytes":  65787165319
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "23.09.2023 Vienna",
+                                           "sizeBytes":  64917461977
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "24.06.2023 Kyiv",
+                                           "sizeBytes":  693718870
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "26.11.2022 Stuttgart",
+                                           "sizeBytes":  158972024672
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "27.05.2024 Vienna",
+                                           "sizeBytes":  46721944492
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "28.09.2023 Lviv",
+                                           "sizeBytes":  236083310803
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "29.06.2025 Lviv",
+                                           "sizeBytes":  594746887035
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "3.09.2017 Amsterdam",
+                                           "sizeBytes":  168615675304
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "3.09.2024 Serbia",
+                                           "sizeBytes":  25216439530
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "5.08.2023 Lviv",
+                                           "sizeBytes":  83193705689
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "5.09.2024 Stadion",
+                                           "sizeBytes":  6961143081
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "ARS 2024",
+                                           "sizeBytes":  47221970634
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "Captain Auto",
+                                           "sizeBytes":  34554665832
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "Kotsyura Christening",
+                                           "sizeBytes":  29963122492
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "Oasis 2023",
+                                           "sizeBytes":  49823341562
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "Upwork",
+                                           "sizeBytes":  51652400351
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "Vitalik Tylnyi Book 2024",
+                                           "sizeBytes":  2275536201
                                        }
                                    ]
                    },
