@@ -1,4 +1,17 @@
 #Requires -Version 5.1
+<#
+.SYNOPSIS
+  Сканує обрані зовнішні диски та публікує data/drives.json у GitHub.
+
+.PARAMETER All
+  Сканувати всі підключені томи без інтерактивного запиту.
+#>
+[CmdletBinding()]
+param(
+  [Alias('a')]
+  [switch]$All
+)
+
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
@@ -99,6 +112,139 @@ function Get-RemoteState {
   }
 }
 
+function Format-BytesShort {
+  param(
+    [Parameter(Mandatory = $true)]
+    [int64]$Bytes
+  )
+
+  if ($Bytes -ge 1TB) {
+    return '{0:N1} ТБ' -f ($Bytes / 1TB)
+  }
+  if ($Bytes -ge 1GB) {
+    return '{0:N1} ГБ' -f ($Bytes / 1GB)
+  }
+  if ($Bytes -ge 1MB) {
+    return '{0:N0} МБ' -f ($Bytes / 1MB)
+  }
+
+  return '{0:N0} КБ' -f ($Bytes / 1KB)
+}
+
+function Get-ExternalVolumes {
+  return @(Get-Volume |
+    Where-Object {
+      $_.DriveLetter -and
+      ($_.DriveType -eq 'Fixed' -or $_.DriveType -eq 'Removable') -and
+      ("$($_.DriveLetter):" -ne $env:SystemDrive)
+    })
+}
+
+function Show-VolumeMenu {
+  param(
+    [Parameter(Mandatory = $true)]
+    [array]$Volumes
+  )
+
+  Write-Host ''
+  Write-Host 'Підключені томи:'
+  for ($i = 0; $i -lt $Volumes.Count; $i += 1) {
+    $vol = $Volumes[$i]
+    $name = if ($vol.FileSystemLabel) { $vol.FileSystemLabel } else { "$($vol.DriveLetter):" }
+    $fs = if ([string]::IsNullOrWhiteSpace([string]$vol.FileSystemType)) { 'Unknown' } else { [string]$vol.FileSystemType }
+    $total = [int64]$vol.Size
+    $free = [int64]$vol.SizeRemaining
+    $used = $total - $free
+    Write-Host ('  [{0}] {1} — {2}, {3} / {4}' -f ($i + 1), $name, $fs, (Format-BytesShort $used), (Format-BytesShort $total))
+  }
+
+  Write-Host ''
+  Write-Host 'Оберіть томи для сканування:'
+  Write-Host '  • номери через кому: 1,3'
+  Write-Host '  • діапазон: 1-3'
+  Write-Host '  • Enter — усі томи'
+  Write-Host '  • q — скасувати'
+  Write-Host ''
+}
+
+function Parse-VolumeSelection {
+  param(
+    [Parameter(Mandatory = $true)]
+    [string]$InputText,
+    [Parameter(Mandatory = $true)]
+    [array]$Volumes
+  )
+
+  $normalized = ($InputText.Trim().ToLowerInvariant() -replace '\s', '')
+
+  if (-not $normalized) {
+    return ,$Volumes
+  }
+
+  $indices = New-Object 'System.Collections.Generic.List[int]'
+  $parts = $normalized -split ','
+
+  foreach ($part in $parts) {
+    if (-not $part) { continue }
+
+    if ($part -match '^(\d+)-(\d+)$') {
+      $start = [int]$Matches[1]
+      $end = [int]$Matches[2]
+      if ($start -gt $end) {
+        throw "Невірний діапазон: $part"
+      }
+      for ($n = $start; $n -le $end; $n += 1) {
+        if (-not $indices.Contains($n)) { [void]$indices.Add($n) }
+      }
+      continue
+    }
+
+    if ($part -match '^\d+$') {
+      $n = [int]$part
+      if (-not $indices.Contains($n)) { [void]$indices.Add($n) }
+      continue
+    }
+
+    throw "Невірний формат вибору: $part"
+  }
+
+  if ($indices.Count -eq 0) {
+    throw 'Не вказано жодного тому.'
+  }
+
+  $selected = @()
+  foreach ($idx in ($indices | Sort-Object)) {
+    if ($idx -lt 1 -or $idx -gt $Volumes.Count) {
+      throw "Номер поза діапазоном: $idx (доступно 1–$($Volumes.Count))"
+    }
+    $selected += $Volumes[$idx - 1]
+  }
+
+  return ,$selected
+}
+
+function Select-VolumesInteractive {
+  param(
+    [Parameter(Mandatory = $true)]
+    [array]$Volumes
+  )
+
+  Show-VolumeMenu -Volumes $Volumes
+  $choice = Read-Host 'Ваш вибір'
+
+  if ($choice.Trim().ToLowerInvariant() -eq 'q') {
+    Write-Host 'Скасовано.'
+    exit 0
+  }
+
+  try {
+    return @(Parse-VolumeSelection -InputText $choice -Volumes $Volumes)
+  } catch {
+    Write-Error $_.Exception.Message
+    exit 1
+  }
+}
+
 function Test-IsSkippedItem {
   param(
     [Parameter(Mandatory = $true)]
@@ -127,35 +273,82 @@ function Test-IsSkippedItem {
   return $false
 }
 
-if (-not $env:GITHUB_TOKEN) {
-  Write-Error 'Set GITHUB_TOKEN env var (see scripts/README.md)'
-  exit 1
-}
+function Import-GitHubTokenFromEnvFile {
+  param(
+    [Parameter(Mandatory = $true)]
+    [string]$EnvFilePath
+  )
 
-$volumes = Get-Volume |
-  Where-Object {
-    $_.DriveLetter -and
-    ($_.DriveType -eq 'Fixed' -or $_.DriveType -eq 'Removable') -and
-    ("$($_.DriveLetter):" -ne $env:SystemDrive)
+  if (-not (Test-Path -LiteralPath $EnvFilePath)) {
+    return $false
   }
 
-if (-not $volumes -or $volumes.Count -eq 0) {
+  foreach ($line in Get-Content -LiteralPath $EnvFilePath -Encoding UTF8) {
+    if ($line -match '^\s*#') { continue }
+    if ($line -match '^\s*GITHUB_TOKEN\s*=\s*(.+?)\s*$') {
+      $value = $Matches[1].Trim().Trim('"').Trim("'")
+      if ($value) {
+        $env:GITHUB_TOKEN = $value
+        return $true
+      }
+    }
+  }
+
+  return $false
+}
+
+if (-not $env:GITHUB_TOKEN) {
+  $repoRoot = Split-Path $PSScriptRoot -Parent
+  $envFile = Join-Path $repoRoot '.env'
+  if (-not (Import-GitHubTokenFromEnvFile -EnvFilePath $envFile)) {
+    Write-Error @"
+Не задано GITHUB_TOKEN.
+Створіть $envFile з рядком: GITHUB_TOKEN=github_pat_…
+Або задайте змінну середовища (див. scripts/README.md)
+"@
+    exit 1
+  }
+}
+
+$allVolumes = @(Get-ExternalVolumes)
+
+if ($allVolumes.Count -eq 0) {
   Write-Error 'Не знайдено зовнішніх томів для сканування.'
   exit 1
 }
 
-$nowIso = (Get-Date).ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ssZ')
+if ($All) {
+  $selectedVolumes = $allVolumes
+} elseif ([Console]::IsInputRedirected) {
+  Write-Error 'Неінтерактивний режим: додайте -All для сканування всіх томів.'
+  exit 1
+} else {
+  $selectedVolumes = @(Select-VolumesInteractive -Volumes $allVolumes)
+}
 
-Write-LogInfo ("Знайдено {0} том(ів). Запускаю повне сканування..." -f $volumes.Count)
+$selectedNames = @(
+  foreach ($vol in $selectedVolumes) {
+    if ($vol.FileSystemLabel) { $vol.FileSystemLabel } else { "$($vol.DriveLetter):" }
+  }
+)
+
+Write-Host ''
+if ($selectedVolumes.Count -eq $allVolumes.Count) {
+  Write-LogInfo ("Сканую всі {0} том(ів)..." -f $selectedVolumes.Count)
+} else {
+  Write-LogInfo ("Сканую {0} з {1} том(ів): {2}" -f $selectedVolumes.Count, $allVolumes.Count, ($selectedNames -join ', '))
+}
+
+$nowIso = (Get-Date).ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ssZ')
 $driveRecords = @()
 
-for ($v = 0; $v -lt $volumes.Count; $v += 1) {
-  $selectedVolume = $volumes[$v]
+for ($v = 0; $v -lt $selectedVolumes.Count; $v += 1) {
+  $selectedVolume = $selectedVolumes[$v]
   $rootPath = '{0}:\' -f $selectedVolume.DriveLetter
   $driveName = if ($selectedVolume.FileSystemLabel) { $selectedVolume.FileSystemLabel } else { "$($selectedVolume.DriveLetter):" }
 
   Write-Host ''
-  Write-LogInfo ("=== [{0}/{1}] Сканую том: {2} ===" -f ($v + 1), $volumes.Count, $driveName)
+  Write-LogInfo ("=== [{0}/{1}] Сканую том: {2} ===" -f ($v + 1), $selectedVolumes.Count, $driveName)
 
   $entries = @()
   $rootItems = Get-ChildItem -LiteralPath $rootPath -Force -ErrorAction SilentlyContinue |
@@ -302,7 +495,11 @@ function Build-PutPayload {
   return ($payload | ConvertTo-Json -Depth 5 -Compress)
 }
 
-$commitMessage = "scan: full sweep at $nowIso ($($driveRecords.Count) drives)"
+if ($driveRecords.Count -eq $allVolumes.Count) {
+  $commitMessage = "scan: full sweep at $nowIso ($($driveRecords.Count) drives)"
+} else {
+  $commitMessage = "scan: $($selectedNames -join ', ') at $nowIso"
+}
 $remoteState = Get-RemoteState
 $nextJson = Build-NextJson -CurrentJson $remoteState.Json -DriveRecords $driveRecords -NowIso $nowIso
 $nextBase64 = [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($nextJson))

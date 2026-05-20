@@ -1,42 +1,55 @@
 # twix.production.drives
 
-Особистий інвентар накопичувачів для обліку зовнішніх HDD/SSD на кількох машинах.
+Особистий інвентар накопичувачів для обліку зовнішніх HDD/SSD на кількох машинах (Mac Mini, MacBook, Windows PC).
 
-Локальні сканери (один для macOS, один для Windows) знімають знімок кореня кожного диска в один JSON-файл у цьому репозиторії. Статичний веб-інтерфейс на Cloudflare Pages читає цей JSON і дозволяє шукати одразу по всіх дисках — «де папка `07.09.2025 Lviv`?» → відповідь знайдена.
+Локальні сканери знімають знімок **кореня** кожного обраного диска й публікують один JSON у GitHub. Статичний веб на Cloudflare Pages читає цей JSON і дає пошук по всіх дисках — наприклад: «де папка `07.09.2025 Lviv`?».
+
+**Продакшн-веб:** [https://twix-production-drives.pages.dev](https://twix-production-drives.pages.dev)  
+**Репозиторій:** [https://github.com/ViTwix/twix.production.drives](https://github.com/ViTwix/twix.production.drives)
 
 ## Як це працює
 
 ```
 локальна машина (Mac / PC) ──┐
-                             ├──► data/drives.json ──► Cloudflare Pages (read-only viewer)
-локальна машина (Mac / PC) ──┘     (цей репозиторій)
+                             ├──► data/drives.json (GitHub) ──► Cloudflare Pages (перегляд)
+локальна машина (Mac / PC) ──┘
 ```
 
-- **Сканери** (`scripts/`): запускаються вручну однією командою й автоматично проходять **усі підключені несистемні диски**. Вони обходять корінь, обчислюють розміри папок і надсилають дані в цей репозиторій через GitHub Contents API.
-- **Дані** (`data/drives.json`): єдине джерело правди. Один запис на диск, ключ — назва диска (наприклад, `"Black 3"`).
-- **Веб** (`web/`): Vite + React + Tailwind v4. Завантажує `data/drives.json` напряму з `raw.githubusercontent.com`. Без бекенду; у UI є кнопка **«Оновити дані»** для примусового refetch після нового сканування.
-- **Сортування у вебі**: автоматичне natural-сортування за назвою диска (поведінка близька до macOS/Windows), без ручного перемикача.
-- **Іконки застосунку**: беруться з `AppIcons/Assets.xcassets/AppIcon.appiconset` і автоматично синхронізуються у `web/public` перед `dev/build/preview` (включно з `apple-touch-icon` для пристроїв Apple).
+| Частина | Що робить |
+|--------|-----------|
+| **Сканери** (`scripts/`) | Показують підключені томи → ви обираєте які сканувати → read-only обхід кореня → `PUT` у GitHub |
+| **Дані** (`data/drives.json`) | Єдине джерело правди; один запис на диск (`name` — унікальний ключ) |
+| **Веб** (`web/`) | Read-only UI; дані з `raw.githubusercontent.com`; кнопка **«Оновити дані»** після скану |
+
+Нескановані в цьому запуску диски в JSON **не змінюються** — оновлюються лише обрані (upsert за `name`).
 
 ## Структура проєкту
 
 ```
 .
-├── AGENTS.md            ← повна специфікація для AI-агентів кодування
-├── DATA_SCHEMA.md       ← довідник JSON-схеми
-├── data/drives.json     ← дані інвентарю
-├── scripts/             ← scan-mac.sh, scan-win.ps1, README.md
-└── web/                 ← UI на Vite + React + Tailwind v4
+├── .env.example         ← шаблон для GITHUB_TOKEN (скопіювати в .env)
+├── AGENTS.md            ← повна специфікація для AI-агентів
+├── DATA_SCHEMA.md       ← JSON-схема
+├── data/drives.json     ← інвентар (у git; сканери пишуть через API)
+├── scripts/
+│   ├── scan-mac.sh      ← macOS
+│   ├── scan-win.ps1     ← Windows
+│   └── README.md        ← детальна інструкція сканерів
+└── web/                 ← Vite + React + Tailwind v4
 ```
 
 ## Стек
 
 - **Сканери:** bash + `jq` + `curl` (macOS); PowerShell 5.1+ (Windows)
 - **Веб:** Node.js 20.19+, Vite, React 19, Tailwind CSS v4
-- **Хостинг:** Cloudflare Pages (`*.pages.dev`)
-- **Сховище даних:** GitHub Contents API → `data/drives.json` у цьому репо
+- **Хостинг UI:** Cloudflare Pages (автодеплой з `main`, root `/web`)
+- **Дані:** GitHub Contents API → `data/drives.json`
 
 ## Швидкий старт
+
+### Веб-перегляд (без встановлення)
+
+Відкрийте [twix-production-drives.pages.dev](https://twix-production-drives.pages.dev). Після сканування на будь-якій машині натисніть **«Оновити дані»** (або оновіть сторінку).
 
 ### Веб (локальна розробка)
 
@@ -46,51 +59,117 @@ npm install
 npm run dev
 ```
 
-Сторінка буде доступна на `http://localhost:5173`.
+→ `http://localhost:5173`
 
-### Сканування всіх підключених дисків
+### Сканування дисків
 
-Потрібен fine-grained Personal Access Token із правами `Contents: read/write` на цей репозиторій (див. `scripts/README.md`).
+Потрібен fine-grained PAT з **Contents: read/write** на цей репо — див. [`scripts/README.md`](scripts/README.md).
+
+**Токен** (пріоритет зверху вниз):
+
+1. Змінна `GITHUB_TOKEN` у shell (якщо вже є)
+2. Файл `.env` у корені клону: `GITHUB_TOKEN=github_pat_…`
+3. Інакше — помилка з підказкою
 
 **macOS:**
+
 ```bash
-export GITHUB_TOKEN='github_pat_…'   # один раз, додати в ~/.zshrc
+cp .env.example .env   # один раз, вставити токен
 ./scripts/scan-mac.sh
 ```
 
-**Windows:**
+**Windows (PowerShell):**
+
 ```powershell
-[Environment]::SetEnvironmentVariable('GITHUB_TOKEN', 'github_pat_…', 'User')  # один раз
+Copy-Item .env.example .env   # один раз, вставити токен
 .\scripts\scan-win.ps1
 ```
 
-Деталі — у `scripts/README.md`.
+#### Інтерактивний вибір томів
 
-## Важливо після сканування
+Після запуску з’являється нумерований список підключених томів:
 
-- Сканери записують результат **напряму в GitHub** через Contents API.
-- Локальний `data/drives.json` на машині, де запускали скрипт, не оновлюється автоматично.
-- Щоб локально побачити свіжі дані після скану, виконайте:
+| Ввід | Дія |
+|------|-----|
+| `1` або `1,3` | Сканувати вказані номери |
+| `1-3` | Діапазон |
+| **Enter** (порожньо) | Усі підключені томи |
+| `q` | Скасувати |
 
-```bash
+Без меню (усі томи одразу): `./scripts/scan-mac.sh --all` або `.\scripts\scan-win.ps1 -All`
+
+Повна інструкція, PAT, troubleshooting — у [`scripts/README.md`](scripts/README.md).
+
+## Оновлення на іншій машині
+
+### Веб-застосунок (перегляд у браузері)
+
+**Нічого встановлювати не потрібно.** UI деплоїться з GitHub на Cloudflare Pages автоматично після push у `main`.
+
+1. Відкрийте [https://twix-production-drives.pages.dev](https://twix-production-drives.pages.dev)
+2. Після оновлення коду в репо — жорстке оновлення сторінки (Ctrl+F5) або кнопка **«Оновити дані»**
+
+Якщо бачите стару версію UI довго — зачекайте 1–2 хв після деплою Cloudflare або очистіть кеш браузера.
+
+### Сканери (macOS / Windows)
+
+На кожній машині, де запускаєте сканування, потрібен **актуальний клон репозиторію** зі скриптами.
+
+**Якщо репо вже клоновано** (типовий випадок на другому ПК):
+
+```powershell
+cd C:\шлях\до\twix.production.drives
 git pull origin main
 ```
 
-- Для миттєвої перевірки без `pull` використовуйте `raw.githubusercontent.com` з cache-buster (`?t=timestamp`).
+```bash
+cd ~/шлях/до/twix.production.drives
+git pull origin main
+```
+
+Переконайтеся, що є `.env` з `GITHUB_TOKEN` (скопіюйте з іншої машини безпечним способом або створіть з `.env.example`). Токен у git не комітиться.
+
+**Якщо на Windows ПК ще немає клону:**
+
+```powershell
+git clone https://github.com/ViTwix/twix.production.drives.git
+cd .\twix.production.drives
+Copy-Item .env.example .env
+# відредагуйте .env — вставте GITHUB_TOKEN
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+.\scripts\scan-win.ps1
+```
+
+Деталі першого налаштування Windows — у [`scripts/README.md`](scripts/README.md).
+
+### Локальна розробка вебу (`web/`)
+
+Тільки якщо збираєте UI локально:
+
+```bash
+cd web
+git pull origin main
+npm install
+npm run dev
+```
+
+## Після сканування
+
+- Сканер пише **напряму в GitHub**; локальний `data/drives.json` у клоні сам не змінюється.
+- Щоб підтягнути JSON у клон: `git pull origin main`
+- У браузері — **«Оновити дані»** на Pages (cache-buster обходить 5-хв кеш raw.githubusercontent.com)
 
 ## Обмеження за дизайном
 
-- Одне сканування = поточний стан. Історія не зберігається.
-- Лише інвентар кореневого рівня (кореневі папки + кореневі файли). Без занурення в структуру, тільки підсумкові розміри.
-- Запуск сканування лише вручну.
-- Публічний репозиторій, неочевидна веб-адреса — для персонального використання.
+- Один запуск = snapshot обраних дисків; історії немає
+- Лише корінь диска (папки + файли верхнього рівня, рекурсивний розмір папок)
+- Ручний запуск; публічний репо + неочевидний URL Pages
 
-## Гарантія безпечного сканування (read-only для дисків)
+## Безпека (read-only для дисків)
 
-- Сканери працюють у режимі **тільки читання** щодо підключених HDD/SSD.
-- Сканери **не створюють**, **не редагують** і **не видаляють** файли на сканованих дисках.
-- Веб-частина проєкту також працює лише на читання (отримує `data/drives.json` через `GET`).
-- Єдина операція запису в системі — оновлення `data/drives.json` у GitHub через Contents API.
+- Сканери **не змінюють** файли на HDD/SSD — лише читають метадані та розміри
+- Веб **не пише** в GitHub
+- Єдиний запис у системі — `PUT data/drives.json` через PAT (ніколи не комітити токен)
 
 ## Ліцензія
 

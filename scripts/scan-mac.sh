@@ -32,6 +32,160 @@ file_size_bytes() {
   stat -f%z "$1"
 }
 
+human_bytes_short() {
+  local bytes="$1"
+  local unit value
+
+  if (( bytes >= 1099511627776 )); then
+    unit='ТБ'
+    value=$(awk -v b="$bytes" 'BEGIN { printf "%.1f", b/1099511627776 }')
+  elif (( bytes >= 1073741824 )); then
+    unit='ГБ'
+    value=$(awk -v b="$bytes" 'BEGIN { printf "%.1f", b/1073741824 }')
+  elif (( bytes >= 1048576 )); then
+    unit='МБ'
+    value=$(awk -v b="$bytes" 'BEGIN { printf "%.0f", b/1048576 }')
+  else
+    unit='КБ'
+    value=$(awk -v b="$bytes" 'BEGIN { printf "%.0f", b/1024 }')
+  fi
+
+  printf '%s %s' "$value" "$unit"
+}
+
+discover_volumes() {
+  VOLUMES=()
+  local vol name vol_dev
+
+  SYSTEM_DEV=$(diskutil info / | awk -F': *' '/Device Node/ {print $2; exit}')
+  SYSTEM_DISK="${SYSTEM_DEV%s*}"
+
+  for vol in /Volumes/*; do
+    [[ -d "$vol" ]] || continue
+    name=$(basename "$vol")
+    [[ "$name" == "Macintosh HD"* ]] && continue
+
+    vol_dev=$(diskutil info "$vol" 2>/dev/null | awk -F': *' '/Device Node/ {print $2; exit}')
+    [[ -z "$vol_dev" ]] && continue
+    [[ "$vol_dev" == "$SYSTEM_DISK"* ]] && continue
+
+    VOLUMES+=("$vol")
+  done
+}
+
+print_volume_menu() {
+  local vol name fs total_kb used_kb free_kb total_bytes used_bytes
+  local idx=1
+
+  echo
+  echo "Підключені томи:"
+  for vol in "${VOLUMES[@]}"; do
+    name=$(basename "$vol")
+    fs=$(diskutil info "$vol" 2>/dev/null | awk -F': *' '/File System Personality/ {print $2; exit}')
+    [[ -z "$fs" ]] && fs='Unknown'
+
+    if read -r total_kb used_kb free_kb < <(df -k "$vol" 2>/dev/null | awk 'NR==2 {print $2, $3, $4}'); then
+      total_bytes=$((total_kb * 1024))
+      used_bytes=$((used_kb * 1024))
+      printf '  [%d] %s — %s, %s / %s\n' \
+        "$idx" "$name" "$fs" \
+        "$(human_bytes_short "$used_bytes")" \
+        "$(human_bytes_short "$total_bytes")"
+    else
+      printf '  [%d] %s — %s\n' "$idx" "$name" "$fs"
+    fi
+    idx=$((idx + 1))
+  done
+  echo
+  echo "Оберіть томи для сканування:"
+  echo "  • номери через кому: 1,3"
+  echo "  • діапазон: 1-3"
+  echo "  • Enter — усі томи"
+  echo "  • q — скасувати"
+  echo
+}
+
+parse_volume_selection() {
+  local input="$1"
+  local -a parts=()
+  local -a indices=()
+  local -a unique_indices=()
+  local part start end idx
+
+  SELECTED_VOLUMES=()
+
+  input=$(printf '%s' "$input" | tr '[:upper:]' '[:lower:]' | tr -d '[:space:]')
+
+  if [[ "$input" == "q" ]]; then
+    return 1
+  fi
+
+  if [[ -z "$input" ]]; then
+    SELECTED_VOLUMES=("${VOLUMES[@]}")
+    return 0
+  fi
+
+  IFS=',' read -ra parts <<<"$input"
+  for part in "${parts[@]}"; do
+    [[ -z "$part" ]] && continue
+    if [[ "$part" =~ ^([0-9]+)-([0-9]+)$ ]]; then
+      start="${BASH_REMATCH[1]}"
+      end="${BASH_REMATCH[2]}"
+      if (( start > end )); then
+        print_err "Невірний діапазон: $part"
+        return 2
+      fi
+      for ((idx = start; idx <= end; idx++)); do
+        indices+=("$idx")
+      done
+    elif [[ "$part" =~ ^[0-9]+$ ]]; then
+      indices+=("$part")
+    else
+      print_err "Невірний формат вибору: $part"
+      return 2
+    fi
+  done
+
+  if [[ ${#indices[@]} -eq 0 ]]; then
+    print_err "Не вказано жодного тому."
+    return 2
+  fi
+
+  unique_indices=()
+  while IFS= read -r idx; do
+    [[ -n "$idx" ]] && unique_indices+=("$idx")
+  done < <(printf '%s\n' "${indices[@]}" | LC_ALL=C sort -un)
+
+  for idx in "${unique_indices[@]}"; do
+    if (( idx < 1 || idx > ${#VOLUMES[@]} )); then
+      print_err "Номер поза діапазоном: $idx (доступно 1–${#VOLUMES[@]})"
+      return 2
+    fi
+    SELECTED_VOLUMES+=("${VOLUMES[$((idx - 1))]}")
+  done
+
+  return 0
+}
+
+prompt_volume_selection() {
+  local choice
+
+  print_volume_menu
+  read -r -p "Ваш вибір: " choice
+
+  if ! parse_volume_selection "$choice"; then
+    case $? in
+      1)
+        echo "Скасовано."
+        exit 0
+        ;;
+      *)
+        exit 1
+        ;;
+    esac
+  fi
+}
+
 github_get() {
   curl -sS -L \
     -H "Accept: application/vnd.github+json" \
@@ -126,42 +280,113 @@ build_put_payload() {
     '
 }
 
-: "${GITHUB_TOKEN:?Set GITHUB_TOKEN env var (see scripts/README.md)}"
+load_github_token_from_env_file() {
+  local env_file="$1"
+  local line value
+
+  [[ -f "$env_file" ]] || return 1
+
+  while IFS= read -r line || [[ -n "$line" ]]; do
+    line="${line%$'\r'}"
+    [[ "$line" =~ ^[[:space:]]*# ]] && continue
+    [[ "$line" =~ ^[[:space:]]*$ ]] && continue
+    if [[ "$line" =~ ^[[:space:]]*GITHUB_TOKEN[[:space:]]*=[[:space:]]*(.*)$ ]]; then
+      value="${BASH_REMATCH[1]}"
+      if [[ "$value" =~ ^\"(.*)\"$ ]]; then
+        value="${BASH_REMATCH[1]}"
+      elif [[ "$value" =~ ^\'(.*)\'$ ]]; then
+        value="${BASH_REMATCH[1]}"
+      fi
+      value="${value#"${value%%[![:space:]]*}"}"
+      value="${value%"${value##*[![:space:]]}"}"
+      if [[ -n "$value" ]]; then
+        export GITHUB_TOKEN="$value"
+        return 0
+      fi
+    fi
+  done <"$env_file"
+
+  return 1
+}
+
+ensure_github_token() {
+  if [[ -n "${GITHUB_TOKEN:-}" ]]; then
+    return 0
+  fi
+
+  local repo_root env_file
+  repo_root=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
+  env_file="$repo_root/.env"
+
+  if load_github_token_from_env_file "$env_file"; then
+    return 0
+  fi
+
+  print_err "Помилка: не задано GITHUB_TOKEN."
+  print_err "Створіть $env_file з рядком: GITHUB_TOKEN=github_pat_…"
+  print_err "Або export GITHUB_TOKEN у ~/.zshrc (див. scripts/README.md)"
+  exit 1
+}
 
 if ! command -v jq >/dev/null 2>&1; then
   print_err "Помилка: не знайдено jq. Встановіть: brew install jq"
   exit 1
 fi
 
-SYSTEM_DEV=$(diskutil info / | awk -F': *' '/Device Node/ {print $2; exit}')
-SYSTEM_DISK="${SYSTEM_DEV%s*}"
-
-VOLUMES=()
-for vol in /Volumes/*; do
-  [[ -d "$vol" ]] || continue
-  name=$(basename "$vol")
-  [[ "$name" == "Macintosh HD"* ]] && continue
-
-  vol_dev=$(diskutil info "$vol" 2>/dev/null | awk -F': *' '/Device Node/ {print $2; exit}')
-  [[ -z "$vol_dev" ]] && continue
-  [[ "$vol_dev" == "$SYSTEM_DISK"* ]] && continue
-
-  VOLUMES+=("$vol")
+SCAN_ALL=false
+for arg in "$@"; do
+  case "$arg" in
+    -a | --all) SCAN_ALL=true ;;
+    -h | --help)
+      echo "Використання: $(basename "$0") [--all]"
+      echo "  без прапорців — інтерактивний вибір підключених томів"
+      echo "  --all, -a    — сканувати всі підключені томи без запиту"
+      echo "  GITHUB_TOKEN — env var або .env у корені репозиторію"
+      exit 0
+      ;;
+    *)
+      print_err "Невідомий аргумент: $arg (див. --help)"
+      exit 1
+      ;;
+  esac
 done
+
+ensure_github_token
+
+discover_volumes
 
 if [[ ${#VOLUMES[@]} -eq 0 ]]; then
   print_err "Не знайдено зовнішніх томів для сканування."
   exit 1
 fi
 
-echo "Знайдено ${#VOLUMES[@]} том(ів). Запускаю повне сканування..."
+if [[ "$SCAN_ALL" == true ]]; then
+  SELECTED_VOLUMES=("${VOLUMES[@]}")
+elif [[ -t 0 ]]; then
+  prompt_volume_selection
+else
+  print_err "Неінтерактивний режим: додайте --all для сканування всіх томів."
+  exit 1
+fi
+
+SCANNED_DRIVE_NAMES=()
+for vol in "${SELECTED_VOLUMES[@]}"; do
+  SCANNED_DRIVE_NAMES+=("$(basename "$vol")")
+done
+
+echo
+if [[ ${#SELECTED_VOLUMES[@]} -eq ${#VOLUMES[@]} ]]; then
+  echo "Сканую всі ${#SELECTED_VOLUMES[@]} том(ів)..."
+else
+  echo "Сканую ${#SELECTED_VOLUMES[@]} з ${#VOLUMES[@]} том(ів): $(IFS=', '; echo "${SCANNED_DRIVE_NAMES[*]}")"
+fi
 
 SCANNED_DRIVES=()
 NOW_ISO=$(iso_now_utc)
-volume_count=${#VOLUMES[@]}
+volume_count=${#SELECTED_VOLUMES[@]}
 
-for volume_index in "${!VOLUMES[@]}"; do
-  SELECTED_VOLUME="${VOLUMES[$volume_index]}"
+for volume_index in "${!SELECTED_VOLUMES[@]}"; do
+  SELECTED_VOLUME="${SELECTED_VOLUMES[$volume_index]}"
   DRIVE_NAME=$(basename "$SELECTED_VOLUME")
 
   echo
@@ -303,7 +528,11 @@ for DRIVE_JSON in "${SCANNED_DRIVES[@]}"; do
 done
 
 NEXT_B64=$(printf '%s' "$NEXT_JSON" | base64 | tr -d '\n')
-COMMIT_MESSAGE="scan: full sweep at ${NOW_ISO} (${#SCANNED_DRIVES[@]} drives)"
+if [[ ${#SCANNED_DRIVES[@]} -eq ${#VOLUMES[@]} ]]; then
+  COMMIT_MESSAGE="scan: full sweep at ${NOW_ISO} (${#SCANNED_DRIVES[@]} drives)"
+else
+  COMMIT_MESSAGE="scan: $(IFS=', '; echo "${SCANNED_DRIVE_NAMES[*]}") at ${NOW_ISO}"
+fi
 log_info "Підготовлено ${#SCANNED_DRIVES[@]} запис(ів) дисків. Записую в GitHub..."
 PAYLOAD=$(build_put_payload "$COMMIT_MESSAGE" "$NEXT_B64" "$REMOTE_SHA")
 
