@@ -5,3 +5,5 @@ dist/
 .DS_Store
 Thumbs.db
 *.log
+scripts/.mac-app-build/
+scripts/*.app/

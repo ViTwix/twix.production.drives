@@ -2,6 +2,20 @@
 
 Локальні сканери для **macOS** (`scan-mac.sh`) та **Windows** (`scan-win.ps1`). Оновлюють `data/drives.json` у GitHub через [Contents API](https://docs.github.com/en/rest/repos/contents).
 
+## Файли в `scripts/`
+
+| Файл | Платформа | Призначення |
+|------|-----------|-------------|
+| `scan-mac.sh` | macOS | Основний сканер (Terminal) |
+| `scan-win.ps1` | Windows | Основний сканер (PowerShell 5.1+) |
+| `build-mac-apps.sh` | macOS | Збирає `Twix Scan *.app` + іконку для Dock |
+| `Twix Scan Drives.command` | macOS | Подвійний клік → меню вибору томів |
+| `Twix Scan All Drives.command` | macOS | Подвійний клік → `--all` |
+| `Twix Scan Drives.app` | macOS | Генерується локально (`git pull` → `build-mac-apps.sh`) |
+| `Twix Scan All Drives.app` | macOS | Те саме, режим «усі томи» |
+
+`.app` у `.gitignore` — після кожного `git pull` на Mac за потреби: `./scripts/build-mac-apps.sh`.
+
 ## Можливості
 
 - **Інтерактивний вибір томів** — за замовчуванням після запуску
@@ -128,12 +142,40 @@ cd twix.production.drives
 ```
 
 3. `cp .env.example .env` → вставити токен
-4. Запуск:
+4. Запуск у Terminal:
 
 ```bash
 chmod +x ./scripts/scan-mac.sh
 ./scripts/scan-mac.sh
 ```
+
+**Ярлик у Finder / Dock:**
+
+| Спосіб | Dock (ліворуч, поруч із програмами) | Подвійний клік |
+|--------|--------------------------------------|----------------|
+| **`Twix Scan Drives.app`** | Так | Так |
+| `Twix Scan Drives.command` | Ні (macOS не приймає `.command` як програму) | Так |
+
+Після клону або `git pull` зберіть `.app` один раз:
+
+```bash
+./scripts/build-mac-apps.sh
+```
+
+Іконка Dock/Finder береться з `AppIcons/Assets.xcassets/AppIcon.appiconset` (той самий набір, що для веб).
+
+У `scripts/` з’являться:
+
+- `Twix Scan Drives.app` — меню вибору томів
+- `Twix Scan All Drives.app` — усі томи (`--all`)
+
+**Dock:** перетягни `.app` на **ліву** частину Dock (поруч із Finder, **ліворуч** від риски `···`). На `.command` Dock часто показує «неможливо» — це нормально.
+
+**Важливо:** не перенось `.app` з папки `scripts/` в інше місце — всередині закладений відносний шлях до репо. Можна зробити **alias** на Desktop, що вказує на `.app` у `scripts/`.
+
+Альтернатива без Dock: подвійний клік `Twix Scan Drives.command` (після `chmod +x scripts/*.command`).
+
+Перший запуск `.app`: ПКМ → **Відкрити** (Gatekeeper).
 
 5. Після `HTTP 200/201` (опційно): `git pull origin main`
 
@@ -162,6 +204,22 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
 6. Після успіху (опційно): `git pull origin main`
 
+### Ярлик Windows (ярлик на робочому столі)
+
+**Об'єкт:** `C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe`
+
+**Аргументи** (меню вибору, вікно лишається відкритим):
+
+```text
+-NoExit -ExecutionPolicy Bypass -File "C:\шлях\до\twix.production.drives\scripts\scan-win.ps1"
+```
+
+**Усі томи:** додати `-All` в кінці.
+
+**Робоча папка:** корінь клону (де `.env`).
+
+Потрібні `.env` у корені репо або User env `GITHUB_TOKEN`.
+
 ## 5) Оновлення сканерів на іншій машині
 
 Сканери — це файли з git, не окремий інсталятор. Щоб отримати нову версію (вибір томів, `.env`, виправлення):
@@ -169,6 +227,7 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 ```bash
 cd /шлях/до/twix.production.drives
 git pull origin main
+./scripts/build-mac-apps.sh
 ```
 
 ```powershell
@@ -176,6 +235,7 @@ cd C:\шлях\до\twix.production.drives
 git pull origin main
 ```
 
+- **macOS:** після `pull` перезберіть `.app` (`build-mac-apps.sh`), якщо користуєтесь Dock
 - **`.env` не в git** — після `pull` переконайтеся, що `.env` лишився на місці (або скопіюйте з іншої машини / створіть з `.env.example`)
 - **Веб-UI на Pages** оновлюється сам після push у `main`; на Windows ПК для перегляду достатньо браузера — [twix-production-drives.pages.dev](https://twix-production-drives.pages.dev)
 - Node.js на Windows **не потрібен** лише для сканування — тільки Git + PowerShell + `.env`
@@ -208,6 +268,8 @@ git pull origin main
 | Некоректні розміри (macOS) | Не задавайте `BLOCKSIZE` у shell — у скрипті `unset BLOCKSIZE` |
 | `unbound variable` при виборі тома (macOS) | Оновіть скрипт: `git pull origin main` |
 | `Unexpected token` / `Р“Р‘` у `scan-win.ps1` (Windows) | Стара кодування файла; `git pull origin main` (потрібен UTF-8 BOM). Запускайте через **Windows PowerShell**, не `cmd` |
+| Іконка `.app` не оновилась у Dock | `./scripts/build-mac-apps.sh`, прибрати старий ярлик з Dock, перетягнути `.app` знову |
+| `.app` не знаходить скрипт | Не переносити `.app` з `scripts/`; лише alias на Desktop |
 
 ## 8) Безпека
 

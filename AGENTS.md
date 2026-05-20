@@ -120,6 +120,7 @@ Commit message після PUT:
 | Що оновлювати | Дія |
 |---------------|-----|
 | **Сканери** | `git pull origin main` у клоні репо на цій машині |
+| **macOS Dock (.app)** | після `pull` також `./scripts/build-mac-apps.sh` (`.app` не в git) |
 | **Веб (браузер)** | Нічого ставити; відкрити прод URL; Ctrl+F5 після деплою |
 | **Веб (dev)** | `git pull` + `cd web && npm install` |
 
@@ -149,6 +150,32 @@ git pull origin main
 - `.env` читається через `Get-Content -Encoding UTF8`.
 - **Томи:** `Get-Volume`, типи `Fixed` + `Removable`, виключити `$env:SystemDrive`. Label диска → `name` (якщо порожній — `E:`).
 - **Приховані:** атрибути `Hidden`, `System` + імена кошиків.
+
+### Ярлик macOS (для користувача)
+
+**У Dock (ліва частина, поруч із Finder)** — лише **`.app`**, не `.command`. macOS не додає `.command` як програму в Dock.
+
+Збірка після клону / `git pull`:
+
+```bash
+./scripts/build-mac-apps.sh
+```
+
+Створює в `scripts/` (не комітити в інший шлях — `.app` шукає `.command` відносно себе). Іконка: `AppIcons/…/AppIcon.appiconset` → `iconutil` → `Contents/Resources/AppIcon.icns`.
+
+| Файл | Поведінка |
+|------|-----------|
+| `Twix Scan Drives.app` | відкриває `Twix Scan Drives.command` → `scan-mac.sh` |
+| `Twix Scan All Drives.app` | відкриває `Twix Scan All Drives.command` → `--all` |
+
+`.command` файли — запасний варіант (подвійний клік у Finder, без Dock).
+
+- `.app` **не переносити** з `scripts/`; alias на Desktop — ок.
+- Перший запуск: ПКМ → **Відкрити** (Gatekeeper).
+- `chmod +x scripts/*.command` якщо `.command` не запускається.
+- Після зміни іконок у `AppIcons/` — знову `build-mac-apps.sh`, перевстановити в Dock.
+
+**Реалізація `build-mac-apps.sh`:** shell-обгортка `.app` → `open -a Terminal` на відповідний `.command`; `AppIcon.icns` з `iconutil` + PNG 16…1024 з `AppIcon.appiconset`; `CFBundleIconFile` = `AppIcon`.
 
 ### Ярлик Windows (для користувача)
 
@@ -191,7 +218,7 @@ git pull origin main
 
 ### Що агент повинен оновлювати разом із змінами сканерів
 
-Зміна поведінки CLI / токена / платформи → синхронно оновити **мінімум**: `scripts/scan-mac.sh` або `scan-win.ps1` (обидва, якщо зміна спільна), `scripts/README.md`, `README.md`, цей розділ у `AGENTS.md`, за потреби `DATA_SCHEMA.md`.
+Зміна поведінки CLI / токена / платформи → синхронно оновити **мінімум**: `scripts/scan-mac.sh` або `scan-win.ps1` (обидва, якщо зміна спільна), за потреби `build-mac-apps.sh` / `.command`, `scripts/README.md`, `README.md`, цей розділ у `AGENTS.md`, за потреби `DATA_SCHEMA.md`.
 
 ---
 
@@ -236,13 +263,18 @@ twix.production.drives/
 ├── AGENTS.md              ← цей файл
 ├── README.md              ← огляд для людини
 ├── DATA_SCHEMA.md         ← специфікація JSON-схеми
+├── AppIcons/              ← PNG для веб (sync-app-icons) і macOS .app (build-mac-apps)
 ├── .env.example           ← шаблон GITHUB_TOKEN (копіювати в .env, не комітити)
-├── .gitignore
+├── .gitignore             ← .env, scripts/*.app, scripts/.mac-app-build/
 ├── data/
 │   └── drives.json        ← єдине джерело правди, записують сканери
 ├── scripts/
 │   ├── scan-mac.sh
 │   ├── scan-win.ps1
+│   ├── build-mac-apps.sh
+│   ├── Twix Scan Drives.command
+│   ├── Twix Scan All Drives.command
+│   ├── Twix Scan *.app    ← локальна збірка, не в git
 │   └── README.md          ← налаштування й використання сканерів
 └── web/
     ├── index.html
@@ -357,7 +389,9 @@ export default defineConfig({
 - Покрокову інструкцію створення fine-grained PAT (із посиланням `https://github.com/settings/personal-access-tokens`)
 - Як виставити `GITHUB_TOKEN`: пріоритет env var → `.env` у корені репо → помилка; альтернатива через `~/.zshrc` / Windows User env
 - Інтерактивний вибір томів (номери, діапазон, Enter = усі, `q` = скасувати) і прапорці `--all` / `-All`
-- Як оновити сканери на іншій машині (`git pull`) і що веб на Pages оновлюється без локальної установки
+- macOS: `.command`, `build-mac-apps.sh`, Dock через `.app` (не `.command`), іконка з `AppIcons`
+- Windows: ярлик PowerShell, UTF-8 BOM для `scan-win.ps1`
+- Як оновити сканери на іншій машині (`git pull`, `build-mac-apps.sh` на Mac) і що веб на Pages оновлюється без локальної установки
 - Розділ Troubleshooting: відсутній `jq`, прострочений PAT, 401/403/409/422 від API, `BLOCKSIZE` env var, перезапуск шела після зміни env var
 
 ### 7. Smoke-тест
@@ -852,6 +886,7 @@ export function pluralizeUk(n, forms) { /* forms: [one, few, many] */ }
 - [ ] Пошук фільтрує картки за назвою диска, папки, файла й розширенням
 - [ ] При активному пошуку на картках показуються блоки "Збіги:"
 - [ ] `scan-mac.sh` на macOS: показує зовнішні томи (без системного/`Macintosh HD*`), інтерактивний вибір і `--all` працюють; PUT повертає 200/201
+- [ ] `build-mac-apps.sh` створює `.app` з іконкою; `.app` лишається в `scripts/`
 - [ ] `scan-win.ps1` на Windows 10/11: список томів без диска `C:`, інтерактивний вибір і `-All` працюють аналогічно
 - [ ] `scan-win.ps1` збережено як UTF-8 **з BOM**; після редагування немає `ParserError` на Windows PowerShell 5.1
 - [ ] `.env.example` існує; `.env` у `.gitignore`; токен підхоплюється з env або `.env`

@@ -27,15 +27,20 @@
 
 ```
 .
-├── .env.example         ← шаблон для GITHUB_TOKEN (скопіювати в .env)
-├── AGENTS.md            ← повна специфікація для AI-агентів
-├── DATA_SCHEMA.md       ← JSON-схема
-├── data/drives.json     ← інвентар (у git; сканери пишуть через API)
+├── .env.example              ← шаблон GITHUB_TOKEN → скопіювати в .env
+├── AppIcons/                 ← іконки (веб + macOS .app через build-mac-apps.sh)
+├── AGENTS.md                 ← специфікація для AI-агентів
+├── DATA_SCHEMA.md            ← JSON-схема
+├── data/drives.json          ← інвентар (сканери пишуть у GitHub через API)
 ├── scripts/
-│   ├── scan-mac.sh      ← macOS
-│   ├── scan-win.ps1     ← Windows
-│   └── README.md        ← детальна інструкція сканерів
-└── web/                 ← Vite + React + Tailwind v4
+│   ├── scan-mac.sh           ← сканер macOS (Terminal)
+│   ├── scan-win.ps1          ← сканер Windows (PowerShell)
+│   ├── build-mac-apps.sh     ← збирає .app для Dock (після git pull на Mac)
+│   ├── Twix Scan Drives.command
+│   ├── Twix Scan All Drives.command
+│   ├── Twix Scan *.app       ← генеруються локально (у .gitignore)
+│   └── README.md             ← PAT, ярлики, troubleshooting
+└── web/                      ← UI (Cloudflare Pages, root /web)
 ```
 
 ## Стек
@@ -77,6 +82,14 @@ npm run dev
 cp .env.example .env   # один раз, вставити токен
 ./scripts/scan-mac.sh
 ```
+
+**Ярлик macOS (Dock):** після `git pull` на Mac:
+
+```bash
+./scripts/build-mac-apps.sh
+```
+
+Перетягни `scripts/Twix Scan Drives.app` у Dock (ліворуч від `···`). Іконка з `AppIcons/`. Файли `.command` — подвійний клік у Finder, у Dock не додаються.
 
 **Windows (PowerShell):**
 
@@ -125,6 +138,7 @@ git pull origin main
 ```bash
 cd ~/шлях/до/twix.production.drives
 git pull origin main
+./scripts/build-mac-apps.sh   # оновити .app у Dock після змін скриптів/іконок
 ```
 
 Переконайтеся, що є `.env` з `GITHUB_TOKEN` (скопіюйте з іншої машини безпечним способом або створіть з `.env.example`). Токен у git не комітиться.
