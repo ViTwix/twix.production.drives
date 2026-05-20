@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-05-20T06:27:40Z",
+    "updatedAt":  "2026-05-20T06:28:01Z",
     "drives":  [
                    {
                        "name":  "Black 1",
@@ -7070,36 +7070,36 @@
                    },
                    {
                        "name":  "Violet 1",
-                       "scannedAt":  "2026-05-20T06:19:53Z",
-                       "filesystem":  "ExFAT",
-                       "totalBytes":  1000185528320,
-                       "freeBytes":  16733962240,
-                       "usedBytes":  983451566080,
+                       "scannedAt":  "2026-05-20T06:28:01Z",
+                       "filesystem":  "Unknown",
+                       "totalBytes":  1000185266176,
+                       "freeBytes":  16734486528,
+                       "usedBytes":  983450779648,
                        "entries":  [
                                        {
                                            "type":  "folder",
                                            "name":  "14.08.2024 Nashe",
-                                           "sizeBytes":  188665298944
+                                           "sizeBytes":  188516810375
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "20.07.2024 Lviv",
-                                           "sizeBytes":  201926115328
+                                           "sizeBytes":  201691921946
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "21.07.2024 Garden Prostir",
-                                           "sizeBytes":  459595579392
+                                           "sizeBytes":  459427979096
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "27.07.2024 Didova Hatchyna",
-                                           "sizeBytes":  115775373312
+                                           "sizeBytes":  115646848790
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "Viknaroff Summer 2024",
-                                           "sizeBytes":  17449091072
+                                           "sizeBytes":  17434707154
                                        }
                                    ]
                    },
