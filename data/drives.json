@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-05-21T20:39:48Z",
+    "updatedAt":  "2026-05-21T20:40:53Z",
     "drives":  [
                    {
                        "name":  "Black 1",
@@ -3720,11 +3720,11 @@
                    },
                    {
                        "name":  "HDD 2",
-                       "scannedAt":  "2026-05-18T10:07:50Z",
+                       "scannedAt":  "2026-05-21T20:40:53Z",
                        "filesystem":  "NTFS",
                        "totalBytes":  3000457228288,
-                       "freeBytes":  930312192,
-                       "usedBytes":  2999526916096,
+                       "freeBytes":  40404791296,
+                       "usedBytes":  2960052436992,
                        "entries":  [
                                        {
                                            "type":  "folder",
@@ -3739,12 +3739,7 @@
                                        {
                                            "type":  "folder",
                                            "name":  "22.09.2018 Oronovskam",
-                                           "sizeBytes":  211465940361
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "23.05.2021 Real House",
-                                           "sizeBytes":  29297912890
+                                           "sizeBytes":  211466864401
                                        },
                                        {
                                            "type":  "folder",
@@ -4622,12 +4617,6 @@
                                            "name":  "3.11.2018 - SDE.mp4",
                                            "ext":  "mp4",
                                            "sizeBytes":  436308217
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "3.11.2018 - Wedding Film New.mp4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  10176594982
                                        },
                                        {
                                            "type":  "file",
