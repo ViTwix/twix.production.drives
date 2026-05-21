@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-05-21T20:40:53Z",
+    "updatedAt":  "2026-05-21T20:41:14Z",
     "drives":  [
                    {
                        "name":  "Black 1",
@@ -5108,11 +5108,11 @@
                    },
                    {
                        "name":  "HDD 3",
-                       "scannedAt":  "2026-05-18T10:07:50Z",
+                       "scannedAt":  "2026-05-21T20:41:14Z",
                        "filesystem":  "NTFS",
                        "totalBytes":  4000650883072,
-                       "freeBytes":  7141695488,
-                       "usedBytes":  3993509187584,
+                       "freeBytes":  16085250048,
+                       "usedBytes":  3984565633024,
                        "entries":  [
                                        {
                                            "type":  "folder",
@@ -5676,18 +5676,6 @@
                                            "name":  "29.08.2018 - Wedding Film.mp4",
                                            "ext":  "mp4",
                                            "sizeBytes":  4456930605
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "29.09.2018 - Highlights.mp4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  431615142
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "29.09.2018 - Wedding Film.mp4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  8511937427
                                        },
                                        {
                                            "type":  "file",
