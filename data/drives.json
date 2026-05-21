@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-05-21T17:54:11Z",
+    "updatedAt":  "2026-05-21T20:39:48Z",
     "drives":  [
                    {
                        "name":  "Black 1",
@@ -2299,22 +2299,12 @@
                    },
                    {
                        "name":  "HDD 1",
-                       "scannedAt":  "2026-05-18T10:07:50Z",
+                       "scannedAt":  "2026-05-21T20:39:48Z",
                        "filesystem":  "NTFS",
                        "totalBytes":  4000650883072,
-                       "freeBytes":  17252536320,
-                       "usedBytes":  3983398346752,
+                       "freeBytes":  407583580160,
+                       "usedBytes":  3593067302912,
                        "entries":  [
-                                       {
-                                           "type":  "folder",
-                                           "name":  "02.08.2020 Honey Hall",
-                                           "sizeBytes":  116491736350
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "1.08.2024 Nashe",
-                                           "sizeBytes":  61263865990
-                                       },
                                        {
                                            "type":  "folder",
                                            "name":  "15.09.2018",
@@ -2339,11 +2329,6 @@
                                            "type":  "folder",
                                            "name":  "21.05.2022 Vienna",
                                            "sizeBytes":  94094805475
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "22.09.2018 Oronovskam",
-                                           "sizeBytes":  212569234363
                                        },
                                        {
                                            "type":  "folder",
@@ -2743,7 +2728,7 @@
                                        },
                                        {
                                            "type":  "file",
-                                           "name":  "17.08.2025 - Highlight.mp4",
+                                           "name":  "17.08.2025 - Highlights.mp4",
                                            "ext":  "mp4",
                                            "sizeBytes":  684749122
                                        },
