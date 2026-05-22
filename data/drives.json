@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-05-22T10:13:08Z",
+    "updatedAt":  "2026-05-22T10:14:29Z",
     "drives":  [
                    {
                        "name":  "Black 1",
@@ -2269,11 +2269,11 @@
                    },
                    {
                        "name":  "HDD 1",
-                       "scannedAt":  "2026-05-21T20:39:48Z",
+                       "scannedAt":  "2026-05-22T10:14:29Z",
                        "filesystem":  "NTFS",
                        "totalBytes":  4000650883072,
-                       "freeBytes":  407583580160,
-                       "usedBytes":  3593067302912,
+                       "freeBytes":  786769014784,
+                       "usedBytes":  3213881868288,
                        "entries":  [
                                        {
                                            "type":  "folder",
@@ -2307,18 +2307,8 @@
                                        },
                                        {
                                            "type":  "folder",
-                                           "name":  "27.06.2021 Garden Hall",
-                                           "sizeBytes":  275495519655
-                                       },
-                                       {
-                                           "type":  "folder",
                                            "name":  "28.01.2023",
                                            "sizeBytes":  226673022572
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "3.11.2019 Berlin",
-                                           "sizeBytes":  103685156127
                                        },
                                        {
                                            "type":  "folder",
