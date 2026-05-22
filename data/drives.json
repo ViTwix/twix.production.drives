@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-05-22T09:45:15Z",
+    "updatedAt":  "2026-05-22T09:50:49Z",
     "drives":  [
                    {
                        "name":  "Black 1",
@@ -1496,17 +1496,12 @@
                    },
                    {
                        "name":  "Black 8",
-                       "scannedAt":  "2026-05-18T10:07:50Z",
+                       "scannedAt":  "2026-05-22T09:50:49Z",
                        "filesystem":  "NTFS",
                        "totalBytes":  5000945201152,
-                       "freeBytes":  325079048192,
-                       "usedBytes":  4675866152960,
+                       "freeBytes":  634566086656,
+                       "usedBytes":  4366379114496,
                        "entries":  [
-                                       {
-                                           "type":  "folder",
-                                           "name":  "! РІЗНЕ - перевірити",
-                                           "sizeBytes":  24849123668
-                                       },
                                        {
                                            "type":  "folder",
                                            "name":  "09.05.2026 Stryi",
@@ -1531,11 +1526,6 @@
                                            "type":  "folder",
                                            "name":  "13.09.2025 Sfera",
                                            "sizeBytes":  435199583948
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "17.05.2025 Edelweis",
-                                           "sizeBytes":  284634726492
                                        },
                                        {
                                            "type":  "folder",
