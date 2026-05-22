@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-05-22T09:50:49Z",
+    "updatedAt":  "2026-05-22T09:51:12Z",
     "drives":  [
                    {
                        "name":  "Black 1",
@@ -862,71 +862,71 @@
                    },
                    {
                        "name":  "Black 3",
-                       "scannedAt":  "2026-05-20T06:31:33Z",
-                       "filesystem":  "ExFAT",
-                       "totalBytes":  5000933670912,
-                       "freeBytes":  128924516352,
-                       "usedBytes":  4872009154560,
+                       "scannedAt":  "2026-05-22T09:51:12Z",
+                       "filesystem":  "Unknown",
+                       "totalBytes":  5000931573760,
+                       "freeBytes":  128916127744,
+                       "usedBytes":  4872015446016,
                        "entries":  [
                                        {
                                            "type":  "folder",
                                            "name":  "07.06.2025 Emily Resort",
-                                           "sizeBytes":  653239779328
+                                           "sizeBytes":  651830179525
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "08.06.2025 River",
-                                           "sizeBytes":  488110030848
+                                           "sizeBytes":  486730831746
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "10.07.2025 Lviv Stavky",
-                                           "sizeBytes":  597688320
+                                           "sizeBytes":  555472687
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "12.07.2025 Onyx",
-                                           "sizeBytes":  571538931712
+                                           "sizeBytes":  570265303485
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "17.05.2025 Nashe",
-                                           "sizeBytes":  621405011968
+                                           "sizeBytes":  620313459356
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "17.07.2025 Liteplo",
-                                           "sizeBytes":  415865241600
+                                           "sizeBytes":  414636546484
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "18.10.2025 Lviv Kilinski",
-                                           "sizeBytes":  476659580928
+                                           "sizeBytes":  475584416710
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "2.05.2026 Ireland",
-                                           "sizeBytes":  282213744640
+                                           "sizeBytes":  281248464456
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "23.08.25 Lviv",
-                                           "sizeBytes":  532898906112
+                                           "sizeBytes":  531812004914
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "24.05.2025 Nashe",
-                                           "sizeBytes":  491668897792
+                                           "sizeBytes":  489537824313
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "28.06.2024 Vienna",
-                                           "sizeBytes":  86478159872
+                                           "sizeBytes":  83924728987
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "R-Studio",
-                                           "sizeBytes":  513802240
+                                           "sizeBytes":  218580639
                                        },
                                        {
                                            "type":  "file",
