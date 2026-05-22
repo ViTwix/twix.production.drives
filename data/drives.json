@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-05-22T10:14:29Z",
+    "updatedAt":  "2026-05-22T10:15:49Z",
     "drives":  [
                    {
                        "name":  "Black 1",
@@ -6517,11 +6517,11 @@
                    },
                    {
                        "name":  "HDD 4",
-                       "scannedAt":  "2026-05-21T20:41:55Z",
+                       "scannedAt":  "2026-05-22T10:15:49Z",
                        "filesystem":  "NTFS",
                        "totalBytes":  4000768323584,
-                       "freeBytes":  6728388608,
-                       "usedBytes":  3994039934976,
+                       "freeBytes":  137192054784,
+                       "usedBytes":  3863576268800,
                        "entries":  [
                                        {
                                            "type":  "folder",
@@ -6567,11 +6567,6 @@
                                            "type":  "folder",
                                            "name":  "23.05.2021 Real House",
                                            "sizeBytes":  30878436908
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "25.09.2021 Vienna",
-                                           "sizeBytes":  130462288394
                                        },
                                        {
                                            "type":  "folder",
