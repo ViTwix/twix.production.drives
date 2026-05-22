@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-05-21T20:41:55Z",
+    "updatedAt":  "2026-05-22T09:44:29Z",
     "drives":  [
                    {
                        "name":  "Black 1",
@@ -658,21 +658,16 @@
                    },
                    {
                        "name":  "Black 2",
-                       "scannedAt":  "2026-05-18T10:07:50Z",
+                       "scannedAt":  "2026-05-22T09:44:29Z",
                        "filesystem":  "Unknown",
                        "totalBytes":  4000456900608,
-                       "freeBytes":  41266446336,
-                       "usedBytes":  3959190454272,
+                       "freeBytes":  2046670667776,
+                       "usedBytes":  1953786232832,
                        "entries":  [
                                        {
                                            "type":  "folder",
                                            "name":  "07.06.2025 Liteplo Lemon",
                                            "sizeBytes":  407161595453
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "08.06.2025 River",
-                                           "sizeBytes":  492106701462
                                        },
                                        {
                                            "type":  "folder",
@@ -696,28 +691,13 @@
                                        },
                                        {
                                            "type":  "folder",
-                                           "name":  "17.05.2025 Nashe",
-                                           "sizeBytes":  620313459356
-                                       },
-                                       {
-                                           "type":  "folder",
                                            "name":  "18.08.2024 Liteplo",
                                            "sizeBytes":  216932231188
                                        },
                                        {
                                            "type":  "folder",
-                                           "name":  "24.05.2025 Nashe",
-                                           "sizeBytes":  484979800265
-                                       },
-                                       {
-                                           "type":  "folder",
                                            "name":  "24.08.2024 Lviv",
                                            "sizeBytes":  220409885053
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "25.05.2025 Nashe",
-                                           "sizeBytes":  407397070267
                                        },
                                        {
                                            "type":  "folder",
@@ -757,18 +737,6 @@
                                            "name":  "25.05.2025 - Wedding Film.mp4",
                                            "ext":  "mp4",
                                            "sizeBytes":  12931118230
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "28.09.2024  - Highlights.mp4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  411565451
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "28.09.2024  - Wedding Film.mp4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  9116873902
                                        },
                                        {
                                            "type":  "file",
@@ -835,48 +803,6 @@
                                            "name":  "ODA - 24.10.mp4",
                                            "ext":  "mp4",
                                            "sizeBytes":  195793292
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "TWIX7476.MP4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  66059824
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "TWIX7477.MP4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  94396904
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "TWIX7478.MP4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  85090128
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "TWIX7479.MP4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  75011684
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "TWIX7480.MP4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  153940456
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "TWIX7481.MP4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  105726696
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "TWIX7482.MP4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  118063388
                                        }
                                    ]
                    },
