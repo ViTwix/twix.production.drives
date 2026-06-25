@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-06-25T20:54:44Z",
+    "updatedAt":  "2026-06-25T20:55:08Z",
     "drives":  [
                    {
                        "name":  "Backup 4",
@@ -3745,7 +3745,7 @@
                    },
                    {
                        "name":  "HDD 2",
-                       "scannedAt":  "2026-05-22T10:16:03Z",
+                       "scannedAt":  "2026-06-25T20:55:08Z",
                        "filesystem":  "NTFS",
                        "totalBytes":  3000457228288,
                        "freeBytes":  40404791296,
