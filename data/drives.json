@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-06-25T20:53:55Z",
+    "updatedAt":  "2026-06-25T20:54:08Z",
     "drives":  [
                    {
                        "name":  "Backup 4",
@@ -643,76 +643,76 @@
                    },
                    {
                        "name":  "Black 10",
-                       "scannedAt":  "2026-05-22T10:27:17Z",
+                       "scannedAt":  "2026-06-25T20:54:08Z",
                        "filesystem":  "NTFS",
                        "totalBytes":  5000945201152,
-                       "freeBytes":  81177665536,
-                       "usedBytes":  4919767535616,
+                       "freeBytes":  81173471232,
+                       "usedBytes":  4919771729920,
                        "entries":  [
                                        {
                                            "type":  "folder",
                                            "name":  "01 Export",
-                                           "sizeBytes":  84494196736
+                                           "sizeBytes":  84494165221
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "10.06.2025 Liteplo",
-                                           "sizeBytes":  474688962560
+                                           "sizeBytes":  474685895633
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "11.10.2025 Avalon",
-                                           "sizeBytes":  445033254912
+                                           "sizeBytes":  445031142852
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "17.05.2025 Vienna",
-                                           "sizeBytes":  260364537856
+                                           "sizeBytes":  260362859097
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "18.05.2025 Vienna",
-                                           "sizeBytes":  267386400768
+                                           "sizeBytes":  267384281641
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "19.10.2025 Rivne",
-                                           "sizeBytes":  511399616512
+                                           "sizeBytes":  511397567875
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "25.05.2025 Nashe",
-                                           "sizeBytes":  408679030784
+                                           "sizeBytes":  408684487937
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "25.10.2025 Pallada",
-                                           "sizeBytes":  374079483904
+                                           "sizeBytes":  374077424262
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "26.07.2025 Liteplo",
-                                           "sizeBytes":  509032054784
+                                           "sizeBytes":  509028957518
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "27.09.2025 Radehiv",
-                                           "sizeBytes":  585326354432
+                                           "sizeBytes":  585323702199
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "28.09.2025 Lviv",
-                                           "sizeBytes":  257073299456
+                                           "sizeBytes":  257072338079
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "4.10.2025 Dubno",
-                                           "sizeBytes":  609528614912
+                                           "sizeBytes":  609527124821
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "6.06.2025 Liteplo Elina",
-                                           "sizeBytes":  132370087936
+                                           "sizeBytes":  132369019922
                                        }
                                    ]
                    },
