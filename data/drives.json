@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-07-14T20:12:27Z",
+    "updatedAt":  "2026-07-14T20:13:03Z",
     "drives":  [
                    {
                        "name":  "Backup 4",
@@ -7102,16 +7102,31 @@
                    },
                    {
                        "name":  "Seagate Hub",
-                       "scannedAt":  "2026-06-25T20:53:55Z",
+                       "scannedAt":  "2026-07-14T20:13:03Z",
                        "filesystem":  "Unknown",
                        "totalBytes":  10000434987008,
-                       "freeBytes":  3627040112640,
-                       "usedBytes":  6373394874368,
+                       "freeBytes":  357909659648,
+                       "usedBytes":  9642525327360,
                        "entries":  [
                                        {
                                            "type":  "folder",
+                                           "name":  "02.07.2026 Warszaw",
+                                           "sizeBytes":  213322946532
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "04.06.2026 Dolyna",
+                                           "sizeBytes":  603070796676
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "04.07.2026 Dobrotiv",
+                                           "sizeBytes":  536343667182
+                                       },
+                                       {
+                                           "type":  "folder",
                                            "name":  "06.06.2026 Lviv",
-                                           "sizeBytes":  619122563244
+                                           "sizeBytes":  619122567340
                                        },
                                        {
                                            "type":  "folder",
@@ -7141,7 +7156,7 @@
                                        {
                                            "type":  "folder",
                                            "name":  "20.06.2026 Lviv",
-                                           "sizeBytes":  590178229664
+                                           "sizeBytes":  594767174501
                                        },
                                        {
                                            "type":  "folder",
@@ -7157,6 +7172,26 @@
                                            "type":  "folder",
                                            "name":  "26.05.2026 Kyiv",
                                            "sizeBytes":  370718162080
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "26.06.2026 Liteplo",
+                                           "sizeBytes":  492177763100
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "26.06.2026 Nashe",
+                                           "sizeBytes":  490280652224
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "27.06.2026 Stavky",
+                                           "sizeBytes":  397970136292
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "27.06.2026 Stryi",
+                                           "sizeBytes":  530322168230
                                        },
                                        {
                                            "type":  "folder",
