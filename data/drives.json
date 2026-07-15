@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-07-14T20:13:03Z",
+    "updatedAt":  "2026-07-15T12:04:52Z",
     "drives":  [
                    {
                        "name":  "Backup 4",
@@ -1446,12 +1446,17 @@
                    },
                    {
                        "name":  "Black 8",
-                       "scannedAt":  "2026-05-22T09:50:49Z",
+                       "scannedAt":  "2026-07-15T12:04:52Z",
                        "filesystem":  "NTFS",
                        "totalBytes":  5000945201152,
-                       "freeBytes":  634566086656,
-                       "usedBytes":  4366379114496,
+                       "freeBytes":  152998842368,
+                       "usedBytes":  4847946358784,
                        "entries":  [
+                                       {
+                                           "type":  "folder",
+                                           "name":  "07.09.2025 Frankivsk",
+                                           "sizeBytes":  567095614771
+                                       },
                                        {
                                            "type":  "folder",
                                            "name":  "09.05.2026 Stryi",
@@ -1461,6 +1466,16 @@
                                            "type":  "folder",
                                            "name":  "10.10.2025 Lviv MiniFilm",
                                            "sizeBytes":  138699084484
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "11.07.2026 Bukovel",
+                                           "sizeBytes":  735808962644
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "12.07.2026 Lviv",
+                                           "sizeBytes":  513134915835
                                        },
                                        {
                                            "type":  "folder",
@@ -1479,28 +1494,13 @@
                                        },
                                        {
                                            "type":  "folder",
-                                           "name":  "22.08.25 Liteplo",
+                                           "name":  "22.08.2025 Liteplo",
                                            "sizeBytes":  539365905505
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "26.09.2022 Lviv",
                                            "sizeBytes":  181769979182
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "29.09.2018 Karpaty",
-                                           "sizeBytes":  184061468683
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "5.09.2025 Lutsk",
-                                           "sizeBytes":  583319223039
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "7.09.25 Frankivsk",
-                                           "sizeBytes":  567095614771
                                        }
                                    ]
                    },
