@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-07-15T12:05:16Z",
+    "updatedAt":  "2026-07-15T12:05:37Z",
     "drives":  [
                    {
                        "name":  "Backup 4",
@@ -7300,51 +7300,119 @@
                    },
                    {
                        "name":  "SSD SanDisk",
-                       "scannedAt":  "2026-05-22T20:21:39Z",
-                       "filesystem":  "ExFAT",
-                       "totalBytes":  4000701218816,
-                       "freeBytes":  2294789963776,
-                       "usedBytes":  1705911255040,
+                       "scannedAt":  "2026-07-15T12:05:37Z",
+                       "filesystem":  "Unknown",
+                       "totalBytes":  4000700956672,
+                       "freeBytes":  797101260800,
+                       "usedBytes":  3203599695872,
                        "entries":  [
                                        {
                                            "type":  "folder",
                                            "name":  "18.09.2025 Krakow",
-                                           "sizeBytes":  331645976576
+                                           "sizeBytes":  331185156903
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "2.05.2026 Ireland",
-                                           "sizeBytes":  281371213824
+                                           "sizeBytes":  281248464456
                                        },
                                        {
                                            "type":  "folder",
-                                           "name":  "22.08.25 Liteplo Project",
-                                           "sizeBytes":  6724780032
+                                           "name":  "22.08.25 Liteplo",
+                                           "sizeBytes":  554402551257
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "23.05.2026 Rozpys",
+                                           "sizeBytes":  112124587761
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "31.08.2025 Nashe",
-                                           "sizeBytes":  394915479552
+                                           "sizeBytes":  394711000910
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "6.09.2025 Nashe",
+                                           "sizeBytes":  416321428741
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "6.09.2025 Vienna",
-                                           "sizeBytes":  230299533312
+                                           "sizeBytes":  239019356893
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "9.05.2026 SDE",
-                                           "sizeBytes":  357978865664
+                                           "sizeBytes":  357321977168
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "twix_projects_2025",
-                                           "sizeBytes":  143917056
+                                           "sizeBytes":  141016631
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "VIP 03.06.2026",
+                                           "sizeBytes":  14144137217
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "Yulya Falendysh",
-                                           "sizeBytes":  20903100416
+                                           "sizeBytes":  20889025424
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "Оленка",
+                                           "sizeBytes":  10973932086
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "04.07.2026 - SDE.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  779043646
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "06.09.2025 - Bonus.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  1160532777
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "06.09.2025 - FIlm.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  12398093341
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "06.09.2025 - Highlights Vertical.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  581187993
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "06.09.2025 - Highlights.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  655386901
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "06.09.2025 - Wedding Film.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  26950608466
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "06.09.2025 Highlights New.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  783745534
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "06.09.2025 Highlights.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  670830751
                                        },
                                        {
                                            "type":  "file",
@@ -7372,6 +7440,36 @@
                                        },
                                        {
                                            "type":  "file",
+                                           "name":  "11.07.2026 - SDE.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  657670403
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "11.10.2025 - Highlights.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  895274274
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "11.10.2025 - Wedding Film.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  23886448077
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "12.07.2026 - SDE.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  576963609
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "13.06.2026 - SDE.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  952825164
+                                       },
+                                       {
+                                           "type":  "file",
                                            "name":  "14.06.2025 - Wedding Film.mp4",
                                            "ext":  "mp4",
                                            "sizeBytes":  4679064133
@@ -7390,9 +7488,39 @@
                                        },
                                        {
                                            "type":  "file",
-                                           "name":  "20.09.2025 - Highlights Old.mp4",
+                                           "name":  "16.08.2025 - Highlights.mp4",
                                            "ext":  "mp4",
-                                           "sizeBytes":  1003401248
+                                           "sizeBytes":  665236178
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "16.08.2025 - Wedding Film.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  12807193239
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "20.02.2020 - Henna Night Film.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  4100203817
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "20.06.2026 - SDE.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  1119907014
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "20.09.2025 - Film New.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  10928065203
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "20.09.2025 - Highlights New.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  1024862510
                                        },
                                        {
                                            "type":  "file",
@@ -7408,15 +7536,129 @@
                                        },
                                        {
                                            "type":  "file",
+                                           "name":  "22.02.2020 - Highlights.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  629732886
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "22.02.2020 - Teaser Stories.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  74427620
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "22.02.2020 - Teaser.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  102983283
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "22.02.2020 - Wedding Film.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  7607852134
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "22.08.2025 - Wedding Film New.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  18488856019
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "23.05.2026 - SDE.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  589361689
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "23.08.2025 - Highlights New.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  928042357
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "23.08.25 - Wedding Film Big.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  19854473840
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "23.08.25 - Wedding Film.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  12640984341
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "26.07.2025 - Highlights New.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  1035789974
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "27.09.2025 - Highlights.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  901816061
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "27.09.2025 - Wedding Film.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  15035171158
+                                       },
+                                       {
+                                           "type":  "file",
                                            "name":  "28.08.2025 - Highlights.mp4",
                                            "ext":  "mp4",
                                            "sizeBytes":  749968281
                                        },
                                        {
                                            "type":  "file",
+                                           "name":  "31.08.2025 - Wedding Film.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  8473624206
+                                       },
+                                       {
+                                           "type":  "file",
                                            "name":  "31.08.2025 Navaria Nova - Highlights.mp4",
                                            "ext":  "mp4",
                                            "sizeBytes":  1227483354
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "Highlights+ col X 20.09.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  286481818
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "Twix Logo 2024 White.png",
+                                           "ext":  "png",
+                                           "sizeBytes":  84677
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "Twix Touche.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  595127
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "TwixPro_Velvet.cube",
+                                           "ext":  "cube",
+                                           "sizeBytes":  970470
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "ЗВУК 09.05.2026.zip",
+                                           "ext":  "zip",
+                                           "sizeBytes":  3281480806
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "ЗВУК_30.05.26.zip",
+                                           "ext":  "zip",
+                                           "sizeBytes":  6588444272
                                        }
                                    ]
                    },
