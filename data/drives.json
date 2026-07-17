@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-07-15T12:05:37Z",
+    "updatedAt":  "2026-07-17T20:53:46Z",
     "drives":  [
                    {
                        "name":  "Backup 4",
@@ -1060,175 +1060,31 @@
                    },
                    {
                        "name":  "Black 4",
-                       "scannedAt":  "2026-05-22T10:28:37Z",
-                       "filesystem":  "ExFAT",
-                       "totalBytes":  5000844804096,
-                       "freeBytes":  16702504960,
-                       "usedBytes":  4984142299136,
+                       "scannedAt":  "2026-07-17T20:53:46Z",
+                       "filesystem":  "Unknown",
+                       "totalBytes":  5000844541952,
+                       "freeBytes":  3399107215360,
+                       "usedBytes":  1601737326592,
                        "entries":  [
                                        {
                                            "type":  "folder",
                                            "name":  "02.08.2025 Lviv",
-                                           "sizeBytes":  467693469696
+                                           "sizeBytes":  468045906135
                                        },
                                        {
                                            "type":  "folder",
-                                           "name":  "05.07.2025 Lviv Sirka",
-                                           "sizeBytes":  143292628992
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "16.08.2025 Lion",
-                                           "sizeBytes":  864476725248
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "16.08.2025 Nashe",
-                                           "sizeBytes":  431617474560
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "20.07.2025 Aquarel",
-                                           "sizeBytes":  750752104448
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "20.07.2025 Pallada",
-                                           "sizeBytes":  453789351936
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "26.07.2025 Pallada",
-                                           "sizeBytes":  352991838208
+                                           "name":  "23.05.2026 Rozpys",
+                                           "sizeBytes":  112124587761
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "26.07.2025 Panska Gora",
-                                           "sizeBytes":  550904791040
+                                           "sizeBytes":  551285139885
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "8.08.2025 Fenton",
-                                           "sizeBytes":  469853011968
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "9.08.2025 Liteplo",
-                                           "sizeBytes":  378540130304
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "05.07.2025 - Reels.MOV",
-                                           "ext":  "mov",
-                                           "sizeBytes":  42383496
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "05.07.2025 Liteplo - Highlights.mp4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  661568442
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "05.07.2025 Liteplo - Wedding Film.mp4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  17712516798
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "06.07.2024 - SDE.mp4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  562428931
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "06.07.2024 - Wedding Film.mp4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  10710927620
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "06.07.2025 - Highlights 4K.mp4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  746782426
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "06.07.2025 - Wedding Film 4K.mp4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  14093185380
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "07.06.2025 - SDE.mp4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  706154655
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "07.06.2025 Liteplo - Highlights.mp4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  1278911337
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "07.06.2025 Liteplo - SDE.mp4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  787098784
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "07.06.2025 Liteplo - Wedding Film.mp4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  12805787379
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "09.08.2025 - Highlights.mp4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  1081036966
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "09.08.2025 - Wedding Film.mp4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  15325380222
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "15.05.2025 - Highlights.mp4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  720666292
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "15.05.2025 - Wedding Film.mp4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  16220953487
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "18.05.2025 Vienna - Highlights.mp4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  895179724
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "18.05.2025 Vienna - Wedding Film.mp4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  15961207641
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "4.09.2025 - SDE.mp4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  1787463639
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "Twix Wedding Film.mpg",
-                                           "ext":  "mpg",
-                                           "sizeBytes":  8076797956
+                                           "sizeBytes":  469632778033
                                        }
                                    ]
                    },
