@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-07-20T09:49:41Z",
+    "updatedAt":  "2026-07-21T12:59:20Z",
     "drives":  [
                    {
                        "name":  "Backup 4",
@@ -786,11 +786,11 @@
                    },
                    {
                        "name":  "Black 3",
-                       "scannedAt":  "2026-05-22T09:51:12Z",
+                       "scannedAt":  "2026-07-21T12:59:20Z",
                        "filesystem":  "Unknown",
                        "totalBytes":  5000931573760,
-                       "freeBytes":  128916127744,
-                       "usedBytes":  4872015446016,
+                       "freeBytes":  182496264192,
+                       "usedBytes":  4818435309568,
                        "entries":  [
                                        {
                                            "type":  "folder",
@@ -824,6 +824,11 @@
                                        },
                                        {
                                            "type":  "folder",
+                                           "name":  "18.07.2026 Nashe",
+                                           "sizeBytes":  478079175001
+                                       },
+                                       {
+                                           "type":  "folder",
                                            "name":  "18.10.2025 Lviv Kilinski",
                                            "sizeBytes":  475584416710
                                        },
@@ -831,11 +836,6 @@
                                            "type":  "folder",
                                            "name":  "2.05.2026 Ireland",
                                            "sizeBytes":  281248464456
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "23.08.25 Lviv",
-                                           "sizeBytes":  531812004914
                                        },
                                        {
                                            "type":  "folder",
