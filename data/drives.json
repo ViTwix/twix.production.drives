@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-07-22T06:21:40Z",
+    "updatedAt":  "2026-07-22T23:30:09Z",
     "drives":  [
                    {
                        "name":  "Backup 4",
@@ -1045,11 +1045,11 @@
                    },
                    {
                        "name":  "Black 4",
-                       "scannedAt":  "2026-07-22T06:21:25Z",
+                       "scannedAt":  "2026-07-22T23:30:09Z",
                        "filesystem":  "Unknown",
                        "totalBytes":  5000844541952,
-                       "freeBytes":  2259637239808,
-                       "usedBytes":  2741207302144,
+                       "freeBytes":  2259537362944,
+                       "usedBytes":  2741307179008,
                        "entries":  [
                                        {
                                            "type":  "folder",
@@ -1085,6 +1085,11 @@
                                            "type":  "folder",
                                            "name":  "8.08.2025 Fenton",
                                            "sizeBytes":  469632778033
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "testdisk-7.2",
+                                           "sizeBytes":  80138721
                                        }
                                    ]
                    },
