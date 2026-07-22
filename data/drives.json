@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-07-22T23:30:09Z",
+    "updatedAt":  "2026-07-22T23:30:29Z",
     "drives":  [
                    {
                        "name":  "Backup 4",
@@ -786,16 +786,21 @@
                    },
                    {
                        "name":  "Black 3",
-                       "scannedAt":  "2026-07-22T06:21:40Z",
+                       "scannedAt":  "2026-07-22T23:30:29Z",
                        "filesystem":  "Unknown",
                        "totalBytes":  5000931573760,
-                       "freeBytes":  1324443762688,
-                       "usedBytes":  3676487811072,
+                       "freeBytes":  640348585984,
+                       "usedBytes":  4360582987776,
                        "entries":  [
                                        {
                                            "type":  "folder",
                                            "name":  "12.07.2025 Onyx",
                                            "sizeBytes":  570265303485
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "12.07.2026 Edelweis",
+                                           "sizeBytes":  683033774503
                                        },
                                        {
                                            "type":  "folder",
