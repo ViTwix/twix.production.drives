@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-07-22T06:21:25Z",
+    "updatedAt":  "2026-07-22T06:21:40Z",
     "drives":  [
                    {
                        "name":  "Backup 4",
@@ -786,27 +786,12 @@
                    },
                    {
                        "name":  "Black 3",
-                       "scannedAt":  "2026-07-21T12:59:20Z",
+                       "scannedAt":  "2026-07-22T06:21:40Z",
                        "filesystem":  "Unknown",
                        "totalBytes":  5000931573760,
-                       "freeBytes":  182496264192,
-                       "usedBytes":  4818435309568,
+                       "freeBytes":  1324443762688,
+                       "usedBytes":  3676487811072,
                        "entries":  [
-                                       {
-                                           "type":  "folder",
-                                           "name":  "07.06.2025 Emily Resort",
-                                           "sizeBytes":  651830179525
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "08.06.2025 River",
-                                           "sizeBytes":  486730831746
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "10.07.2025 Lviv Stavky",
-                                           "sizeBytes":  555472687
-                                       },
                                        {
                                            "type":  "folder",
                                            "name":  "12.07.2025 Onyx",
