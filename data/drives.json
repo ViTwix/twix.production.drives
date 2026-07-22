@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-07-21T12:59:43Z",
+    "updatedAt":  "2026-07-22T06:21:25Z",
     "drives":  [
                    {
                        "name":  "Backup 4",
@@ -1060,16 +1060,31 @@
                    },
                    {
                        "name":  "Black 4",
-                       "scannedAt":  "2026-07-21T12:59:43Z",
+                       "scannedAt":  "2026-07-22T06:21:25Z",
                        "filesystem":  "Unknown",
                        "totalBytes":  5000844541952,
-                       "freeBytes":  3399106953216,
-                       "usedBytes":  1601737588736,
+                       "freeBytes":  2259637239808,
+                       "usedBytes":  2741207302144,
                        "entries":  [
                                        {
                                            "type":  "folder",
                                            "name":  "02.08.2025 Lviv",
                                            "sizeBytes":  468045906135
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "07.06.2025 Emily Resort",
+                                           "sizeBytes":  651830179525
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "08.06.2025 River",
+                                           "sizeBytes":  486730831746
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "10.07.2025 Lviv Stavky",
+                                           "sizeBytes":  555472687
                                        },
                                        {
                                            "type":  "folder",
