@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-07-22T23:30:29Z",
+    "updatedAt":  "2026-07-22T23:30:46Z",
     "drives":  [
                    {
                        "name":  "Backup 4",
@@ -6968,11 +6968,11 @@
                    },
                    {
                        "name":  "Seagate Hub",
-                       "scannedAt":  "2026-07-14T20:13:03Z",
+                       "scannedAt":  "2026-07-22T23:30:46Z",
                        "filesystem":  "Unknown",
                        "totalBytes":  10000434987008,
-                       "freeBytes":  357909659648,
-                       "usedBytes":  9642525327360,
+                       "freeBytes":  110401945600,
+                       "usedBytes":  9890033041408,
                        "entries":  [
                                        {
                                            "type":  "folder",
@@ -6981,13 +6981,13 @@
                                        },
                                        {
                                            "type":  "folder",
-                                           "name":  "04.06.2026 Dolyna",
-                                           "sizeBytes":  603070796676
+                                           "name":  "04.07.2026 Dobrotiv",
+                                           "sizeBytes":  554002143034
                                        },
                                        {
                                            "type":  "folder",
-                                           "name":  "04.07.2026 Dobrotiv",
-                                           "sizeBytes":  536343667182
+                                           "name":  "04.07.2026 Dolyna",
+                                           "sizeBytes":  603070796676
                                        },
                                        {
                                            "type":  "folder",
@@ -6998,6 +6998,11 @@
                                            "type":  "folder",
                                            "name":  "06.06.2026 Nashe",
                                            "sizeBytes":  645861946310
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "11.07.2026 Ternopil",
+                                           "sizeBytes":  680736255407
                                        },
                                        {
                                            "type":  "folder",
@@ -7016,11 +7021,6 @@
                                        },
                                        {
                                            "type":  "folder",
-                                           "name":  "18.09.2025 Krakow",
-                                           "sizeBytes":  331185156903
-                                       },
-                                       {
-                                           "type":  "folder",
                                            "name":  "20.06.2026 Lviv",
                                            "sizeBytes":  594767174501
                                        },
@@ -7028,11 +7028,6 @@
                                            "type":  "folder",
                                            "name":  "23.05.2026 Nashe",
                                            "sizeBytes":  676812103406
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "23.05.2026 Rozpys",
-                                           "sizeBytes":  112124587761
                                        },
                                        {
                                            "type":  "folder",
@@ -7068,12 +7063,6 @@
                                            "type":  "folder",
                                            "name":  "31.05.2026 Nashe",
                                            "sizeBytes":  499586885663
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "ЗВУК_30.05.26.zip",
-                                           "ext":  "zip",
-                                           "sizeBytes":  6588444272
                                        }
                                    ]
                    },
