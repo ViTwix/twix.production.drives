@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-07-23T20:49:13Z",
+    "updatedAt":  "2026-07-23T20:49:48Z",
     "drives":  [
                    {
                        "name":  "Backup 2",
@@ -2393,11 +2393,11 @@
                    },
                    {
                        "name":  "Black 8",
-                       "scannedAt":  "2026-07-15T12:04:52Z",
+                       "scannedAt":  "2026-07-23T20:49:48Z",
                        "filesystem":  "NTFS",
                        "totalBytes":  5000945201152,
-                       "freeBytes":  152998842368,
-                       "usedBytes":  4847946358784,
+                       "freeBytes":  151493472256,
+                       "usedBytes":  4849451728896,
                        "entries":  [
                                        {
                                            "type":  "folder",
@@ -2407,7 +2407,7 @@
                                        {
                                            "type":  "folder",
                                            "name":  "09.05.2026 Stryi",
-                                           "sizeBytes":  544707713233
+                                           "sizeBytes":  545162100545
                                        },
                                        {
                                            "type":  "folder",
@@ -2442,7 +2442,7 @@
                                        {
                                            "type":  "folder",
                                            "name":  "22.08.2025 Liteplo",
-                                           "sizeBytes":  539365905505
+                                           "sizeBytes":  540416807567
                                        },
                                        {
                                            "type":  "folder",
