@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-07-23T20:47:55Z",
+    "updatedAt":  "2026-07-23T20:48:11Z",
     "drives":  [
                    {
                        "name":  "Backup 2",
@@ -3161,11 +3161,11 @@
                    },
                    {
                        "name":  "HDD 1",
-                       "scannedAt":  "2026-07-15T12:05:16Z",
+                       "scannedAt":  "2026-07-23T20:48:11Z",
                        "filesystem":  "NTFS",
                        "totalBytes":  4000650883072,
-                       "freeBytes":  19094855680,
-                       "usedBytes":  3981556027392,
+                       "freeBytes":  4951445504,
+                       "usedBytes":  3995699437568,
                        "entries":  [
                                        {
                                            "type":  "folder",
@@ -3291,6 +3291,11 @@
                                            "type":  "folder",
                                            "name":  "Video",
                                            "sizeBytes":  8506234248
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "VIP 03.06.2026",
+                                           "sizeBytes":  14144137217
                                        },
                                        {
                                            "type":  "folder",
