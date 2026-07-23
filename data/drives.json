@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-07-23T15:45:12Z",
+    "updatedAt":  "2026-07-23T15:48:17Z",
     "drives":  [
                    {
                        "name":  "Backup 2",
@@ -384,6 +384,365 @@
                                            "name":  "8.10.2017 - Wedding Film.mp4",
                                            "ext":  "mp4",
                                            "sizeBytes":  8368802743
+                                       }
+                                   ]
+                   },
+                   {
+                       "name":  "Backup 3",
+                       "scannedAt":  "2026-07-23T15:48:17Z",
+                       "filesystem":  "NTFS",
+                       "totalBytes":  2000263573504,
+                       "freeBytes":  7186554880,
+                       "usedBytes":  1993077018624,
+                       "entries":  [
+                                       {
+                                           "type":  "folder",
+                                           "name":  "1.08.2020 Versal",
+                                           "sizeBytes":  69751133578
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "12.10.2019 Demkura",
+                                           "sizeBytes":  295283235516
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "15.06.2019 Lviv",
+                                           "sizeBytes":  228938296924
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "18.08.2018 Charlotte and Antonio",
+                                           "sizeBytes":  170185870914
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "21.09.2018 Tanja and Thomas",
+                                           "sizeBytes":  134116833292
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "22.02.2020 Vienna",
+                                           "sizeBytes":  232618786620
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "25.07.2020 Honey Hall",
+                                           "sizeBytes":  309358862941
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "9.08.2020 Marta i Petro",
+                                           "sizeBytes":  235843839166
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "LoveStory Milan - Lesyk i Nastya",
+                                           "sizeBytes":  25273357170
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "LoveStory Natalya Klyashtoforska",
+                                           "sizeBytes":  12318178886
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "Viknaroff Best 2019",
+                                           "sizeBytes":  105067261417
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "1.08.2020 - Wedding Film.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  3113498591
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "17.07.2016 - Wedding Film.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  7913210533
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "17.09.2016 - Short Teaser.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  52368763
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "17.09.2016 - Wedding Film.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  9813306851
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "17.09.2017 - Wedding Film.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  8906411831
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "2.08.2020 Garden Hall - Highlights.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  521871901
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "2.08.2020 Garden Hall - Wedding Film.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  9303860200
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "23.09.2017 - Wedding Film.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  7603760720
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "24.05.2017 - InstaTeaser 4.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  58448149
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "27.05.2024 - Wedding Film.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  5621757496
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "28.01.2017 - Wedding Film.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  7709175495
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "29.04.2017 - Wedding Film.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  8573904764
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "29.06.2024 - Highlights.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  1321990237
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "29.07.2017 - Wedding Film.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  8360929639
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "29.10.2016 - Wedding Film.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  7843032184
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "3.09.2020 - Highlights.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  378244168
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "3.09.2020 - Wedding Film.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  10005424153
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "30.04.2017 - Wedding Film.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  6856091470
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "30.07.2016 Roksolyana i Bogdan - Wedding Film.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  11041454726
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "30.09.2017 - Wedding Film.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  8698279390
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "31.05.2015 - InstaTeaser.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  96203526
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "6.08.2016 - Wedding Film New.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  7359055081
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "7.08.2016 - Wedding Film.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  8793519207
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "8.06.2017 - Wedding Film.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  24
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "8.09.2017 - Teaser 1.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  58527772
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "8.09.2017 - Teaser 2 New.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  59952588
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "8.09.2017 - Teaser 2.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  59875121
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "8.09.2017 - Wedding Film New.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  6253365483
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "Arkadiy.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  211272990
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "Arkadiy-50Mbps.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  211680618
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "Eridon.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  384258017
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "Flyashka New.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  52829703
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "Gender Party Taras i Tanya.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  334176100
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "Gunz Live Band - Best Popular Songs Promo (2014).mov",
+                                           "ext":  "mov",
+                                           "sizeBytes":  1825106458
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "Ihor ta Galya - Wedding Film New.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  15156420938
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "Midori.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  91337703
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "Podyaka 17.07.2021.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  430311389
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "Sabit Bar Promo.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  111225436
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "Sashko Christening.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  852080609
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "Scary.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  25665487
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "Sinem and Kadir - Clip.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  482054481
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "Snidanok z narechenimi.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  302657084
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "Solomiya i Taras - Highlights.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  1230466430
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "Suhostav Drone.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  31883922
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "The Paket (with subtitles).mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  497248898
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "T-Project - Levels (Official video).mpg",
+                                           "ext":  "mpg",
+                                           "sizeBytes":  1008603140
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "VIA Kipyatok - Village style.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  1190148241
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "Viknaroff Best 2021.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  422063225
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "Viknaroff River.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  149467812
                                        }
                                    ]
                    },
