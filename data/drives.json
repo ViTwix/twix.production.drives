@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-07-23T19:38:47Z",
+    "updatedAt":  "2026-07-23T20:47:55Z",
     "drives":  [
                    {
                        "name":  "Backup 2",
@@ -8126,11 +8126,11 @@
                    },
                    {
                        "name":  "Seagate Hub",
-                       "scannedAt":  "2026-07-22T23:30:46Z",
+                       "scannedAt":  "2026-07-23T20:47:55Z",
                        "filesystem":  "Unknown",
                        "totalBytes":  10000434987008,
-                       "freeBytes":  110401945600,
-                       "usedBytes":  9890033041408,
+                       "freeBytes":  102314278912,
+                       "usedBytes":  9898120708096,
                        "entries":  [
                                        {
                                            "type":  "folder",
@@ -8145,7 +8145,7 @@
                                        {
                                            "type":  "folder",
                                            "name":  "04.07.2026 Dolyna",
-                                           "sizeBytes":  603070796676
+                                           "sizeBytes":  603070636932
                                        },
                                        {
                                            "type":  "folder",
@@ -8165,7 +8165,7 @@
                                        {
                                            "type":  "folder",
                                            "name":  "13.06.2026 Kyiv",
-                                           "sizeBytes":  562607253790
+                                           "sizeBytes":  562607089950
                                        },
                                        {
                                            "type":  "folder",
@@ -8210,7 +8210,7 @@
                                        {
                                            "type":  "folder",
                                            "name":  "27.06.2026 Stryi",
-                                           "sizeBytes":  530322168230
+                                           "sizeBytes":  538429396641
                                        },
                                        {
                                            "type":  "folder",
