@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-07-23T20:49:48Z",
+    "updatedAt":  "2026-07-23T20:57:08Z",
     "drives":  [
                    {
                        "name":  "Backup 2",
@@ -1794,6 +1794,37 @@
                                            "type":  "folder",
                                            "name":  "6.06.2025 Liteplo Elina",
                                            "sizeBytes":  132369019922
+                                       }
+                                   ]
+                   },
+                   {
+                       "name":  "Black 12",
+                       "scannedAt":  "2026-07-23T20:57:08Z",
+                       "filesystem":  "Unknown",
+                       "totalBytes":  5000931573760,
+                       "freeBytes":  4123594326016,
+                       "usedBytes":  877337247744,
+                       "entries":  [
+                                       {
+                                           "type":  "folder",
+                                           "name":  "13.06.2026 Nashe Oleksandr Yana",
+                                           "sizeBytes":  4564165176
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "19.07.2026 Nashe",
+                                           "sizeBytes":  443379516928
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "30.05.2026 Nashe Igor Ira",
+                                           "sizeBytes":  420289834589
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "ЗВУК_30.05.26.zip",
+                                           "ext":  "zip",
+                                           "sizeBytes":  6588444272
                                        }
                                    ]
                    },
