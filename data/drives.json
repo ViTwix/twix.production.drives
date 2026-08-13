@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-08-13T15:27:39Z",
+    "updatedAt":  "2026-08-13T15:28:18Z",
     "drives":  [
                    {
                        "name":  "Backup 2",
@@ -2231,31 +2231,16 @@
                    },
                    {
                        "name":  "Black 4",
-                       "scannedAt":  "2026-07-22T23:30:09Z",
+                       "scannedAt":  "2026-08-13T15:28:18Z",
                        "filesystem":  "Unknown",
                        "totalBytes":  5000844541952,
-                       "freeBytes":  2259537362944,
-                       "usedBytes":  2741307179008,
+                       "freeBytes":  3868960751616,
+                       "usedBytes":  1131883790336,
                        "entries":  [
                                        {
                                            "type":  "folder",
                                            "name":  "02.08.2025 Lviv",
                                            "sizeBytes":  468045906135
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "07.06.2025 Emily Resort",
-                                           "sizeBytes":  651830179525
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "08.06.2025 River",
-                                           "sizeBytes":  486730831746
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "10.07.2025 Lviv Stavky",
-                                           "sizeBytes":  555472687
                                        },
                                        {
                                            "type":  "folder",
@@ -2266,16 +2251,6 @@
                                            "type":  "folder",
                                            "name":  "26.07.2025 Panska Gora",
                                            "sizeBytes":  551285139885
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "8.08.2025 Fenton",
-                                           "sizeBytes":  469632778033
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "testdisk-7.2",
-                                           "sizeBytes":  80138721
                                        }
                                    ]
                    },
