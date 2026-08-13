@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-08-13T15:27:18Z",
+    "updatedAt":  "2026-08-13T15:27:39Z",
     "drives":  [
                    {
                        "name":  "Backup 2",
@@ -2281,46 +2281,31 @@
                    },
                    {
                        "name":  "Black 5",
-                       "scannedAt":  "2026-05-22T20:21:39Z",
-                       "filesystem":  "ExFAT",
-                       "totalBytes":  4000734773248,
-                       "freeBytes":  274141806592,
-                       "usedBytes":  3726592966656,
+                       "scannedAt":  "2026-08-13T15:27:39Z",
+                       "filesystem":  "Unknown",
+                       "totalBytes":  4000733724672,
+                       "freeBytes":  1502965923840,
+                       "usedBytes":  2497767800832,
                        "entries":  [
                                        {
                                            "type":  "folder",
                                            "name":  "05.07.2025 Liteplo",
-                                           "sizeBytes":  584381890560
+                                           "sizeBytes":  561201892461
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "12.07.2025 Panska Sadyba",
-                                           "sizeBytes":  566586507264
+                                           "sizeBytes":  565751414589
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "16.05.2026 Stavky",
-                                           "sizeBytes":  883037306880
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "17.08.2025 Wroclaw",
-                                           "sizeBytes":  338327240704
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "29.06.2025 Sfera",
-                                           "sizeBytes":  510606180352
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "29.08.2025 Pustovit",
-                                           "sizeBytes":  357328486400
+                                           "sizeBytes":  882133799986
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "4.09.2025 Rivne Sofia",
-                                           "sizeBytes":  456825765888
+                                           "sizeBytes":  456121160426
                                        },
                                        {
                                            "type":  "file",
