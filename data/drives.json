@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-08-13T15:28:18Z",
+    "updatedAt":  "2026-08-14T12:15:43Z",
     "drives":  [
                    {
                        "name":  "Backup 2",
@@ -2231,16 +2231,26 @@
                    },
                    {
                        "name":  "Black 4",
-                       "scannedAt":  "2026-08-13T15:28:18Z",
+                       "scannedAt":  "2026-08-14T12:15:43Z",
                        "filesystem":  "Unknown",
                        "totalBytes":  5000844541952,
-                       "freeBytes":  3868960751616,
-                       "usedBytes":  1131883790336,
+                       "freeBytes":  2255946252288,
+                       "usedBytes":  2744898289664,
                        "entries":  [
                                        {
                                            "type":  "folder",
                                            "name":  "02.08.2025 Lviv",
                                            "sizeBytes":  468045906135
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "05.07.2025 Liteplo",
+                                           "sizeBytes":  561201892461
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "12.07.2025 Panska Sadyba",
+                                           "sizeBytes":  565751414589
                                        },
                                        {
                                            "type":  "folder",
@@ -2251,6 +2261,47 @@
                                            "type":  "folder",
                                            "name":  "26.07.2025 Panska Gora",
                                            "sizeBytes":  551285139885
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "4.09.2025 Rivne Sofia",
+                                           "sizeBytes":  456121160426
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "17.08.2025 - Highlights.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  684749122
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "17.08.2025 - Wedding Film.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  18041601286
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "24.08.2024 - Highlights.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  351702105
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "24.08.2024 - SDE.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  554034783
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "24.08.2024 - Wedding Film.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  9179483086
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "SN 20.10.2025.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  565264654
                                        }
                                    ]
                    },
