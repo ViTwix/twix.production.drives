@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-08-14T12:16:02Z",
+    "updatedAt":  "2026-08-14T12:49:39Z",
     "drives":  [
                    {
                        "name":  "Backup 2",
@@ -1799,56 +1799,56 @@
                    },
                    {
                        "name":  "Black 12",
-                       "scannedAt":  "2026-08-11T18:26:31Z",
-                       "filesystem":  "ExFAT",
-                       "totalBytes":  5000933670912,
-                       "freeBytes":  256890634240,
-                       "usedBytes":  4744043036672,
+                       "scannedAt":  "2026-08-14T12:49:39Z",
+                       "filesystem":  "Unknown",
+                       "totalBytes":  5000931573760,
+                       "freeBytes":  256913702912,
+                       "usedBytes":  4744017870848,
                        "entries":  [
                                        {
                                            "type":  "folder",
                                            "name":  "08.08.2026 Pallada",
-                                           "sizeBytes":  335150055424
+                                           "sizeBytes":  334083470686
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "11.07.2026 Pochaiv",
-                                           "sizeBytes":  637307715584
+                                           "sizeBytes":  626078681907
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "13.06.2026 Nashe",
-                                           "sizeBytes":  517205917696
+                                           "sizeBytes":  515337608472
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "18.07.2026 Liteplo",
-                                           "sizeBytes":  534087991296
+                                           "sizeBytes":  532910531875
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "19.07.2026 Nashe",
-                                           "sizeBytes":  444579446784
+                                           "sizeBytes":  443379516928
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "25.07.2026 Lviv",
-                                           "sizeBytes":  706536800256
+                                           "sizeBytes":  705346684476
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "25.07.2026 Nashe",
-                                           "sizeBytes":  568489672704
+                                           "sizeBytes":  566788586283
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "26.07.2026 Nashe",
-                                           "sizeBytes":  494154022912
+                                           "sizeBytes":  493043731950
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "30.05.2026 Nashe",
-                                           "sizeBytes":  506139246592
+                                           "sizeBytes":  504872074426
                                        }
                                    ]
                    },
