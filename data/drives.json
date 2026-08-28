@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-08-28T02:46:46Z",
+    "updatedAt":  "2026-08-28T02:47:03Z",
     "drives":  [
                    {
                        "name":  "Backup 2",
@@ -2231,11 +2231,11 @@
                    },
                    {
                        "name":  "Black 4",
-                       "scannedAt":  "2026-08-14T12:15:43Z",
+                       "scannedAt":  "2026-08-28T02:47:03Z",
                        "filesystem":  "Unknown",
                        "totalBytes":  5000844541952,
-                       "freeBytes":  2255946252288,
-                       "usedBytes":  2744898289664,
+                       "freeBytes":  135150698496,
+                       "usedBytes":  4865693843456,
                        "entries":  [
                                        {
                                            "type":  "folder",
@@ -2254,13 +2254,33 @@
                                        },
                                        {
                                            "type":  "folder",
+                                           "name":  "15.08.2026 Panska Sadyba",
+                                           "sizeBytes":  420281554097
+                                       },
+                                       {
+                                           "type":  "folder",
                                            "name":  "23.05.2026 Rozpys",
                                            "sizeBytes":  112124587761
                                        },
                                        {
                                            "type":  "folder",
+                                           "name":  "23.08.2026 Nashe Nastya",
+                                           "sizeBytes":  608786802340
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "23.08.2026 Rivne",
+                                           "sizeBytes":  630545112221
+                                       },
+                                       {
+                                           "type":  "folder",
                                            "name":  "26.07.2025 Panska Gora",
                                            "sizeBytes":  551285139885
+                                       },
+                                       {
+                                           "type":  "folder",
+                                           "name":  "26.08.2026 Liteplo",
+                                           "sizeBytes":  460551300403
                                        },
                                        {
                                            "type":  "folder",
