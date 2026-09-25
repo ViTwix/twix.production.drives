@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-09-25T12:28:59Z",
+    "updatedAt":  "2026-09-25T19:59:14Z",
     "drives":  [
                    {
                        "name":  "Backup 2",
@@ -3338,11 +3338,11 @@
                    },
                    {
                        "name":  "HDD 1",
-                       "scannedAt":  "2026-07-23T20:48:11Z",
+                       "scannedAt":  "2026-09-25T19:59:14Z",
                        "filesystem":  "NTFS",
                        "totalBytes":  4000650883072,
-                       "freeBytes":  4951445504,
-                       "usedBytes":  3995699437568,
+                       "freeBytes":  222533857280,
+                       "usedBytes":  3778117025792,
                        "entries":  [
                                        {
                                            "type":  "folder",
@@ -3406,48 +3406,13 @@
                                        },
                                        {
                                            "type":  "folder",
-                                           "name":  "Documents",
-                                           "sizeBytes":  10161968
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "Dropbox",
-                                           "sizeBytes":  705561528
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "Eleyus 2019",
-                                           "sizeBytes":  71010795769
-                                       },
-                                       {
-                                           "type":  "folder",
                                            "name":  "Music FLAC",
                                            "sizeBytes":  1350676149
                                        },
                                        {
                                            "type":  "folder",
-                                           "name":  "Photo Tennis Svitolina 2025",
-                                           "sizeBytes":  8614368853
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "Profi Center 2023",
-                                           "sizeBytes":  1297206271
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "Sorted Photo 2021",
-                                           "sizeBytes":  1914912195
-                                       },
-                                       {
-                                           "type":  "folder",
                                            "name":  "Sport For All",
                                            "sizeBytes":  773674761
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "SteamLibrary",
-                                           "sizeBytes":  34796692887
                                        },
                                        {
                                            "type":  "folder",
@@ -3462,37 +3427,12 @@
                                        {
                                            "type":  "folder",
                                            "name":  "Twix Production",
-                                           "sizeBytes":  51597836381
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "Video",
-                                           "sizeBytes":  8506234248
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "VIP 03.06.2026",
-                                           "sizeBytes":  14144137217
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "VIP 2022",
-                                           "sizeBytes":  67587541795
+                                           "sizeBytes":  51324248153
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "Wedding 2015-2017",
                                            "sizeBytes":  3240080102
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "Фотосесія Вагітність",
-                                           "sizeBytes":  9884642040
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "Фотосесія НР",
-                                           "sizeBytes":  638371653
                                        },
                                        {
                                            "type":  "file",
@@ -3847,12 +3787,6 @@
                                            "name":  "20.10.2019 - Wedding Film.mp4",
                                            "ext":  "mp4",
                                            "sizeBytes":  3079827959
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "2017 Review.mp4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  153766602
                                        },
                                        {
                                            "type":  "file",
@@ -4426,6 +4360,12 @@
                                        },
                                        {
                                            "type":  "file",
+                                           "name":  "ARTcenter Promo.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  638016722
+                                       },
+                                       {
+                                           "type":  "file",
                                            "name":  "Avaks Fayne Misto.mp4",
                                            "ext":  "mp4",
                                            "sizeBytes":  582799986
@@ -4435,12 +4375,6 @@
                                            "name":  "Christening Artur.mp4",
                                            "ext":  "mp4",
                                            "sizeBytes":  1208418924
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "Christening Luka 1.mp4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  793343504
                                        },
                                        {
                                            "type":  "file",
@@ -4477,6 +4411,18 @@
                                            "name":  "GLB titles 2.mp4",
                                            "ext":  "mp4",
                                            "sizeBytes":  48772103
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "GLB_Promo_Final.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  1912072776
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "Groomsmen Dance.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  349702817
                                        },
                                        {
                                            "type":  "file",
@@ -4612,12 +4558,6 @@
                                        },
                                        {
                                            "type":  "file",
-                                           "name":  "Marta B-Day 2022.mp4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  58383185
-                                       },
-                                       {
-                                           "type":  "file",
                                            "name":  "Mihriban and Burak - InstaTeaser.mp4",
                                            "ext":  "mp4",
                                            "sizeBytes":  53717065
@@ -4720,9 +4660,27 @@
                                        },
                                        {
                                            "type":  "file",
-                                           "name":  "Ostap Christening.mp4",
+                                           "name":  "ProfiCenter Horisontal 1.mp4",
                                            "ext":  "mp4",
-                                           "sizeBytes":  1235435723
+                                           "sizeBytes":  110103325
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "ProfiCenter Horisontal 2.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  99262677
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "ProfiCenter Vertical 1.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  110118506
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "ProfiCenter Vertical 2.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  100814336
                                        },
                                        {
                                            "type":  "file",
@@ -4738,45 +4696,9 @@
                                        },
                                        {
                                            "type":  "file",
-                                           "name":  "TWIX7476.MP4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  66059824
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "TWIX7477.MP4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  94396904
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "TWIX7478.MP4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  85090128
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "TWIX7479.MP4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  75011684
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "TWIX7480.MP4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  153940456
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "TWIX7481.MP4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  105726696
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "TWIX7482.MP4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  118063388
+                                           "name":  "T-Project - Levels (Official video).mpg",
+                                           "ext":  "mpg",
+                                           "sizeBytes":  1008603140
                                        },
                                        {
                                            "type":  "file",
@@ -4798,6 +4720,12 @@
                                        },
                                        {
                                            "type":  "file",
+                                           "name":  "VIP-06-2026-New.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  274802453
+                                       },
+                                       {
+                                           "type":  "file",
                                            "name":  "WoodMizer 2 min.mp4",
                                            "ext":  "mp4",
                                            "sizeBytes":  304191479
@@ -4807,6 +4735,12 @@
                                            "name":  "WoodMizer New.mp4",
                                            "ext":  "mp4",
                                            "sizeBytes":  692221311
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "Yuzvik Family.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  159191227
                                        }
                                    ]
                    },
