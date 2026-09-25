@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-09-25T11:48:26Z",
+    "updatedAt":  "2026-09-25T12:13:25Z",
     "drives":  [
                    {
                        "name":  "Backup 2",
@@ -1144,161 +1144,141 @@
                    },
                    {
                        "name":  "Black 1",
-                       "scannedAt":  "2026-05-20T06:19:53Z",
-                       "filesystem":  "ExFAT",
-                       "totalBytes":  4000457949184,
-                       "freeBytes":  24218173440,
-                       "usedBytes":  3976239775744,
+                       "scannedAt":  "2026-09-25T12:13:25Z",
+                       "filesystem":  "Unknown",
+                       "totalBytes":  4000457687040,
+                       "freeBytes":  119638589440,
+                       "usedBytes":  3880819097600,
                        "entries":  [
                                        {
                                            "type":  "folder",
                                            "name":  "08.09.2024 Nashe",
-                                           "sizeBytes":  221316907008
+                                           "sizeBytes":  221184022867
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "10.10.2024 Na nebi",
-                                           "sizeBytes":  135309557760
+                                           "sizeBytes":  135182664482
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "10.11.2024 Church",
-                                           "sizeBytes":  34347155456
+                                           "sizeBytes":  34303289288
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "13.10.2024 Lviv",
-                                           "sizeBytes":  202086547456
+                                           "sizeBytes":  201958927217
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "15.05.2025 Rozpys",
-                                           "sizeBytes":  83812941824
+                                           "sizeBytes":  83716611124
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "17.08.2024 Vienna",
-                                           "sizeBytes":  32009879552
+                                           "sizeBytes":  31898353999
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "2.11.2024 Vienna",
-                                           "sizeBytes":  167660748800
+                                           "sizeBytes":  167547158210
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "23.09.2023 Slavske",
-                                           "sizeBytes":  257906180096
+                                           "sizeBytes":  257760280656
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "25.05.2024 Lviv",
-                                           "sizeBytes":  293969068032
+                                           "sizeBytes":  293645988648
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "26.04.2024 Vienna",
-                                           "sizeBytes":  56339988480
+                                           "sizeBytes":  56058044384
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "27.07.2025 Rudisson",
-                                           "sizeBytes":  355109699584
+                                           "sizeBytes":  354931899498
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "27.09.2024 Rozpys oi.vons",
-                                           "sizeBytes":  13680508928
+                                           "sizeBytes":  13662580325
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "28.08.2020 Garden Hall",
-                                           "sizeBytes":  269389660160
+                                           "sizeBytes":  269213903041
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "28.08.2021 Sereda",
-                                           "sizeBytes":  294045614080
+                                           "sizeBytes":  293870889579
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "29.10.2021 Vienna",
-                                           "sizeBytes":  129925120000
+                                           "sizeBytes":  129816777857
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "30.08.2020 Edelweiss",
-                                           "sizeBytes":  166721748992
+                                           "sizeBytes":  166599747112
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "30.09.2023 Vienna",
-                                           "sizeBytes":  150158966784
+                                           "sizeBytes":  150007740698
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "9.09.2023 Lviv",
-                                           "sizeBytes":  357970739200
+                                           "sizeBytes":  357775004938
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "9.09.2023 Stuttgart",
-                                           "sizeBytes":  269760331776
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "Bukovel 2025",
-                                           "sizeBytes":  6017777664
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "Christening Artur Tkachuk",
-                                           "sizeBytes":  28157673472
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "Christening Luka",
-                                           "sizeBytes":  6719537152
+                                           "sizeBytes":  269581687845
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "Jolie 2022",
-                                           "sizeBytes":  1262747648
+                                           "sizeBytes":  1246434418
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "Kotsyura Maria 1 year",
-                                           "sizeBytes":  21438660608
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "Photos 2020",
-                                           "sizeBytes":  50835226624
+                                           "sizeBytes":  21416825253
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "Viknaroff 2020",
-                                           "sizeBytes":  17584619520
+                                           "sizeBytes":  17386180400
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "Viknaroff 2023",
-                                           "sizeBytes":  10407641088
+                                           "sizeBytes":  10383618689
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "Viknaroff 2025",
-                                           "sizeBytes":  8514437120
+                                           "sizeBytes":  8495828188
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "Viknaroff Best 2021",
-                                           "sizeBytes":  140694257664
+                                           "sizeBytes":  140360230667
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "ZSU Fantom",
-                                           "sizeBytes":  14156562432
+                                           "sizeBytes":  14144052647
                                        },
                                        {
                                            "type":  "file",
@@ -1311,6 +1291,12 @@
                                            "name":  "06.07.2024 - SDE.mp4",
                                            "ext":  "mp4",
                                            "sizeBytes":  562428931
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "06.07.2024 - Wedding Film.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  11367285821
                                        },
                                        {
                                            "type":  "file",
@@ -1602,30 +1588,6 @@
                                        },
                                        {
                                            "type":  "file",
-                                           "name":  "6.07.2024 - Wedding Film.mp4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  11367285821
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "ALX_0857.MP4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  143790360
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "ALX_0859.MP4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  389071760
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "ALX_0860.MP4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  264250012
-                                       },
-                                       {
-                                           "type":  "file",
                                            "name":  "ARS Advertise Horisontal 2024.mp4",
                                            "ext":  "mp4",
                                            "sizeBytes":  153508818
@@ -1653,12 +1615,6 @@
                                            "name":  "Artur Christening Sound.MP3",
                                            "ext":  "mp3",
                                            "sizeBytes":  59808955
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "Bukovel 2025.mp4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  181899809
                                        },
                                        {
                                            "type":  "file",
@@ -1713,12 +1669,6 @@
                                            "name":  "Miki.mp4",
                                            "ext":  "mp4",
                                            "sizeBytes":  134895161
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "Pershe Prychastya.mp4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  2709299434
                                        }
                                    ]
                    },
