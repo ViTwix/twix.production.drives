@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-09-25T20:00:34Z",
+    "updatedAt":  "2026-09-25T20:00:53Z",
     "drives":  [
                    {
                        "name":  "Backup 2",
@@ -4746,17 +4746,12 @@
                    },
                    {
                        "name":  "HDD 2",
-                       "scannedAt":  "2026-07-23T20:49:13Z",
+                       "scannedAt":  "2026-09-25T20:00:53Z",
                        "filesystem":  "NTFS",
                        "totalBytes":  3000457228288,
-                       "freeBytes":  40404791296,
-                       "usedBytes":  2960052436992,
+                       "freeBytes":  445849419776,
+                       "usedBytes":  2554607808512,
                        "entries":  [
-                                       {
-                                           "type":  "folder",
-                                           "name":  "12.05.2018",
-                                           "sizeBytes":  273893617716
-                                       },
                                        {
                                            "type":  "folder",
                                            "name":  "12.07.2018 Wasichka i Ira",
@@ -4764,18 +4759,13 @@
                                        },
                                        {
                                            "type":  "folder",
-                                           "name":  "22.09.2018 Oronovskam",
-                                           "sizeBytes":  211466864401
+                                           "name":  "18.10.2025 Soprano Inn",
+                                           "sizeBytes":  600217496597
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "23.06.2019 Garden Hall",
                                            "sizeBytes":  235068994067
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "27.05.2021 Versal",
-                                           "sizeBytes":  159228022433
                                        },
                                        {
                                            "type":  "folder",
@@ -4824,56 +4814,6 @@
                                        },
                                        {
                                            "type":  "folder",
-                                           "name":  "Gender Party Marko",
-                                           "sizeBytes":  11491326848
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "Havana Cover Band",
-                                           "sizeBytes":  54186903862
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "Hrestyny Ostap",
-                                           "sizeBytes":  22382803081
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "Insta360",
-                                           "sizeBytes":  4220159385
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "KDT",
-                                           "sizeBytes":  3025793373
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "Kovcheg",
-                                           "sizeBytes":  5856016295
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "LA Wedding Party",
-                                           "sizeBytes":  58206061
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "London CR60",
-                                           "sizeBytes":  79697401165
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "Love Story Berlin",
-                                           "sizeBytes":  11040292432
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "Marko Christening",
-                                           "sizeBytes":  83601458868
-                                       },
-                                       {
-                                           "type":  "folder",
                                            "name":  "Music",
                                            "sizeBytes":  10649895397
                                        },
@@ -4884,13 +4824,8 @@
                                        },
                                        {
                                            "type":  "folder",
-                                           "name":  "Old PC",
-                                           "sizeBytes":  9909789615
-                                       },
-                                       {
-                                           "type":  "folder",
                                            "name":  "Samogonna New",
-                                           "sizeBytes":  35327849129
+                                           "sizeBytes":  2608218091
                                        },
                                        {
                                            "type":  "folder",
@@ -4909,11 +4844,6 @@
                                        },
                                        {
                                            "type":  "folder",
-                                           "name":  "Stocks Yulia",
-                                           "sizeBytes":  7534535071
-                                       },
-                                       {
-                                           "type":  "folder",
                                            "name":  "Taxi Pilot Old",
                                            "sizeBytes":  946169228
                                        },
@@ -4921,11 +4851,6 @@
                                            "type":  "folder",
                                            "name":  "Temp",
                                            "sizeBytes":  82151223
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "Twix 30th B-Day",
-                                           "sizeBytes":  35868107257
                                        },
                                        {
                                            "type":  "folder",
@@ -5049,6 +4974,12 @@
                                            "name":  "12.05.2018 - Highlights.mp4",
                                            "ext":  "mp4",
                                            "sizeBytes":  227149458
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "12.05.2018 - Same Day Edit.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  359945779
                                        },
                                        {
                                            "type":  "file",
@@ -5982,6 +5913,12 @@
                                        },
                                        {
                                            "type":  "file",
+                                           "name":  "Kovcheg.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  107693821
+                                       },
+                                       {
+                                           "type":  "file",
                                            "name":  "Leonid i Svitlana - Wedding Film.mp4",
                                            "ext":  "mp4",
                                            "sizeBytes":  20118989751
@@ -6069,6 +6006,12 @@
                                            "name":  "Studmis 2016 Promo.mp4",
                                            "ext":  "mp4",
                                            "sizeBytes":  206187704
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "Venya1.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  87937435
                                        },
                                        {
                                            "type":  "file",
