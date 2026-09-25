@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-09-25T19:59:44Z",
+    "updatedAt":  "2026-09-25T20:00:34Z",
     "drives":  [
                    {
                        "name":  "Backup 2",
@@ -2303,61 +2303,61 @@
                    },
                    {
                        "name":  "Black 4",
-                       "scannedAt":  "2026-09-04T21:15:44Z",
-                       "filesystem":  "ExFAT",
-                       "totalBytes":  5000844804096,
-                       "freeBytes":  62306385920,
+                       "scannedAt":  "2026-09-25T20:00:34Z",
+                       "filesystem":  "Unknown",
+                       "totalBytes":  5000844541952,
+                       "freeBytes":  62306123776,
                        "usedBytes":  4938538418176,
                        "entries":  [
                                        {
                                            "type":  "folder",
                                            "name":  "02.08.2025 Lviv",
-                                           "sizeBytes":  468209631232
+                                           "sizeBytes":  468045906135
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "05.07.2025 Liteplo",
-                                           "sizeBytes":  561384259584
+                                           "sizeBytes":  561201892461
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "12.07.2025 Panska Sadyba",
-                                           "sizeBytes":  565955788800
+                                           "sizeBytes":  565751414589
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "15.08.2026 Panska Sadyba",
-                                           "sizeBytes":  420412915712
+                                           "sizeBytes":  420281554097
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "23.05.2026 Rozpys",
-                                           "sizeBytes":  112153329664
+                                           "sizeBytes":  112124587761
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "23.08.2026 Nashe Nastya",
-                                           "sizeBytes":  618907303936
+                                           "sizeBytes":  618735628400
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "23.08.2026 Rivne",
-                                           "sizeBytes":  631527440384
+                                           "sizeBytes":  631364058703
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "26.07.2025 Panska Gora",
-                                           "sizeBytes":  551515848704
+                                           "sizeBytes":  551285139885
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "26.08.2026 Liteplo",
-                                           "sizeBytes":  522742136832
+                                           "sizeBytes":  522551812463
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "4.09.2025 Rivne Sofia",
-                                           "sizeBytes":  456296759296
+                                           "sizeBytes":  456121160426
                                        },
                                        {
                                            "type":  "file",
