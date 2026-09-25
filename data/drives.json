@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-09-25T12:13:25Z",
+    "updatedAt":  "2026-09-25T12:28:59Z",
     "drives":  [
                    {
                        "name":  "Backup 2",
@@ -1931,7 +1931,7 @@
                    },
                    {
                        "name":  "Black 2",
-                       "scannedAt":  "2026-08-13T15:27:18Z",
+                       "scannedAt":  "2026-09-25T12:28:59Z",
                        "filesystem":  "Unknown",
                        "totalBytes":  4000456900608,
                        "freeBytes":  239755853824,
@@ -2004,18 +2004,13 @@
                                        },
                                        {
                                            "type":  "folder",
-                                           "name":  "Project 05.07.2025 Liteplo",
-                                           "sizeBytes":  168946725
-                                       },
-                                       {
-                                           "type":  "folder",
                                            "name":  "SN 2024",
                                            "sizeBytes":  61104506294
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "twix_projects_2025",
-                                           "sizeBytes":  140987959
+                                           "sizeBytes":  309934684
                                        },
                                        {
                                            "type":  "folder",
