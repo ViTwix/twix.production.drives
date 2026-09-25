@@ -1,5 +1,5 @@
 {
-    "updatedAt":  "2026-09-25T20:00:53Z",
+    "updatedAt":  "2026-09-25T20:01:11Z",
     "drives":  [
                    {
                        "name":  "Backup 2",
@@ -6077,11 +6077,11 @@
                    },
                    {
                        "name":  "HDD 3",
-                       "scannedAt":  "2026-06-25T20:55:26Z",
+                       "scannedAt":  "2026-09-25T20:01:11Z",
                        "filesystem":  "NTFS",
                        "totalBytes":  4000650883072,
-                       "freeBytes":  16085250048,
-                       "usedBytes":  3984565633024,
+                       "freeBytes":  647943520256,
+                       "usedBytes":  3352707362816,
                        "entries":  [
                                        {
                                            "type":  "folder",
@@ -6130,33 +6130,13 @@
                                        },
                                        {
                                            "type":  "folder",
-                                           "name":  "Dental Studio",
-                                           "sizeBytes":  5380819380
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "Design",
-                                           "sizeBytes":  102221948
-                                       },
-                                       {
-                                           "type":  "folder",
                                            "name":  "Drone",
-                                           "sizeBytes":  79620083513
+                                           "sizeBytes":  57379147839
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "Eleyus New",
                                            "sizeBytes":  19284596417
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "EOS R Test",
-                                           "sizeBytes":  10858657934
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "FitKid",
-                                           "sizeBytes":  20777023276
                                        },
                                        {
                                            "type":  "folder",
@@ -6166,17 +6146,7 @@
                                        {
                                            "type":  "folder",
                                            "name":  "Gunz Live Band - Promo 2017",
-                                           "sizeBytes":  80768703958
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "Heaven Promo",
-                                           "sizeBytes":  57210390578
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "Home",
-                                           "sizeBytes":  212574423657
+                                           "sizeBytes":  2735178431
                                        },
                                        {
                                            "type":  "folder",
@@ -6185,18 +6155,8 @@
                                        },
                                        {
                                            "type":  "folder",
-                                           "name":  "Insta360",
-                                           "sizeBytes":  5392131900
-                                       },
-                                       {
-                                           "type":  "folder",
                                            "name":  "JIA Universary",
                                            "sizeBytes":  8144103471
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "Jiruk",
-                                           "sizeBytes":  43819474334
                                        },
                                        {
                                            "type":  "folder",
@@ -6210,33 +6170,13 @@
                                        },
                                        {
                                            "type":  "folder",
-                                           "name":  "Liliya Vovk",
-                                           "sizeBytes":  10402181102
-                                       },
-                                       {
-                                           "type":  "folder",
                                            "name":  "Lot Auction",
-                                           "sizeBytes":  1563131956
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "Malchishnik",
-                                           "sizeBytes":  14513860005
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "Marta",
-                                           "sizeBytes":  958328070
+                                           "sizeBytes":  2669082
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "Marta 4 Birthday",
-                                           "sizeBytes":  9316945957
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "Marta B-Day",
-                                           "sizeBytes":  108644324089
+                                           "sizeBytes":  8518020178
                                        },
                                        {
                                            "type":  "folder",
@@ -6262,11 +6202,6 @@
                                            "type":  "folder",
                                            "name":  "Ostap",
                                            "sizeBytes":  66084200195
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "Osvidchennya",
-                                           "sizeBytes":  1520661088
                                        },
                                        {
                                            "type":  "folder",
@@ -6331,17 +6266,12 @@
                                        {
                                            "type":  "folder",
                                            "name":  "VIP",
-                                           "sizeBytes":  4217891501
+                                           "sizeBytes":  4194454041
                                        },
                                        {
                                            "type":  "folder",
                                            "name":  "Waffle Point",
                                            "sizeBytes":  12617008
-                                       },
-                                       {
-                                           "type":  "folder",
-                                           "name":  "Water Planet",
-                                           "sizeBytes":  16602534600
                                        },
                                        {
                                            "type":  "folder",
@@ -6882,27 +6812,15 @@
                                        },
                                        {
                                            "type":  "file",
-                                           "name":  "Christening Bogdan.mp4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  1289652393
-                                       },
-                                       {
-                                           "type":  "file",
                                            "name":  "Christening Roksy.mp4",
                                            "ext":  "mp4",
                                            "sizeBytes":  875759440
                                        },
                                        {
                                            "type":  "file",
-                                           "name":  "Christening.mp4",
+                                           "name":  "Christening Stepan.mp4",
                                            "ext":  "mp4",
                                            "sizeBytes":  1011269725
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "Comedy Black - Full.mov",
-                                           "ext":  "mov",
-                                           "sizeBytes":  1762284707
                                        },
                                        {
                                            "type":  "file",
@@ -6927,12 +6845,6 @@
                                            "name":  "Dance.mp4",
                                            "ext":  "mp4",
                                            "sizeBytes":  47344144
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "Dark Party.mpg",
-                                           "ext":  "mpg",
-                                           "sizeBytes":  524804100
                                        },
                                        {
                                            "type":  "file",
@@ -6978,12 +6890,6 @@
                                        },
                                        {
                                            "type":  "file",
-                                           "name":  "FlashMob ViTwix.avi",
-                                           "ext":  "avi",
-                                           "sizeBytes":  63155326
-                                       },
-                                       {
-                                           "type":  "file",
                                            "name":  "Galicia.mp4",
                                            "ext":  "mp4",
                                            "sizeBytes":  690737104
@@ -6993,6 +6899,12 @@
                                            "name":  "GEO Alliance - Bukovel - Final.mpg",
                                            "ext":  "mpg",
                                            "sizeBytes":  8479031300
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "Heaven Promo.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  1971029878
                                        },
                                        {
                                            "type":  "file",
@@ -7062,9 +6974,33 @@
                                        },
                                        {
                                            "type":  "file",
-                                           "name":  "Katasrofa.wmv",
-                                           "ext":  "wmv",
-                                           "sizeBytes":  82466612
+                                           "name":  "Jiruk Funny.mov",
+                                           "ext":  "mov",
+                                           "sizeBytes":  425992186
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "Jiruk Ya i Sara.mov",
+                                           "ext":  "mov",
+                                           "sizeBytes":  597589298
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "Jolie Mua Promo Vesna.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  376417896
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "Jolie Mua Zima.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  238117556
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "Jolie.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  676305524
                                        },
                                        {
                                            "type":  "file",
@@ -7104,39 +7040,9 @@
                                        },
                                        {
                                            "type":  "file",
-                                           "name":  "Marta First B-Day.mp4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  2076485770
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "Marta Gift Insta.mp4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  91780048
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "Marta New Year 2019.mp4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  3987019559
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "Marta Second B-Day.mp4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  974411233
-                                       },
-                                       {
-                                           "type":  "file",
                                            "name":  "Marta Smirnova - 25 B-Day.mpg",
                                            "ext":  "mpg",
                                            "sizeBytes":  7474552836
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "Marta Third B-Day.mp4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  1284578707
                                        },
                                        {
                                            "type":  "file",
@@ -7185,12 +7091,6 @@
                                            "name":  "MikOff Presentation Video.mp4",
                                            "ext":  "mp4",
                                            "sizeBytes":  462918384
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "MOV_4573.MOV.mov",
-                                           "ext":  "mov",
-                                           "sizeBytes":  10362644
                                        },
                                        {
                                            "type":  "file",
@@ -7245,6 +7145,12 @@
                                            "name":  "Papilio Sweet Promo.mp4",
                                            "ext":  "mp4",
                                            "sizeBytes":  76561228
+                                       },
+                                       {
+                                           "type":  "file",
+                                           "name":  "PapilioAdvertise.mp4",
+                                           "ext":  "mp4",
+                                           "sizeBytes":  136223330
                                        },
                                        {
                                            "type":  "file",
@@ -7353,12 +7259,6 @@
                                            "name":  "Turovskyy Family.mp4",
                                            "ext":  "mp4",
                                            "sizeBytes":  469151592
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "TwixLenaWedding.mp4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  7769042695
                                        },
                                        {
                                            "type":  "file",
@@ -7479,18 +7379,6 @@
                                            "name":  "Yarmak.mp4",
                                            "ext":  "mp4",
                                            "sizeBytes":  75421758
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "Zeleni listochki - In da club.mp4",
-                                           "ext":  "mp4",
-                                           "sizeBytes":  3778744328
-                                       },
-                                       {
-                                           "type":  "file",
-                                           "name":  "Zeleni listochki - Village song.mpg",
-                                           "ext":  "mpg",
-                                           "sizeBytes":  1156177924
                                        },
                                        {
                                            "type":  "file",
